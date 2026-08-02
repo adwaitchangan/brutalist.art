@@ -1,12 +1,14 @@
 # brutalist — Python dependencies (free-only toolkit).
 #   pip install -r requirements.txt
-# numpy is held < 2 on purpose: some Manim builds still break on numpy 2.x.
+# numpy>=2.0.2 is required by kokoro-onnx (every >=0.4 release pins this
+# floor); manim 0.18 and its deps have no upper bound on numpy, so there's
+# no real conflict — just don't hold numpy below 2.
 
 # ── core: audio-first narration pipeline ────────────────────────────────────
 kokoro-onnx>=0.4            # the FREE voice engine (Kokoro-82M, local, no key)
 mutagen>=1.47,<1.48         # audio-duration measurement (the master clock)
 Pillow>=10.2,<11            # slates / request cards / previz / stills
-numpy>=1.26,<2
+numpy>=2.0.2
 
 # ── animation ────────────────────────────────────────────────────────────────
 manim>=0.18,<0.19           # pulls manimpango, moderngl, etc.

@@ -54,7 +54,7 @@ brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fell
 
 ### Not set up yet?
 
-Run `./SETUP.sh` first. It checks every dependency (node, npm, python3, ffmpeg, manim, kokoro, fonts), prompts before installing anything, runs a smoke render, and tells you if the package is READY.
+Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). It verifies every dependency live — imports each Python module, runs `ffmpeg`/`ffprobe`, and synthesizes + decodes a real Kokoro test phrase — and tells you which features are READY.
 
 ---
 
