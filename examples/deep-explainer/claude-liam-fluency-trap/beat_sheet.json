@@ -1599,6 +1599,100 @@
         "filled_by": "media",
         "at": "2026-07-21T16:54:06"
       }
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict recap",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "The Fluency Trap",
+            "artifactHeading": "Key findings",
+            "artifactLines": [
+              "Key finding one",
+              "Key finding two",
+              "Key finding three"
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN · Why polished writing stopped signaling effort and competence — the psychology, the economics, the evidence, and what replaces the broken signal",
+            "segment": "The Fluency Trap",
+            "command": "Take what you learned from [The Fluency Trap] and apply it to your own work. What's one thing you'll try first?",
+            "runningText": "paste this into Claude and run it on your own work…",
+            "output": [],
+            "folderLabel": "@claude-liam"
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 8,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "The Fluency Trap",
+            "slug": "claude-liam-fluency-trap"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
     }
   ]
 }

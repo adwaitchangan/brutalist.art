@@ -72,19 +72,47 @@
       "narration_text": "A palette that fails WCAG AA cannot be read by some fraction of your audience. A color combination below four-point-five to one contrast ratio for normal text is not a stylistic choice — it is a documented barrier to access, and shipping it signals you did not think carefully about who you designed for. WCAG 2.2 AA is also a legal requirement in many jurisdictions for public-facing digital products. The correction is almost always minor: darkening or lightening fifteen to twenty percent. The chapter's worked example: warm-clay hex A-8-9-0-6-8 on white comes in at three-point-one to one — FAIL for normal text, PASS for large text only. Darken to near 7-A-6-0-4-5 and the ratio crosses four-point-five. The palette character does not change. The implementation is now compliant.",
       "visual_intent": "Animated horizontal bar chart: contrast ratios for 6 palette combinations — bars growing to each ratio; AA reference lines at 4.5:1 (normal text) and 3:1 (large text); warm-clay bar stops at 3.1:1, arrow pointing to 'FAIL normal — fix needed'; corrected bar animates to 4.8:1 crossing the 4.5 line; no composer yet",
       "shot": {
-        "type": "GRAPHIC",
-        "source": null,
-        "motion": "fade"
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "FormBCard",
+          "props": {
+            "title": "Build a Brand Palette Accessibility Auditor with Claude",
+            "items": [
+              {
+                "label": "Key point one",
+                "sub": "",
+                "icon": "target",
+                "cueFrame": 20
+              },
+              {
+                "label": "Key point two",
+                "sub": "",
+                "icon": "list-checks",
+                "cueFrame": 55
+              },
+              {
+                "label": "Key point three",
+                "sub": "",
+                "icon": "zap",
+                "cueFrame": 90
+              }
+            ]
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": ""
+          }
+        }
       },
-      "estimated_duration_s": 17,
+      "estimated_duration_s": 10,
       "build": {
-        "status": "SLATE",
-        "src": null,
-        "filled_by": null,
-        "at": "2026-07-19T19:59:49",
-        "needs": "YOU → 5–10s gen-AI clip → pantry (as B01.mp4)",
-        "suggested": "suggested prompt: A palette that fails WCAG AA cannot be read by some fraction of your audience. A color combination below four-point-five to one contrast ratio for normal text i"
-      }
+        "status": "SLATE"
+      },
+      "lane": "BOOKEND",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx"
     },
     {
       "beat_id": "B02",
@@ -307,6 +335,100 @@
         "src": "media/B09.mp4",
         "filled_by": "media",
         "at": "2026-07-19T19:59:49"
+      }
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict recap",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "Build a Brand Palette Accessibility Auditor with Claude",
+            "artifactHeading": "Key findings",
+            "artifactLines": [
+              "Key finding one",
+              "Key finding two",
+              "Key finding three"
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN · CLAUDE CODE · VISUAL IDENTITY",
+            "segment": "Build a Brand Palette Accessibility Auditor with…",
+            "command": "Take what you learned from [Build a Brand Palette Accessibility Auditor with Claude] and apply it to your own work. What's one thing you'll try first?",
+            "runningText": "paste this into Claude and run it on your own work…",
+            "output": [],
+            "folderLabel": "@claude-liam"
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 8,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "Build a Brand Palette Accessibility Auditor with Claude",
+            "slug": "brand-palette-accessibility-auditor"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
       }
     }
   ]

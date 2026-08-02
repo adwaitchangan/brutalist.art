@@ -15,6 +15,27 @@ the constraint moves upstream, and trimming down (lossless) becomes the
 default conform operation. Stills are duration-free but NOT constraint-free:
 the Ken Burns crop implies a minimum resolution, and parallax implies layers.
 
+## Tier 0 — the local library (search law, runs before every entry)
+
+The toolkit ships its own still stock: `svg/svg/images/` (~1,500 generated
+PNGs) + the doodle icon library, all indexed in `svg/svg/icons.json`
+(rebuild: `python3 skills/make/doodle/scripts/build_index.py`). Before ANY
+entry below is written:
+
+1. `python3 runtime/scripts/pantry_search.py "<the beat's visual terms>"`
+2. LOOK at the top candidates — open the png. A token match is a lead,
+   not a verdict; no "close enough" stills, ever.
+3. Real match → `... --copy <reel> --beat <BID>` lands it at
+   `pantry/<BID>-<id>.png`; write the entry anyway, pre-checked
+   (`[x] … — filled from library: <id>`), so the manifest stays the
+   complete work order.
+4. No good match → the entry stands, unchecked; the human searches.
+
+Tier 0 changes SOURCING only, never the risk law: a library still of a real
+object or named person still carries its tier-2/3 rights line (the library is
+a source, not a rights clear), and library stills intake as `source: ai`
+unless provenance says otherwise.
+
 ## The three tiers (risk law)
 
 | Tier | Covers | Default source | The check |

@@ -7,7 +7,8 @@ description: >
   the Pragmatist register (method, when to use it, and when NOT to/where it
   fails), adds an optional Irreducibly-Human tangent (0–1), inserts a CLI worked
   exercise as the second-to-last beat, and ends with the Humanitarians AI outro.
-  Voice: Kokoro `af_bella` ("Bella"). Palette: humanitarians (EB Garamond / Montserrat).
+  Persona / voice: Kore with Kokoro af_kore. Palette: humanitarians
+  (EB Garamond / Montserrat).
   Use when the user types `hai [input]`, asks for the Humanitarians / practitioner
   cut, or wants content for HAI Fellows. Brand spec: brands/hai.md.
 ---
@@ -58,8 +59,9 @@ the source dir. No API calls, no spend.
 ```json
 {
   "audience": "HAI",
+  "persona": "Kore, in for Humanitarians AI",
   "engine": "kokoro",
-  "voice_kokoro": "af_bella",
+  "voice_kokoro": "af_kore",
   "palette": "humanitarians",
   "typography": { "serif": "EB Garamond", "sans": "Montserrat" },
   "register": "Pragmatist",
@@ -68,13 +70,13 @@ the source dir. No API calls, no spend.
 }
 ```
 
-The voice is Kokoro **`af_bella` ("Bella")** — free and local. This toolkit
-ships exactly two voices (Bella and Onyx `am_onyx`); there is no ElevenLabs.
+ElevenLabs override: set `metadata.engine: "elevenlabs"` — `voice_id` from
+`ELEVENLABS_VOICE_HUMANITARIANS` is already written into the sheet.
 
 ### Step 2 — Rewrite the register (Pragmatist)
 
 Open the new `hai-[…]/beat_sheet.json` and **rewrite every beat's narration**
-in the Pragmatist register (`runtime/voices/pragmatist/VOICE.md`, `brands/hai.md`):
+in the Pragmatist register (`voices/pragmatist/VOICE.md`, `brands/hai.md`):
 
 - Lead with **method**: what it is, what it produces.
 - State clearly **when to use it** — the decision trigger.
@@ -102,7 +104,7 @@ A decision boundary, not a sermon. **Most reels get none.** Do not force it.
 ### Step 4 — CLI worked exercise (SECOND-TO-LAST beat)
 
 Insert **one beat** before the outro. Derive it from the whole video's subject
-using the two-lane logic below (BUILD vs RESEARCH):
+using cli-scout logic (`skills/make/cli-scout/SKILL.md`):
 
 1. **Classify lane:**
    - **BUILD** — quantitative, computable: "Build/measure/simulate X with Claude Code."
@@ -137,7 +139,7 @@ using the two-lane logic below (BUILD vs RESEARCH):
 }
 ```
 
-Reference:
+Reference: `skills/make/cli-scout/SKILL.md` (lane classification + card schema),
 `skills/make/cli-explainer/SKILL.md` (beat format, fixed spine).
 
 ### Step 5 — Outro (LAST beat)
@@ -182,8 +184,11 @@ Then perform Steps 2–6 for each resulting `hai-` directory.
 From the `hai-` directory, build is audience-namespaced:
 
 ```bash
-# Audio (Kokoro Bella — the only engine in this toolkit)
-python3 runtime/scripts/generate_audio_kokoro.py [hai-dir] --sheet beat_sheet.hai.json
+# Audio (Kokoro default)
+python3 runtime/scripts/generate_audio_kokoro.py [hai-dir]/beat_sheet.hai.json
+
+# Audio (ElevenLabs override — set engine:"elevenlabs" first)
+python3 runtime/scripts/generate_audio.py [hai-dir]/beat_sheet.hai.json
 
 # Lectures: deck + render from the copied build scripts
 python3 [hai-dir]/build_deck.py

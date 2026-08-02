@@ -5,8 +5,13 @@ runtime/models/kokoro/*.onnx
 runtime/models/kokoro/*.bin
 
 # per-machine / regenerable
+node_modules/
 runtime/remotion/node_modules/
 __pycache__/
 *.pyc
 .DS_Store
 _qc/
+
+# editor / script backups
+*.bak
+*.bak-*

@@ -4,9 +4,8 @@ description: >
   Full-fledged Brutalist explainer reels in the CLAUDE brand — the Claude
   desktop app's own look (cream #FAF9F5 page, warm ink #3D3929, terracotta
   #D97757 spark as the ONE accent, EB Garamond serif + UI sans). Default
-  working channel is claude-liam (Liam in for Bear, Kokoro am_onyx "Onyx",
-  free); the alternate voice is Kokoro af_bella "Bella" (the hai persona) —
-  Kokoro is the only engine in this toolkit. Beat-sheet driven
+  working channel is claude-liam (Liam in for Bear, Kokoro am_onyx, free);
+  Bear's ElevenLabs clone is opt-in on explicit request. Beat-sheet driven
   and phase-gated; visuals mix the
   Claude Remotion scenes, Onda code-block for code, Manim fragments for math
   beats, and human-added media via the per-beat slot convention. ILLUSTRATE
@@ -15,21 +14,12 @@ description: >
   reel`, `claude style`, `claude cut`, or asks for a Claude-branded
   explainer or "Claude, oversimplified"-style walkthrough. A SKILL.md
   source (or `skill teardown`) arms the skill-teardown modifier: same
-  bookends, body breaks the skill down and demos it live. Register:
+  bookends, body breaks the skill down and demos it live. AUDIT MODE
+  modifier arms on: `audit`, `evaluate the tool`, `what can X do`,
+  `capability audit`, `is X useful for` — see AUDIT-MODE.md. Register:
   Teardown. GATE P before audio spend. Never publishes.
 
 ---
-
-> **BRUTALIST (pared-down) EDITION.** This copy of the skill lives in the
-> free-only `brutalist` toolkit. Kokoro is the ONLY TTS engine, with exactly
-> two voices: **Onyx** (`am_onyx` — the nbb / Liam-in-for-Bear persona) and
-> **Bella** (`af_bella` — the hai persona). The only channels are
-> `claude-liam` (@NikBearBrown) and `claude-hai` (@HumanitariansAI); the only
-> persona skills are `nbb` and `hai`. Any remaining reference in this file to
-> ElevenLabs, Bear's voice clone, Suno, Higgsfield, the medhavy/musinique
-> channels, or publishing machinery is inherited text from the full
-> `brutalist-art` toolkit and does NOT apply here. GATE P remains in force as
-> a QUALITY gate (narration review before audio), not a cost gate.
 
 # ai-explainer — the Claude cut (formerly `claude-explainer`)
 
@@ -43,17 +33,20 @@ Both skills produce the SAME Claude-branded bookends; only the MIDDLE differs.
 
 1. **Beat 1 — the Claude terminal, `[Hello], [Name]`** (`ClaudeComposerAsk`:
    world-language hello + persona). Always beat 0.
-2. **Middle — the ONLY part that differs:**
+2. **Beat 2 — the executive summary (BLUF)**: one breath, for a smart
+   non-technical viewer — *what is this about and why care* — before any specific.
+   Mandatory (EXECUTIVE-SUMMARY LAW); sets the frame without spending the reveals.
+3. **Middle — the ONLY part that differs:**
    - **claude-explainer** → a **vox-style explainer**: any media that fits the
      concept (archival, isotype, Manim, illustrations — and terminals/code where
      they earn the beat). The bookends frame it; the middle teaches.
    - **claude-cli** → the **build-with-Claude loop**, each step discussed: CLI
      prompt (Claude template) + *why this prompt* → show code + discuss → show
      output + discuss; at least one revision.
-3. **Second-to-last — "Your Turn"**: the composer with a suggested prompt typed in
+4. **Second-to-last — "Your Turn"**: the composer with a suggested prompt typed in
    for the viewer to explore (`greeting: "Your turn."`).
-4. **Last — the channel brand card**: `@NikBearBrown` or `@HumanitariansAI`
-   (title restate + channel handle).
+5. **Last — the channel brand card**: `@NikBearBrown` / `@Medhavy` / `@Musinique`
+   … (title restate + channel handle).
 
 **Scout → builder routing (the idea's SOURCE picks the skill):**
 - `cli-ideas.md` (cli-scout) and `simulation-ideas.md` (sim-scout) cards → **claude-cli**
@@ -99,7 +92,7 @@ build fresh. Also triggers on `claude reel`, `claude style`, `claude cut`.
 | Palette | `claude` — tokens in `runtime/remotion/src/tokens/claude.ts` (CLAUDE + CLAUDE_FONT). Shared by ALL channels — the look never changes per channel. |
 | Accent law | Terracotta `#D97757` is the ONE accent: the spark, the send button, a summoned `/skill` token, one focal moment per beat. Everything else warm ink on cream. |
 | Type | Serif for greetings + segment titles (`Tiempos → EB Garamond` — Tiempos is proprietary, so **EB Garamond is the effective default**; it's bundled in `runtime/fonts`). UI sans for chrome; mono for terminal/output lines only. Segment titles are **Title Case** (`Photoelectric Effect`) — never all caps, never sentence case. |
-| Voice | Per channel — see the channels table. Working default: `claude-liam` (Kokoro `am_onyx` "Onyx", free). The other house voice is Kokoro `af_bella` "Bella" (the hai persona). Kokoro is the only engine. |
+| Voice | Per channel — see the channels table. Working default: `claude-liam` (Kokoro `am_onyx`, free). Bear's ElevenLabs `ELEVENLABS_VOICE_NIKBEARBROWN` on explicit request (GATE P). |
 | Register | Per channel — default Teardown (Feynman × MKBHD). |
 
 ## Channels
@@ -109,18 +102,19 @@ register, greeting persona, and the footer folder chip:
 
 | Brand key | Persona | Folder chip | Voice | Register |
 |---|---|---|---|---|
-| `claude-liam` **(working default)** | Liam (in for Bear) | `@NikBearBrown` | kokoro `am_onyx` ("Onyx") | Teardown |
-| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `af_bella` ("Bella") | Pragmatist |
+| `claude` (Bear's voice — on explicit request) | Bear | `@NikBearBrown` | ElevenLabs `ELEVENLABS_VOICE_NIKBEARBROWN` | Teardown |
+| `claude-liam` **(working default)** | Liam (in for Bear) | `@NikBearBrown` | kokoro `am_onyx` (override: `ELEVENLABS_VOICE_LIAM`) | Teardown |
+| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `am_onyx` (override: `ELEVENLABS_VOICE_HUMANITARIANS`) | Pragmatist |
+| `claude-medhavy` | Medhavy | `@Medhavy` | kokoro `af_kore` (override: `ELEVENLABS_VOICE_MEDHAVY`) | Wonder |
+| `claude-musinique` | Musinique | `@Musinique` | kokoro `am_puck` (override: `ELEVENLABS_VOICE_MUSINIQUE`) | Baldwin (charter: MUSINIQUE.md — fights for the indie musician) |
 
-Two channels, two voices, both free — that is the whole roster in this
-toolkit. Scaffold: `python3 runtime/scripts/brand_variant.py [input] claude-liam`
-(or `nbb` / `hai` for the persona cuts).
+Scaffold any of them: `python3 runtime/scripts/brand_variant.py [input] claude-medhavy` etc.
 When authoring the beat sheet, set the scene's `greeting` persona and
 `folderLabel` from this table.
 
 **Audiences (bake into every episode — who the narration is FOR):**
 
-- `claude-liam` — practitioners and makers following the channel's
+- `claude` / `claude-liam` — practitioners and makers following the channel's
   Claude workflows.
 - `claude-hai` — **STUDENTS**: smart people open to learning AI who need some
   help getting started — some in schools that banned AI, some mid-career and
@@ -128,12 +122,19 @@ When authoring the beat sheet, set the scene's `greeting` persona and
   and when NOT to** (crutch vs scaffold; fluency isn't mastery). HAI episodes
   never teach evading a ban or an integrity policy — they teach the ethical
   path and name the line plainly.
+- `claude-medhavy` — **EDUCATORS**: teachers and EdTech people who never
+  learned AI in school because it didn't exist yet, now mid-career and needing
+  proficiency. Same spine question, teacher-side: **when AI helps instruction
+  and when it substitutes for it** (the teacher is the variable; AI drafts,
+  the educator judges; the struggle students must keep is protected).
+- `claude-musinique` — **INDIE MUSICIANS** (charter: MUSINIQUE.md — bot vs
+  bot; roll your own promotion deck; receipts law).
 
 **Liam — the substitute narrator (IN-FOR-BEAR LAW).** `claude-liam` is not a
 new channel: Liam is the nbb persona's stand-in voice on the SAME
 @NikBearBrown channel — same Teardown register, same laws, same footer chip —
-for every reel in this free-only toolkit (batch runs, high-volume
-series, previz-grade uploads alike). Two rules whenever Liam narrates:
+for reels that shouldn't spend ElevenLabs credits (batch runs, high-volume
+series, previz-grade uploads). Two rules whenever Liam narrates:
 
 1. **Say it out loud.** B00's narration introduces the voice in its first
    breath — pattern: "… this is Liam, in for Bear." — and the outro signs
@@ -142,8 +143,9 @@ series, previz-grade uploads alike). Two rules whenever Liam narrates:
    Liam never takes it**). The viewer is never left guessing whose voice
    this is.
 2. **A named voice, never a clone.** Liam does not imitate Bear's delivery
-   or claim to be him. In this toolkit Liam IS the @NikBearBrown voice —
-   Kokoro `am_onyx`, always.
+   or claim to be him. If a reel matters enough for Bear's voice, rebuild
+   it on the `claude` default — that's a one-variable change (the beat
+   sheet's voice fields), not a re-authoring.
 
 ## The greeting (the hello slot)
 
@@ -168,8 +170,8 @@ batch); pick from the lexicon:
   Xin chào (Vietnamese) · Kia ora (Māori) · Dia dhuit (Irish)
 
 **Word budget by persona.** The line must stay one comfortable serif line:
-`Bear` is short, so the cue gets up to two words; `HAI` takes only the
-shortest forms (Hi · Ola · Hej · Ciao).
+`Bear` is short, so the cue gets up to two words; `Medhavy` and `Musinique`
+take exactly one; `HAI` takes only the shortest forms (Hi · Ola · Hej · Ciao).
 Never spell out `HumanitariansAI` in the greeting — that's what the footer
 chip (`@HumanitariansAI`) is for.
 
@@ -315,7 +317,27 @@ MIDDLE:
    skills, the upstream URL.
 
 Channel, voice, and spend rules are unchanged: default `claude-liam`
-(Kokoro, free), GATE P before audio, never publishes.
+(Kokoro, free), GATE P before any ElevenLabs call, never publishes.
+
+## The `audit` modifier (opt-in — NOT the default)
+
+Arms when the video **evaluates** a tool or method for a subject domain
+rather than teaching the subject (e.g. "what can Manim do for physics?",
+"is D3 useful for bio?", "capability audit of the simulation pipeline").
+Trigger phrases: `audit`, `evaluate the tool`, `what can X do`,
+`capability audit`, `is X useful for`. Full doctrine: `AUDIT-MODE.md`
+at the toolkit root — read it before building an audit reel.
+
+Three-line summary (read AUDIT-MODE.md for the full rules):
+
+- **Showing ≠ teaching.** The deliverable is a lane verdict — which tool
+  fits the domain and where it fails — not a lesson in the domain itself.
+- **Exhibits not filler.** Every body visual is a REAL rendered artifact
+  under evaluation. Zero AI-generated stills, zero pantry shopping list,
+  no asking the human to supply media. If a beat needs connective tissue,
+  use a deterministic Remotion eval card (cream, EB Garamond, terracotta).
+- **Exhibit gate — hard stop.** If the exhibits don't exist yet, STOP.
+  Building the exhibit library is a separate gated step before the audit.
 
 ## Flow
 
@@ -331,8 +353,7 @@ the canonical source is never modified. Metadata lands as:
 ```json
 {
   "audience": "Claude",
-  "engine": "kokoro",
-  "voice_kokoro": "am_onyx",
+  "engine": "elevenlabs",
   "palette": "claude",
   "typography": { "serif": "Tiempos/EB Garamond", "ui": "system sans", "mono": "SF Mono" },
   "register": "Teardown",
@@ -360,10 +381,48 @@ design gets right, where it bites.
 **GATE P — human signs off on the narration before any audio spend — reviewed
 on an ANIMATED slate that plays the `show` events, never a page of text.**
 
+### PROOF GATE — beat-authoring exit condition
+
+Governs **authoring**, not rendering. Slates compile regardless (SLATE-RULE is
+unaffected). The loop won't call a beat or a sheet "done" while it's punting.
+Classification rules and the whole-sheet checklist live in
+`skills/make/nopunt/SKILL.md` — the loop reads them there; this section does
+not duplicate them.
+
+**Per-beat exit condition.** A beat is DONE when it classifies as SHOW, HOLD,
+or CARD (§ "SHOW / HOLD / CARD" in nopunt). If the narration makes a
+factual/structural claim OR names a visual ("the routing diagram", "the wheel",
+"the table"), the beat MUST be SHOW or a justified HOLD — never a bare CARD,
+never a PUNT. Route every PUNT to its catalog row in nopunt before marking the
+beat done.
+
+**Legibility contract** on every SHOW/HOLD claim beat:
+- Names its on-screen artifact in `shot.show` or `shot.visual_intent`.
+- ~15–35% negative space.
+- Un-highlighted elements never faded below ~40% opacity.
+- Comparisons shown side-by-side, held ≥2s.
+
+**Whole-sheet exit condition.** The sheet is DONE when (1) every beat
+classifies SHOW, HOLD, or CARD with no unresolved PUNTs, and (2) the
+teaching-arc checklist in nopunt (§ "Whole-sheet teaching-arc checklist")
+passes — framework beat before examples, worked example, falsifiability beat,
+scaffolded viewer task, four bookends, no-source-no-verdict rule.
+
+**CHECKS-REPORT — write before the slate, not after.** Before the first slate
+compiles, write `CHECKS-REPORT.md` in the reel folder:
+
+  N SHOW / N justified-HOLD / N PUNT-flagged
+  Teaching arc: FRAMEWORK ✓/✗ | WORKED EXAMPLE ✓/✗ | FALSIFIABILITY ✓/✗
+                SCAFFOLDED TASK ✓/✗ | BOOKENDS ✓/✗ | NO-SOURCE-NO-VERDICT ✓/✗
+
+A PUNT-flagged beat or a failing arc item is a **violation**. The loop resolves
+it or the author explicitly justifies it in `BUILD-LOG.md`. Neither is ever
+silently passed.
+
 ### Step 3 — Audio (the master clock)
 
 ```bash
-python3 runtime/scripts/generate_audio_kokoro.py [REEL_DIR]   # Kokoro — Onyx/Bella, free
+python3 runtime/scripts/generate_audio.py [REEL_DIR]   # ELEVENLABS_VOICE_NIKBEARBROWN
 ```
 
 Audio-first: per-beat MP3 durations become the clock everything conforms to.
@@ -423,7 +482,7 @@ prompt typed in. The NEXT beat is the result. The Claude interface is never
 shown alone as decoration — it is always followed by what it produced. Ask
 beats stay in the fixed Claude skin; RESULT graphics render in the episode's
 CHANNEL palette (claude: ink + one terracotta on cream; nbb: teardown
-white/ink/red; hai: the humanitarians token set). One reel may
+white/ink/red; hai / medhavy / musinique: their own token sets). One reel may
 contain several ask→result pairs; each pair reads as a receipt.
 
 **PLACEHOLDER SLATES (inherited from explainer / the vox slot contract).**
@@ -465,8 +524,8 @@ prompt is unfinished.
 
 - **DEFAULT CHANNEL: claude-liam.** Unless the human names a channel or
   explicitly asks for Bear's own voice, build on `claude-liam` (Kokoro
-  `am_onyx` "Onyx", free pipeline — IN-FOR-BEAR LAW applies). The hai channel
-  uses Kokoro `af_bella` "Bella". GATE P (narration review) still binds.
+  `am_onyx`, free pipeline — no ElevenLabs spend, IN-FOR-BEAR LAW applies).
+  Bear's ElevenLabs voice is opt-in and still passes GATE P.
 - **LOGO LAW.** Every beat carries the channel's brand mark as a small,
   low-opacity corner bug (lower-right), inside the title-safe area, never
   covering content — the NBB logo for the `@NikBearBrown` channels
@@ -578,6 +637,30 @@ prompt is unfinished.
   is always the first beat. Never a brand open card, never a channel ident
   before the UI appears. B00's composer always shows its RESULT output lines —
   the ask lands answered; ASK→RESULT begins at the cold open.
+- **EXECUTIVE-SUMMARY LAW (Beat 2 = the BLUF).** The beat immediately after the
+  cold open is ALWAYS a one-breath executive summary for a **smart non-technical
+  viewer** — *what is this video about, and why should I care* — stated before any
+  specific. This is the advance organizer: it sets the frame so every later beat
+  lands against a whole the viewer already holds. The failure this law exists to
+  prevent is the near-universal one — diving from the intro straight into details,
+  so the viewer collects specifics with no scaffold to hang them on. Requirements,
+  all mandatory: (1) it states the WHOLE idea in one breath — the gist, not a
+  teaser; (2) it is spoken in plain language a smart outsider follows, no jargon
+  the reel hasn't earned yet; (3) it does NOT spend the reveals — it names the
+  shape of the idea and the stakes, and leaves the specifics for the body (gist up
+  front, gist at the end, details between). It is a text/kinetic-type beat or a
+  single framing card — never a data dump, never the first exhibit. The ONLY
+  exception is a reel whose cold open ALREADY is the whole idea; absent that, a
+  reel that jumps from cold open into a detail beat is a defect. See
+  `DESIGN-PRINCIPLES.md §1` ("Beat 2 = the executive summary").
+- **DOODLE-BANNED LAW.** `DoodleScene` and `DoodleChart` are permanently cut from
+  this register. Never emit them as a beat fill; never relax the §8.0 checker to
+  pass them. Any concept, data, or comparison that would have been a doodle beat
+  becomes a clean Manim diagram or Remotion card instead — EB Garamond, cream
+  ground, terracotta as the one accent. The standalone sketch-explainer skill has
+  its own separate lane; this ban covers ai-explainer and every skill that builds
+  on it. Rule: validators enforce the locks — they are never loosened to pass a
+  cut style.
 - **ILLUSTRATE LAW (the anti-wallpaper rule).** The UI earns its beats. The
   Claude interface appears ONLY where the interface is the subject: the cold
   open, the ask micro-beats of ask→result pairs, the verdict artifact page,
@@ -605,7 +688,8 @@ prompt is unfinished.
   drops the persona), runningText `paste this into Claude…`, command = the
   suggested prompt. This amends the typing rule: typing appears in EXACTLY two
   beats — the cold open and the handoff. The spine is therefore always:
-  cold open → body → verdict page → HANDOFF → title-restate outro.
+  cold open → **executive summary (Beat 2 BLUF)** → body → verdict page →
+  HANDOFF → title-restate outro.
   **The prompt is READ and DISCUSSED, never just typed.** Two requirements,
   both mandatory: (1) the prompt must be an INTERESTING prompt — one that
   extends the episode's idea into the viewer's own work, not a bland
@@ -617,9 +701,26 @@ prompt is unfinished.
 - **OUTRO LAW.** The outro RESTATES THE EPISODE TITLE, poster-style serif with
   the terracotta period, handle beneath (`ClaudeTitleOutro` pattern:
   title · handle · subline). Never a generic brand outro.
+  **@NikBearBrown outro card is locked** — exact title restate, hardcoded `@NikBearBrown` handle, one of the 18 crisp-safe mascots (slug-seeded), NO subline; claude-liam reels only. See `OUTRO-LOCK.md`.
 
 - **Never publish.** Output stays in the reel folder for human review.
-- **GATE P** — narration reviewed on an animated slate before audio is generated.
+- **GATE P** before every ElevenLabs call.
+- **PIXEL-ART LAW — hard, no exceptions.** `ClaudeMascotScene`, `ClaudeMascotGrid`,
+  and `ClaudeTitleOutro` all use `shapeRendering="crispEdges"` pixel-art rects.
+  These rects may move ONLY by **translation** and **axis-aligned scale**. NEVER
+  rotation. Rotating a pixel-aligned rect puts its edges on diagonals the renderer
+  must anti-alias — that is "the fuzzy" that appears on soft beats. Consequences:
+  `spin` = scaleX cos-flip; `nod/bounce/stretch/crouch/jump` = foot-anchored scaleY
+  (`mascotTy = 86*(1−sy) − jumpH`); `wave` = rightArmTy oscillation. If you add a
+  new mascot animation, grep the component for `rotate` before shipping — must be zero.
+  GATE SHARPNESS (run.sh, after GATE T) enforces this via Laplacian-variance audit.
+- **GATE T (type-lock) — ALWAYS RUN**, like factcheck. `scripts/type_check.py`
+  asserts §8.1 min-size, §8.2 overflow, §8.3 contrast, §8.4 kerning sanity
+  (Pango fallback catch), §8.5 no-wordy-card, §8.6 golden strings per rendered
+  frame, then writes `TYPECHECK.md`. No `./art run` and no `./art final` may
+  report success while `TYPECHECK.md` has any FAIL — wired as a hard block in
+  both `run.sh` (after GATE V) and the `art final` pre-flight. See
+  `skills/make/kerning/SKILL.md` and `reference/type-spec.md` for the full spec.
 - The intro/ask beat is `ClaudeComposerAsk` — no dark terminals in this brand.
 - One terracotta moment per beat. If two things are orange, neither is the point.
 - The footer chip reads `@NikBearBrown` unless the beat sheet overrides it.

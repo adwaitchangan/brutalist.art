@@ -131,6 +131,18 @@ any audio, rename to slot names for compositing (length conforms to the beat
 at compile: the slow-to-fit ladder). Then reconcile the source axis (generated
 media of real people → `source: ai` + disclosure sidecar) and report.
 
+**LIBRARY FIRST — before any still lands on `SHOTLIST.md` as a request.**
+The toolkit carries its own still stock: `svg/svg/images/` (~1,500 generated
+PNGs) plus the doodle icon library, indexed in `svg/svg/icons.json`. For every
+STILL slot you don't already have, search it:
+`python3 runtime/scripts/pantry_search.py "<beat's visual terms>"` — then
+LOOK at the top candidates (open the png; a token match is a lead, not a
+verdict). A real match gets copied straight into the reel:
+`... --copy <reel> --beat <BID>` → `pantry/<BID>-<id>.png`, ready for the
+normal intake. Library stills are `source: ai` unless their provenance says
+otherwise. NO GOOD MATCH → write the SHOTLIST card exactly as before; the
+human searches. Never let a near-miss through on filename similarity alone.
+
 Raw finds never go straight into `media/`. They land in `reels/[slug]/pantry/`,
 prefixed with their beat id, already RESTORED: nanobanana (via Higgsfield)
 restoration pass — WARMONO for period images, NATGEO for modern ones

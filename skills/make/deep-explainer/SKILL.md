@@ -13,21 +13,13 @@ description: >
   tier-tagged, duration-locked SHOPPING LIST for pantry stills must exist
   before the review cut. Use when the user types `deep-explainer`,
   `deep explainer`, `deep reel`, or asks for a long / in-depth / documentary
-  Claude-bookended explainer (5–10 min). Register: Teardown. Default channel
-  claude-liam (Kokoro am_onyx, free). GATE P before any audio spend. Never
-  publishes.
+  Claude-bookended explainer (5–10 min). AUDIT MODE modifier arms on:
+  `audit`, `evaluate the tool`, `what can X do`, `capability audit`,
+  `is X useful for` — BUT: if the exhibits are real rendered artifacts
+  with no pantry need, prefer `ai-explainer` audit mode (lighter chassis).
+  Register: Teardown. Default channel claude-liam (Kokoro am_onyx, free).
+  GATE P before any audio spend. Never publishes.
 ---
-
-> **BRUTALIST (pared-down) EDITION.** This copy of the skill lives in the
-> free-only `brutalist` toolkit. Kokoro is the ONLY TTS engine, with exactly
-> two voices: **Onyx** (`am_onyx` — the nbb / Liam-in-for-Bear persona) and
-> **Bella** (`af_bella` — the hai persona). The only channels are
-> `claude-liam` (@NikBearBrown) and `claude-hai` (@HumanitariansAI); the only
-> persona skills are `nbb` and `hai`. Any remaining reference in this file to
-> ElevenLabs, Bear's voice clone, Suno, Higgsfield, the medhavy/musinique
-> channels, or publishing machinery is inherited text from the full
-> `brutalist-art` toolkit and does NOT apply here. GATE P remains in force as
-> a QUALITY gate (narration review before audio), not a cost gate.
 
 # deep-explainer — the long-form Claude-bookended documentary cut
 
@@ -46,11 +38,13 @@ repeals a parent law; this file only adds the genre's own contracts.
   LAW (B00 is `ClaudeComposerAsk`, ask lands answered), ASK→RESULT LAW,
   ILLUSTRATE LAW, SHOW-DON'T-TELL LAW, SPARK-LINE LAW, REBUILD LAW,
   DOUBLE-CHECK LAW, FILL-THE-CANVAS, LOGO LAW, VISUAL QC LAW, HANDOFF LAW,
-  OUTRO LAW, the channels table, IN-FOR-BEAR LAW, GATE P.
+  OUTRO LAW, the channels table, IN-FOR-BEAR LAW, GATE P, and
+  **DOODLE-BANNED LAW** (DoodleScene/DoodleChart permanently cut from this
+  register; replace with clean Manim/Remotion; §8.0 checker enforces).
 - **Closing block** → the `your-turn` skill's three-beat standard: VERDICT
   recap (`ClaudeVerdictArtifact`) → YOUR TURN prompt Liam reads in full
   (`ClaudeComposerAsk`, greeting `Your turn.`) → TITLE re-read
-  (`ClaudeTitleOutro`).
+  (`ClaudeTitleOutro`). **@NikBearBrown outro card is locked** — exact title restate, hardcoded `@NikBearBrown` handle, one of the 18 crisp-safe mascots (slug-seeded), NO subline; claude-liam reels only. See `OUTRO-LOCK.md`.
 - **How graphics are MADE** → `../explainer/` doctrine: MOTION.md,
   EQUATIONS.md (equation tangents), REMOTION.md, the two-axis shot system,
   the slot contract, the pantry law, the slate system, `manim/animated_graphics.py`.
@@ -68,6 +62,33 @@ mechanisms that each need their own instances and evidence (the source is a
 long research doc, a chapter, a framework with 4+ parts). If the source is one
 insight, it's an `ai-explainer`; if it's mostly math, it's a `math-explainer`;
 if it's mostly a build, it's a `cli-explainer`.
+
+## The `audit` modifier (opt-in — NOT the default)
+
+Arms when the video **evaluates** a tool or method for a subject domain
+rather than teaching the subject (e.g. "what can Manim do for physics?",
+"is D3 useful for bio?", "capability audit of the simulation pipeline").
+Trigger phrases: `audit`, `evaluate the tool`, `what can X do`,
+`capability audit`, `is X useful for`. Full doctrine: `AUDIT-MODE.md`
+at the toolkit root — read it before building an audit reel.
+
+**Chassis routing note:** if the exhibits are already-rendered artifacts
+(no pantry stills needed), prefer `ai-explainer` audit mode — the
+deep-explainer VOX quota and shopping-list gate are dead weight when
+there is nothing to shop for. Use deep-explainer audit mode only when
+the audit genuinely needs 5–10 min AND the body includes archival/
+documentary stills alongside the real exhibits.
+
+Three-line summary (read AUDIT-MODE.md for the full rules):
+
+- **Showing ≠ teaching.** The deliverable is a lane verdict — which tool
+  fits the domain and where it fails — not a lesson in the domain itself.
+- **Exhibits not filler.** Every body visual is a REAL rendered artifact
+  under evaluation. Zero AI-generated stills, zero pantry shopping list,
+  no asking the human to supply media. If a beat needs connective tissue,
+  use a deterministic Remotion eval card (cream, EB Garamond, terracotta).
+- **Exhibit gate — hard stop.** If the exhibits don't exist yet, STOP.
+  Building the exhibit library is a separate gated step before the audit.
 
 ## The spine (fixed)
 
@@ -108,6 +129,45 @@ lands around 30–50 beats. The parent's 45–70-word budget applies only to the
 exempt bookend beats (the ask, the verdict recap, the handoff
 read-and-discuss). Estimate at ~2.9 words/second for planning; the measured
 audio is the only clock that counts.
+
+## PROOF GATE — beat-sheet authoring exit condition
+
+Governs **authoring**, not rendering. Slates compile regardless (SLATE-RULE is
+unaffected). The loop won't call a beat or a sheet "done" while it's punting.
+Classification rules and the whole-sheet checklist live in
+`skills/make/nopunt/SKILL.md` — the loop reads them there; this section does
+not duplicate them.
+
+**Per-beat exit condition.** A beat is DONE when it classifies as SHOW, HOLD,
+or CARD (§ "SHOW / HOLD / CARD" in nopunt). If the narration makes a
+factual/structural claim OR names a visual ("the routing diagram", "the wheel",
+"the table"), the beat MUST be SHOW or a justified HOLD — never a bare CARD,
+never a PUNT. Route every PUNT to its catalog row in nopunt before marking the
+beat done. This applies to all lane types — VOX, MANIM, REMOTION, and CARD
+beats all pass the same per-beat classification before the beat is closed.
+
+**Legibility contract** on every SHOW/HOLD claim beat:
+- Names its on-screen artifact in `shot.show` or `shot.visual_intent`.
+- ~15–35% negative space.
+- Un-highlighted elements never faded below ~40% opacity.
+- Comparisons shown side-by-side, held ≥2s.
+
+**Whole-sheet exit condition.** The sheet is DONE when (1) every beat
+classifies SHOW, HOLD, or CARD with no unresolved PUNTs, and (2) the
+teaching-arc checklist in nopunt (§ "Whole-sheet teaching-arc checklist")
+passes — framework beat before examples, worked example, falsifiability beat,
+scaffolded viewer task, four bookends, no-source-no-verdict rule.
+
+**CHECKS-REPORT — write before the slate, not after.** Before Gate D1 (the
+previz compile), write `CHECKS-REPORT.md` in the reel folder:
+
+  N SHOW / N justified-HOLD / N PUNT-flagged
+  Teaching arc: FRAMEWORK ✓/✗ | WORKED EXAMPLE ✓/✗ | FALSIFIABILITY ✓/✗
+                SCAFFOLDED TASK ✓/✗ | BOOKENDS ✓/✗ | NO-SOURCE-NO-VERDICT ✓/✗
+
+A PUNT-flagged beat or a failing arc item is a **violation**. The loop resolves
+it or the author explicitly justifies it in `BUILD-LOG.md`. Neither is ever
+silently passed.
 
 ## VOX BEATS — pantry stills, machine-animated
 
@@ -204,9 +264,17 @@ and conform is left stretching instead of trimming). One entry per missing
 pantry asset. The review cut does not proceed while SHOPPING.md entries sit
 unresolved without an explicit human "ship with slates" override.
 
-Entry format and the three sourcing tiers: `reference/shopping-list.md`.
+Entry format and the sourcing tiers: `reference/shopping-list.md`.
 The short version:
 
+- **Tier 0 — the local library, FIRST.** Before an entry is written, search
+  the toolkit's still stock (`svg/svg/images/`, ~1,500 PNGs, indexed in
+  `svg/svg/icons.json`): `python3 runtime/scripts/pantry_search.py "<terms>"`.
+  LOOK at the candidates; a real match is copied to `pantry/<BID>-<id>.png`
+  (`--copy <reel> --beat <BID>`) and its SHOPPING.md entry is written
+  pre-checked with the library id. No good match → the entry stands and the
+  human searches. Tier 2/3 rights law still applies to whatever the still
+  depicts — the library is a source, not a rights clear.
 - **Tier 1 — generic/illustrative** (no real referent): AI-generate or stock;
   no rights escalation.
 - **Tier 2 — specific real object** (named building, document, artifact):
@@ -231,10 +299,12 @@ The short version:
    itself flags as unverified either dies or is presented AS unverified.
    `FACTCHECK.md` in the reel folder. **GATE: claims hold.**
 3. **GATE P** — narration reviewed on an animated slate. Then audio
-   (Kokoro — Onyx or Bella; the only engine here).
+   (Kokoro free by default; ElevenLabs only on explicit request).
 4. **Audio lock** — measured mp3s become the clock; align writes the word
    clock.
-5. **Gate D2** — write `SHOPPING.md` from the locked durations. Hand it over.
+5. **Gate D2** — tier-0 library pass (`pantry_search.py` per vox still; copy
+   real matches into `pantry/`), then write `SHOPPING.md` from the locked
+   durations — matched entries pre-checked, the rest handed over.
 6. **Gate D1 previz** — `./art run [reel]`: full compile, slates in vox
    slots, Manim/Remotion rendered, `--review` burn-in. **GATE: watch it.**
 7. **Pantry fill** — human drops stills into `pantry/`; the parent pantry
@@ -281,6 +351,12 @@ the OWNING BOOK's `youtube/` — never into the toolkit.
    tend to be ABOUT.
 6. **Never publish.** Master stays in the reel folder; public is a human
    Studio flip.
+7. **GATE T (type-lock) — ALWAYS RUN**, like factcheck. After every compile,
+   `scripts/type_check.py` runs per rendered frame and writes `TYPECHECK.md`
+   (§8.1 min-size · §8.2 overflow · §8.3 contrast · §8.4 kerning / Pango catch ·
+   §8.5 no-wordy-card · §8.6 golden strings). A FAIL blocks both `./art run`
+   (wired after GATE V in `run.sh`) and `./art final` (wired as pre-flight in
+   `art`). See `skills/make/kerning/SKILL.md` and `reference/type-spec.md`.
 
 ## Reference files (this folder)
 

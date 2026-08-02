@@ -80,27 +80,28 @@
     {
       "beat_id": "B00",
       "act": "OPEN",
-      "estimated_duration_s": 24,
+      "estimated_duration_s": 15,
       "narration_text": "Annyeong — this is Liam, in for Bear. Today's ask comes from Bear's own book on Living Models, chapter one: can you trust your dashboard? Here's the uncomfortable shape of the answer — the most expensive analytics failures don't crash, don't error, don't warn. They hand you a beautiful green line, and let you believe it.",
       "new_visual_element": "Cold open — composer ask, answered",
       "shot": {
         "type": "REMOTION",
         "source": "own",
-        "lane": "bookend",
-        "show": [
-          {
-            "at": 0.0,
-            "event": "ClaudeComposerAsk: greeting 'Annyeong, Liam'; ask types itself"
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Liam",
+            "topic": "Silent measurement failures, seeing vs doing (P(Y|X) vs P(Y|do(X))), Pearl's Ladder, and why dashboards can't answer decision questions — from Chapter 1 of Bear's Living Models book",
+            "segment": "The Dashboard That Lied",
+            "command": "What is: The Dashboard That Lied?",
+            "runningText": "building the answer…",
+            "output": [],
+            "folderLabel": "@claude-liam"
           },
-          {
-            "at": 0.5,
-            "event": "running indicator 'auditing the instrument…'"
-          },
-          {
-            "at": 0.75,
-            "event": "output lands: 'The dashboard can't ask whether its own output is reliable.'"
+          "rendered": {
+            "out": "media/B00.mp4",
+            "at": ""
           }
-        ]
+        }
       },
       "remotion": {
         "pattern": "ClaudeComposerAsk",
@@ -118,29 +119,52 @@
       "audio_file": "mp3/beat-B00.mp3",
       "actual_duration_s": 16.3,
       "build": {
-        "status": "SLATE",
-        "src": null,
-        "filled_by": null,
-        "at": "2026-07-21T13:47:56",
-        "needs": "PIPELINE → fill_slates/remotion_scenes for B00"
-      }
+        "status": "SLATE"
+      },
+      "lane": "BOOKEND",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx"
     },
     {
       "beat_id": "B01",
       "act": "I — The Green Line",
-      "estimated_duration_s": 6.6,
+      "estimated_duration_s": 10,
       "narration_text": "Act one. The chapter opens on a conference room, a Tuesday morning, and a line everyone wanted to see.",
       "new_visual_element": "Act card I",
       "shot": {
         "type": "REMOTION",
         "source": "own",
-        "lane": "card",
-        "show": [
-          {
-            "at": 0.1,
-            "event": "serif act card 'The Green Line', terracotta period"
+        "remotion": {
+          "pattern": "FormBCard",
+          "props": {
+            "title": "The Dashboard That Lied",
+            "items": [
+              {
+                "label": "Key point one",
+                "sub": "",
+                "icon": "target",
+                "cueFrame": 20
+              },
+              {
+                "label": "Key point two",
+                "sub": "",
+                "icon": "list-checks",
+                "cueFrame": 55
+              },
+              {
+                "label": "Key point three",
+                "sub": "",
+                "icon": "zap",
+                "cueFrame": 90
+              }
+            ]
+          },
+          "rendered": {
+            "out": "media/B01.mp4",
+            "at": ""
           }
-        ]
+        }
       },
       "remotion": {
         "pattern": "FluencySegmentCard",
@@ -152,12 +176,12 @@
       "audio_file": "mp3/beat-B01.mp3",
       "actual_duration_s": 6.19,
       "build": {
-        "status": "SLATE",
-        "src": null,
-        "filled_by": null,
-        "at": "2026-07-21T13:47:56",
-        "needs": "PIPELINE → fill_slates/remotion_scenes for B01"
-      }
+        "status": "SLATE"
+      },
+      "lane": "BOOKEND",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx"
     },
     {
       "beat_id": "B02",
@@ -1434,6 +1458,100 @@
         "filled_by": null,
         "at": "2026-07-21T13:47:56",
         "needs": "PIPELINE → fill_slates/remotion_scenes for B32"
+      }
+    },
+    {
+      "beat_id": "BVDT",
+      "act": "verdict recap",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeVerdictArtifact",
+          "props": {
+            "artifactTitle": "The Dashboard That Lied",
+            "artifactHeading": "Key findings",
+            "artifactLines": [
+              "Key finding one",
+              "Key finding two",
+              "Key finding three"
+            ]
+          },
+          "rendered": {
+            "out": "media/BVDT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BHTF",
+      "act": "your turn",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 20,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeComposerAsk",
+          "props": {
+            "greeting": "Your turn.",
+            "topic": "YOUR TURN · Silent measurement failures, seeing vs doing (P(Y|X) vs P(Y|do(X))), Pearl's Ladder, and why dashboards can't answer decision questions — from Chapter 1 of Bear's Living Models book",
+            "segment": "The Dashboard That Lied",
+            "command": "Take what you learned from [The Dashboard That Lied] and apply it to your own work. What's one thing you'll try first?",
+            "runningText": "paste this into Claude and run it on your own work…",
+            "output": [],
+            "folderLabel": "@claude-liam"
+          },
+          "rendered": {
+            "out": "media/BHTF.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "BOOKEND",
+      "narration_text": "",
+      "voice": "am_onyx",
+      "engine": "kokoro",
+      "voice_kokoro": "am_onyx",
+      "estimated_duration_s": 8,
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "remotion": {
+          "pattern": "ClaudeTitleOutro",
+          "props": {
+            "title": "The Dashboard That Lied",
+            "slug": "claude-liam-dashboard-that-lied"
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": ""
+          }
+        }
+      },
+      "build": {
+        "status": "SLATE"
       }
     }
   ]
