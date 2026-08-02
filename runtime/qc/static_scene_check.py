@@ -327,7 +327,7 @@ class _AnimateProxy:
 
     def __getattr__(self, name):
         def _f(*a, **k):
-            return _Anim(self._mob, kind="animate")
+            return _Anim(self._mob, *a, kind="animate")
         return _f
 
 
@@ -376,6 +376,19 @@ class _Anim:
             if isinstance(a, (list, tuple)):
                 self.targets += [x for x in a if isinstance(x, _Mob)]
                 self.children += [x for x in a if isinstance(x, _Anim)]
+
+    def __getattr__(self, name):
+        # Keeps `.animate` chains alive across multiple calls, e.g.
+        # bar.animate.stretch_to_fit_width(w).align_to(bg_bar, LEFT) — each
+        # link is a real Manim _AnimationBuilder that stays chainable; this
+        # stub previously returned a plain _Anim with no further attributes,
+        # so the second call in the chain raised AttributeError.
+        if name.startswith("__") and name.endswith("__"):
+            raise AttributeError(name)
+
+        def _f(*a, **k):
+            return _Anim(*self.targets, *self.children, *a, kind=self.kind)
+        return _f
 
 
 def _apply_anim(scene, anim):
