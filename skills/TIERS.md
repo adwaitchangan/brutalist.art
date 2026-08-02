@@ -1,7 +1,10 @@
 # Skill Tiers
 
 ## FELLOW TIER — free, safe, hand out
-These are the defaults for anyone new to brutalist.art.
+These are the defaults for anyone new to brutalist.art. Deliberately five BUILDERS — the failure
+mode for a new person is not missing capability, it is four explainer variants and
+no idea which to open. `nopunt` is a reference they consult, not a sixth way to
+make a video.
 
 | Skill | Use this when |
 |---|---|
@@ -10,6 +13,7 @@ These are the defaults for anyone new to brutalist.art.
 | hai | You need a Humanitarians AI Pragmatist-register reel |
 | your-turn | You want to close a reel with a structured handoff prompt |
 | duration-planner | You need to fit content to a target length |
+| nopunt | *(reference)* You're unsure how to animate a beat, or a beat is punting |
 
 ## ADVANCED — Bear only
 | Skill | Notes |
@@ -17,6 +21,14 @@ These are the defaults for anyone new to brutalist.art.
 | deep-explainer | Multi-layered concept depth passes |
 | cli-explainer | Claude session + live code + output as vox beat |
 | nbb | NikBearBrown/Teardown register — ElevenLabs Bear voice (paid voice) |
+| guests | Board members, advisors, invited speakers. NO feedback beat — staff do not evaluate board members. GATE G. |
+| finance | SEC filings → 11 fixed beats, EDGAR XBRL data, two deterministic audits |
+| anthropics | The beat: repos, papers, their content, capability claims — read independently |
+
+## UTILITIES — invoked by other skills, rarely run directly
+| Skill | Notes |
+|---|---|
+| screen-clean | Prepares any screen recording (Zoom/Teams/QuickTime) for a reel beat. Called by `fellows` and `guests`. |
 
 ## PAID — REQUIRES EXPLICIT SPEND APPROVAL
 ⚠️ Never present these as default options to a fellow.
@@ -24,3 +36,12 @@ These are the defaults for anyone new to brutalist.art.
 | Skill | Cost note |
 |---|---|
 | explainer | FLUX/nano-banana stills + ElevenLabs VO. Ask per step, then spend. |
+
+---
+
+## Modes
+
+**`--silent`** — unattended production. Honoured by every skill above; see
+[SILENT-MODE.md](./SILENT-MODE.md). Removes the human from the loop, never the
+gates: machine gates still fail the build, third-party gates (GATE N, GATE G)
+skip the reel rather than auto-pass.
