@@ -8,6 +8,7 @@
 #   ./art shorts <reel> [flags]  derive the 9:16 Short (cap check + auto-shorten)
 #   ./art final <reel>           clean master cut — no review label (→ <slug>-cut.mp4)
 #   ./art doctor                 dependency readiness (wraps ./setup)
+#   ./art smoke                  real end-to-end render proof (examples/_smoke -> watchable mp4)
 #
 # This toolkit is FREE-ONLY: Kokoro TTS (voices af_bella "Bella", am_onyx "Onyx"),
 # Manim, Remotion. No ElevenLabs, no Suno, no Higgsfield, no publishing.
@@ -56,6 +57,9 @@ case "$cmd" in
   doctor)
     if [ -x "$ART_HOME/setup" ]; then exec "$ART_HOME/setup" "$@"; else
       echo "setup script missing"; exit 1; fi
+    ;;
+  smoke)
+    exec bash "$ART_HOME/runtime/scripts/smoke_test.sh" "$@"
     ;;
   *)
     dir="$(skill_dir "$cmd")"

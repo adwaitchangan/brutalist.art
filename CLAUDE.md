@@ -4,7 +4,7 @@
 
 # CLAUDE.md — brutalist.art
 
-brutalist.art is a self-contained, free-only video explainer toolkit — 10 skills, no API keys required for the default tier.
+brutalist.art is a self-contained, free-only video explainer toolkit — 14 skills, no API keys required for the default tier.
 
 ---
 
@@ -16,7 +16,7 @@ Respond with exactly this structure — do NOT flatten all skills to an equal li
 
 ### What this is
 
-brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fellows and collaborators. You get 10 skills, Kokoro TTS (local, free), Manim + Remotion rendering, and a phase-gated pipeline. No API keys for the default tier.
+brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fellows and collaborators. You get 14 skills, Kokoro TTS (local, free), Manim + Remotion rendering, and a phase-gated pipeline. No API keys for the default tier.
 
 ---
 
@@ -72,7 +72,7 @@ Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). 
 ## Skill reference
 
 Full tier breakdown: `skills/TIERS.md`
-All 10 skills on disk: `skills/make/` — `find skills/make -name SKILL.md | sort`
+All 14 skills on disk: `skills/make/` — `find skills/make -name SKILL.md | sort`
 
 ## Entry point
 

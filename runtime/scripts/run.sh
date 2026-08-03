@@ -29,28 +29,49 @@ if [ ! -d "$REEL_DIR" ]; then
   echo "[run] no such reel dir: $REEL_IN"; exit 1
 fi
 
+# ---- does this reel have ANY Manim beats at all? Same test beat_plan.fill_plan
+# uses (method == "manim"): a pure-Remotion/other reel has none, and should
+# skip the whole Manim stage cleanly rather than be forced to carry a scenes.py
+# it has no use for.
+HAS_MANIM=1
+if [ -f "$REEL_DIR/beat_sheet.json" ]; then
+  HAS_MANIM=$(PYTHONPATH="$ROOT/scripts" python3 -c "
+import json, beat_plan
+bs = json.load(open('$REEL_DIR/beat_sheet.json'))
+print(1 if any(beat_plan.fill_plan(b).get('method') == 'manim' for b in bs.get('beats', [])) else 0)
+")
+fi
+
 GFX="$ROOT/manim"
 GFXFILE="animated_graphics.py"
-if [ -f "$REEL_DIR/scenes.py" ]; then   # every real reel carries its own scenes
+if [ "$HAS_MANIM" = "0" ]; then
+  echo "[run] no Manim beats in this reel's beat sheet — skipping Manim stage"
+  GFXFILE=""
+elif [ -f "$REEL_DIR/scenes.py" ]; then   # every real reel with Manim beats carries its own scenes
   GFX="$REEL_DIR"; GFXFILE="scenes.py"
 elif [ "$(basename "$REEL_DIR")" != "vox-electoral-college" ]; then
   # GUARD: the shared animated_graphics.py carries only the electoral-college FIXTURE
   # scenes; rendering them into another reel slots the wrong film's graphics.
-  echo "[run] REFUSED: $REEL_DIR has no scenes.py. The shared animated_graphics.py"
-  echo "[run] holds only the electoral-college fixture scenes — rendering those"
-  echo "[run] here would slot another film's graphics into your beats."
-  echo "[run] Write $REEL_DIR/scenes.py (one Scene per GRAPHIC/CARD/DOCUMENT"
-  echo "[run] beat; see reels/_example-comma-orphan/scenes.py)."
+  echo "[run] REFUSED: $REEL_DIR has Manim beats (shot.type GRAPHIC/MANIM/DOCUMENT)"
+  echo "[run] but no scenes.py. The shared animated_graphics.py holds only the"
+  echo "[run] electoral-college fixture scenes — rendering those here would slot"
+  echo "[run] another film's graphics into your beats."
+  echo "[run] Write $REEL_DIR/scenes.py (one Scene per GRAPHIC/CARD/DOCUMENT beat;"
+  echo "[run] see examples/deep-explainer/claude-liam-fluency-trap/scenes.py in"
+  echo "[run] this toolkit for a worked example)."
   exit 2
 fi
 QC="$ROOT/qc"
 mkdir -p "$REEL_DIR/manim" "$REEL_DIR/media" "$REEL_DIR/pantry" "$REEL_DIR/images" "$REEL_DIR/mp4"
 
-SCENES=$(python3 -c "
+SCENES=""
+if [ -n "$GFXFILE" ]; then
+  SCENES=$(python3 -c "
 import re
 src = open('$GFX/$GFXFILE').read()
 print(' '.join(m.group(1) for m in re.finditer(r'class ([A-Z][A-Za-z0-9]*_\w+)\(Scene\)', src)))
 ")
+fi
 
 # ---- figure out which scenes are actually pending (slot not filled)
 PENDING=""

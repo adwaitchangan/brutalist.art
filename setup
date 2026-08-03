@@ -24,6 +24,33 @@ have(){ command -v "$1" >/dev/null 2>&1; }
 pymod(){ python3 -c "import $1" >/dev/null 2>&1; }
 node_ge(){ have node && [ "$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null||echo 0)" -ge "$1" ]; }
 
+# where a clean machine's fontconfig/OS actually looks for user fonts
+font_dir(){
+  case "$(uname -s)" in
+    Darwin) echo "$HOME/Library/Fonts" ;;
+    *)      echo "$HOME/.local/share/fonts" ;;
+  esac
+}
+
+# have_font <label> — checks fc-list (fully captured first, so a fast match
+# never SIGPIPEs a still-writing fc-list under `pipefail`), then falls back to
+# scanning font dirs for a squashed-space filename match (so "EB Garamond" also
+# matches EBGaramond-VariableFont_wght.ttf).
+have_font(){
+  local label="$1"
+  if have fc-list; then
+    local listing; listing="$(fc-list 2>/dev/null)"
+    printf '%s\n' "$listing" | grep -qi "$label" && return 0
+  fi
+  local squashed; squashed="$(printf '%s' "$label" | tr -d ' ')"
+  local dir
+  for dir in "$(font_dir)" /Library/Fonts /System/Library/Fonts /usr/share/fonts "$HERE/runtime/fonts"; do
+    [ -d "$dir" ] || continue
+    find "$dir" -iname "*${squashed}*" 2>/dev/null | grep -q . && return 0
+  done
+  return 1
+}
+
 INSTALL_FAILED=0
 
 if [ "${1:-}" = "--install" ]; then
@@ -40,6 +67,22 @@ if [ "${1:-}" = "--install" ]; then
     r "npm install FAILED — see output above."; echo
     INSTALL_FAILED=1
   fi
+  echo
+
+  b "Installing fonts (bundled families + Oswald) into $(font_dir)…"; echo
+  FONT_DIR="$(font_dir)"
+  mkdir -p "$FONT_DIR"
+  find runtime/fonts -iname '*.ttf' -exec cp -n {} "$FONT_DIR/" \; 2>/dev/null
+  if ! have_font "Oswald"; then
+    if curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/oswald/Oswald%5Bwght%5D.ttf" \
+        -o "$FONT_DIR/Oswald-Variable.ttf"; then
+      : # downloaded
+    else
+      r "Oswald download FAILED — install by hand from fonts.google.com/specimen/Oswald"; echo
+      INSTALL_FAILED=1
+    fi
+  fi
+  have fc-cache && fc-cache -f >/dev/null 2>&1
   echo
 
   if [ ! -f runtime/models/kokoro/kokoro-v1.0.onnx ] || [ ! -f runtime/models/kokoro/voices-v1.0.bin ]; then
@@ -77,6 +120,8 @@ check py_kokoro 'pymod kokoro_onnx'             'pip install kokoro-onnx (the fr
 check kokoro_model '[ -f runtime/models/kokoro/kokoro-v1.0.onnx ] && [ -f runtime/models/kokoro/voices-v1.0.bin ]' 'model files ship with this toolkit — if missing: curl -LO from github.com/thewh1teagle/kokoro-onnx releases (model-files-v1.0)'
 check kokoro_synth "python3 \"$HERE/runtime/scripts/setup_smoke_kokoro.py\"" 'Kokoro failed to synthesize + decode a test phrase above -40 dB — check model files, kokoro_onnx install, and ffmpeg (run runtime/scripts/setup_smoke_kokoro.py directly to see why)'
 check remotion_deps '[ -d runtime/remotion/node_modules ]' 'cd runtime/remotion && npm install'
+check font_garamond 'have_font Garamond' 'bundled in runtime/fonts/EB_Garamond — install: ./setup --install (copies it into ~/Library/Fonts or equivalent)'
+check font_oswald   'have_font Oswald'   'not bundled — install: ./setup --install (downloads it from Google Fonts)'
 
 FEATURES=(
  "audio (Kokoro Bella/Onyx)|ffmpeg python py_kokoro kokoro_model kokoro_synth"
@@ -85,6 +130,7 @@ FEATURES=(
  "Manim equation beats|ffmpeg py_manim latex"
  "Remotion beats + bookends|node20 remotion_deps"
  "slates / previz / compile|ffmpeg py_pillow"
+ "fonts (EB Garamond + Oswald)|font_garamond font_oswald"
 )
 
 echo; b "brutalist — readiness (free-only toolkit: no keys, ever)"; echo; echo
@@ -115,3 +161,7 @@ if [ "$INSTALL_FAILED" = 1 ]; then
 fi
 [ "$fail" = 1 ] && { r "Something is blocked — see above."; echo; exit 1; }
 g "All features ready. Voices: Bella (af_bella) and Onyx (am_onyx). Cost: \$0.00, always."; echo
+echo "A green table above means every dependency checks out live — it does NOT"
+echo "mean a video actually renders. Run \`./art smoke\` for that proof: it builds"
+echo "the tiny examples/_smoke/ fixture end to end and verifies the DECODED"
+echo "mp4 (audio volume, real video/audio streams, non-zero file)."
