@@ -7,9 +7,8 @@ description: >
   the Teardown register (take it apart, explain how each piece works, judge the
   design choices — Feynman × MKBHD), inserts an LLM exercise as the
   second-to-last beat (paste-ready prompt + dig-deeper follow-up), and ends with
-  the NikBearBrown outro. Voice: ElevenLabs ELEVENLABS_VOICE_NIKBEARBROWN —
-  the ONLY paid brand default; do NOT use Kokoro. Palette: teardown (white
-  #FFFFFF / ink #2A1A0E / one red #C8102E). GATE P applies before audio spend.
+  the NikBearBrown outro. Voice: Kokoro am_onyx (free, local). Palette: teardown (white
+  #FFFFFF / ink #2A1A0E / one red #C8102E).
   Use when the user types `nbb [input]`, asks for the NikBearBrown / brutalist /
   teardown cut of a reel, or wants the default-channel version of content.
   Brand spec: brands/nbb.md.
@@ -63,7 +62,8 @@ scripts from the source dir. No API calls, no spend.
 ```json
 {
   "audience": "NikBearBrown",
-  "engine": "elevenlabs",
+  "engine": "kokoro",
+  "voice_kokoro": "am_onyx",
   "palette": "teardown",
   "typography": { "display": "Montserrat", "serif": "EB Garamond", "mono": "PT Mono" },
   "register": "Teardown",
@@ -71,9 +71,6 @@ scripts from the source dir. No API calls, no spend.
   "derived_from": "beat_sheet.json"
 }
 ```
-
-`voice_id` is read from `ELEVENLABS_VOICE_NIKBEARBROWN` in `.env`. This is
-the **only ElevenLabs brand** — do NOT switch to Kokoro.
 
 ### Ask/intro scene rule (2026-07)
 
@@ -143,7 +140,7 @@ The beat has two parts:
 ```
 
 The card renders in the **teardown palette** (white / ink / red) and the
-narration is read in the **NBB ElevenLabs voice**.
+narration is read in the **NBB voice (Kokoro am_onyx)**.
 
 ### Step 4 — Outro (LAST beat)
 
@@ -184,12 +181,9 @@ Then perform Steps 2–5 for each resulting `nbb-` directory.
 
 ## Build (only when the user also asks to build)
 
-**GATE P applies before any audio spend** — this is the paid ElevenLabs clone.
-Run a `PEDAGOGY.md` pass on the rewritten sheet before calling the audio script.
-
 ```bash
-# Audio (ElevenLabs — the only option for nbb)
-python3 runtime/scripts/generate_audio.py [nbb-dir]/beat_sheet.nbb.json
+# Audio (Kokoro am_onyx — free and local)
+python3 runtime/scripts/generate_audio_kokoro.py [nbb-dir]
 
 # Lectures: deck + render (scripts point at beat_sheet.nbb.json)
 python3 [nbb-dir]/build_deck.py beat_sheet.nbb.json
@@ -227,5 +221,4 @@ Tokens: `runtime/remotion/src/tokens/vox.ts` (exported as `teardown`).
 ## Standing rules
 
 - Source files (`beat_sheet.json`, build scripts, media) are **never modified**.
-- GATE P applies before any ElevenLabs spend (metered clone).
-- The NBB ElevenLabs voice is the **only** option — do not substitute Kokoro.
+- Voice: Kokoro am_onyx (free, local) — the NBB voice.

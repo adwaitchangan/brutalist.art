@@ -43,7 +43,7 @@ folder chip (brand keys in `brand_variant.py`):
 
 | Brand key | Persona | Folder chip | Voice | Register |
 |---|---|---|---|---|
-| `claude` | Bear | `@NikBearBrown` | ElevenLabs NBB clone | Teardown |
+| `claude` | Bear | `@NikBearBrown` | kokoro am_onyx | Teardown |
 | `claude-liam` | Liam (in for Bear) | `@NikBearBrown` | kokoro am_onyx | Teardown |
 | `claude-hai` | HAI | `@HumanitariansAI` | kokoro am_onyx | Pragmatist |
 | `claude-medhavy` | Medhavy | `@Medhavy` | kokoro af_kore | Wonder |
@@ -51,8 +51,8 @@ folder chip (brand keys in `brand_variant.py`):
 
 **Liam — the substitute narrator.** Liam is not a new channel; he is the nbb
 persona's stand-in voice on the same @NikBearBrown channel (same Teardown
-register, same laws, same chip), for reels that shouldn't spend ElevenLabs
-credits — batch runs, high-volume series, previz-grade uploads. IN-FOR-BEAR
+register, same laws, same chip), for reels where Liam's voice is the right
+choice — batch runs, high-volume series. IN-FOR-BEAR
 LAW: every Liam reel says so out loud — B00's narration introduces the voice
 in its first breath ("… this is Liam, in for Bear.") and the outro signs off
 the same way ("Liam, in for Bear."). Liam is a named voice, never a clone —
@@ -89,10 +89,22 @@ terracotta period) with the handle beneath — never a generic brand outro.
 
 ## Spark-line law
 
-The spark never stands alone mid-reel: inner beats pair it with one short
-serif line summarizing the beat (the narration's key line, compressed).
-B00's spark line is the hello greeting. Typing is a B00-only event — inner
-beats show the command already typed.
+The spark line is TEXT. There is no spark glyph.
+
+The eight-armed terracotta asterisk was removed from every scene on 2026-08-05
+(`strip_spark.py`, 298 glyphs across 293 files, backup at
+`runtime/remotion/.spark-strip-backup/`). It had repeatedly rendered at the wrong
+scale — most recently filling an entire frame and burying a code card — and it was
+carrying no information the serif line did not already carry. Scenes are not to
+reintroduce it: not as a `<Spark/>` component, not as an inline `<svg viewBox="0 0 24 24">`
+with lines radiating from `(12,12)`, not at any size. `SparkRule` (a 60x2 terracotta rule)
+is a different element and is unaffected.
+
+What the law actually requires is the LINE: inner beats carry one short serif line
+summarizing the beat, the narration's key line compressed to four words or fewer.
+B00's spark line is the hello greeting. Typing is a B00-only event — inner beats
+show the command already typed. A beat that renders an empty spark line is the
+defect the law exists to catch; a beat with no glyph is correct.
 
 ## Handoff law
 

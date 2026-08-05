@@ -4,14 +4,14 @@ align.py — the word clock (REMOTION.md, build-order step 1).
 
 Port of skills/deck-lecture/scripts/align_captions.py (itself the muzak lyric
 aligner) to house conventions. The narration TEXT is already known — it's what
-we sent to ElevenLabs — so we never transcribe blind: faster-whisper supplies
+the TTS synthesised — so we never transcribe blind: faster-whisper supplies
 word-level TIMING from each beat's mp3, SequenceMatcher aligns the KNOWN
 narration words onto those timestamps, and words Whisper missed (including
 tts-respelling drift like "1926" -> "nineteen twenty-six") interpolate between
 anchors. Every word lands on the real moment it is spoken — exact text, no
 drift.
 
-Runs at audio lock (workflow step 3), right after generate_audio.py. Rerun
+Runs at audio lock (workflow step 3), right after generate_audio_kokoro.py. Rerun
 whenever any beat's mp3 regenerates (--only for just those beats).
 
 Reads  reels/<slug>/beat_sheet.json  (narration_text + audio_file per beat)

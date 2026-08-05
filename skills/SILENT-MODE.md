@@ -14,7 +14,6 @@ hundred broken reels instead of one.
 
 | Class | Gates | In silent mode |
 |---|---|---|
-| **Human-time** | GATE P — sign narration before paid audio spend | **Log and continue.** Voices are free here, so it protects nothing. |
 | **Machine** | GATE AUDIO · GATE TYPE · GATE VERIFY | **Still fail the build.** Unchanged. |
 | **Third-party** | GATE N — Bear signs a fellow's feedback · GATE G — the guest approves the framing | **Skip the reel and queue it.** Never auto-pass. |
 
@@ -48,8 +47,10 @@ tangled *audio* with *paid audio spend*. In silent mode this is explicit:
 - **Force free voices** — claude-liam / Kokoro. Every beat gets narration, always.
 - **The slate cut carries sound.** It is the review artifact. A silent slate is a
   **failed build**, not a stage.
-- **A reel configured for paid ElevenLabs is skipped, not downgraded.** Silently
-  substituting a voice changes the product; queue it for a human decision.
+- **Audio is generated on every reel, always.** Any reel whose beat sheet still
+  carries `engine: "elevenlabs"` is CONVERTED to `engine: "kokoro"` with the
+  channel's Kokoro voice, the conversion logged, and the build proceeds. There
+  is no paid engine; there is nothing to skip.
 - **Never spend on any paid API.** Zero exceptions.
 
 ---
@@ -101,8 +102,7 @@ Write the diagnosis and exit. Everything already completed stays on the queue.
 ## End of run
 
 `SILENT-RUN-REPORT.md`: attempted · shipped to queue · failed a machine gate
-(which gate, with the actual numbers) · skipped for a third-party gate · skipped
-for paid audio.
+(which gate, with the actual numbers) · skipped for a third-party gate.
 
 **The skipped lists are where human attention goes. The queue is what gets
 watched.**

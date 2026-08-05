@@ -85,8 +85,7 @@ All three share one skeleton — the Claude-branded bookends — and differ only
 in the middle. Cold open on the Claude composer (`ClaudeComposerAsk`, the ask
 lands answered) → the body → verdict recap → YOUR TURN handoff (a suggested
 prompt, read aloud and discussed) → title-restate outro. All three are
-audio-first, phase-gated (GATE P: a human reviews narration on an animated
-slate before audio is generated), and none of them ever publishes.
+audio-first, phase-gated, and none of them ever publishes.
 
 ### ai-explainer — the tight reel
 
@@ -140,12 +139,11 @@ output, never a target).
 
 ```bash
 # 1. author beat_sheet.json in <book>/youtube/<slug>/   (the skill's SKILL.md governs)
-# 2. GATE P — write PEDAGOGY.md, human signs "VERDICT: PASS"
-python3 runtime/scripts/generate_audio_kokoro.py <reel>     # 3. audio = the clock
-./art run  <reel>                                           # 4. compile the review cut
-./art todo <reel>                                           # 5. what still needs filling, and how
+python3 runtime/scripts/generate_audio_kokoro.py <reel>     # 2. audio = the clock
+./art run  <reel>                                           # 3. compile the review cut
+./art todo <reel>                                           # 4. what still needs filling, and how
 #    …drop media into pantry/, rerun — only changed slots recompile…
-./art final <reel>                                          # 6. clean master (<slug>-cut.mp4)
+./art final <reel>                                          # 5. clean master (<slug>-cut.mp4)
 ```
 
 Videos belong to their book: build into `<book>/youtube/<slug>/`, never into
@@ -169,9 +167,9 @@ SOURCES.md logs every seed. The `.srt` shows captions riding measured beat
 windows.
 
 **`examples/ai-explainer/claude-debunked/`** — *"Claude, Debunked?"*
-(10 beats). A myth-versus-mechanism reel. This one keeps its full gate
-paperwork: `PEDAGOGY.md` (the signed GATE P), `NARRATION-GATE-P.md` (the
-narration review), and `FACTCHECK-THE-FACTCHECK.md` — the DOUBLE-CHECK LAW
+(10 beats). A myth-versus-mechanism reel. This one keeps its full build
+paperwork: `PEDAGOGY.md` (narration sign-off), `NARRATION-GATE-P.md` (the
+narration review record), and `FACTCHECK-THE-FACTCHECK.md` — the DOUBLE-CHECK LAW
 applied to its own fact-check. `qc-sheet.png` is the visual-QC contact sheet.
 The cleanest model of the phase gates working as designed.
 
@@ -181,7 +179,7 @@ The cleanest model of the phase gates working as designed.
 Typed."* (11 beats). The meta-example: a CLI video about making CLI videos.
 The full required spine in one small reel — INTRO → PROBLEM → CLI → CODE →
 OUTPUT → revision cycle → SUMMARY → NEXT STEPS → OUTRO — with the Claude-skin
-composer beats and a signed PEDAGOGY.md.
+composer beats and a `PEDAGOGY.md` narration sign-off.
 
 **`examples/cli-explainer/brand-palette-accessibility-auditor/`** — a real
 build reel from the branding-and-ai book (10 beats): Claude builds a WCAG
@@ -206,7 +204,7 @@ gates) and what flexes (act structure, run placement).
 
 ## 6. What was removed (and where it still lives)
 
-Relative to `brutalist-art/`: every paid engine (ElevenLabs, Suno,
+Relative to `brutalist-art/`: every paid image/video engine (Suno,
 Higgsfield/Minimax, fal), all publishing (YouTube API, channel credentials,
 video-inventory), the other ~35 skills (scouts, music/dance/lyric tools,
 asset generation, lectures, showcases, brand channels medhavy / musinique /

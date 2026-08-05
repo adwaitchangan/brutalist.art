@@ -2,7 +2,7 @@
 """provenance.py — who made each file in a reel: Brutalist (the machine) or you (human)?
 
 AUDIO  — engine from the mp3 fingerprint (authoritative):
-           sample_rate 44100 (+128k)  -> ElevenLabs (paid voice clone)
+           sample_rate 44100 (+128k)  -> legacy (not Kokoro; may be old audio file)
            sample_rate 24000          -> Kokoro (free local TTS)
          cross-checked against beat_sheet metadata.engine.
 VIDEO  — outputs (final [slug].mp4 / -slate.mp4, clips/, manim/) are ALWAYS Brutalist.
@@ -30,7 +30,7 @@ def sr(path):
 def audio_engine(path):
     s = sr(path)
     if s is None: return "?", None
-    if s >= 44100: return "ElevenLabs", s
+    if s >= 44100: return "legacy-44k", s
     if s <= 24000: return "Kokoro", s
     return f"?({s})", s
 

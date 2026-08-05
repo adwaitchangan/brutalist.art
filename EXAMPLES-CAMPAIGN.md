@@ -11,7 +11,7 @@ shipped example that teaches it. Fixes are discovered by building, not guessed u
 
 ## Where this runs
 
-On **your machine, in Claude Code** — it has the ElevenLabs key, the `higgsfield` CLI, Manim,
+On **your machine, in Claude Code** — it has the `higgsfield` CLI, Manim,
 Playwright/Chromium, Node/Remotion. (This cloud session set the campaign up; it can't render.)
 Run unattended is fine (`claude --dangerously-skip-permissions`) — the render contract holds
 (retry ≤5×, skip, human redoes).
@@ -117,9 +117,9 @@ Legend: 🔑 keys needed · 📁 existing folder to rebuild-and-verify · ✨ ne
 | 8 | figure-planner | figure-planner | ✨ `youtube/*` | ⬜ | **author its SKILL.md first** (D5), then a figure |
 | 9 | sketch-explainer (silent) | sketch-explainer | ✨ `youtube/*` | ⬜ | Manim only, no key |
 
-**GATE — key check (free, not a video).** **Run `./art keys` BEFORE any paid build.** Free live probes (ElevenLabs `/user`+`/voices`, higgsfield `account status`, YouTube `channels.list`=1 unit). Confirms every key/voice is valid + shows quota/credits. No spend. Fix any ❌ before Tier 1+.
+**GATE — key check (free, not a video).** **Run `./art keys` BEFORE any paid build.** Free live probes (higgsfield `account status`, YouTube `channels.list`=1 unit). Confirms every key is valid + shows quota/credits. No spend. Fix any ❌ before Tier 2+.
 
-### Tier 1 — ElevenLabs (narration)
+### Tier 1 — Kokoro (narration, free)
 | # | Video | Skill | Folder | Status |
 |---|---|---|---|---|
 | 10 | sketch-explainer (narrated) | sketch-explainer | ✨ | ⬜ |
@@ -132,13 +132,13 @@ Legend: 🔑 keys needed · 📁 existing folder to rebuild-and-verify · ✨ ne
 | 17 | recitation-film | recitation-film | ✨ (+faster-whisper) | ⬜ |
 | 18 | **deck-lecture** | deck-lecture | ✨ (vendor `animated-deck`; +Playwright) | ⬜ | restore one of the 34 lectures as the example |
 | 19 | story-film (narration) | story-film | 📁 `examples/00-story-film-demos` | ⬜ |
-| 19a | **Suno vs 11 Labs Cost Test** | (voice-engine A/B) | ✨ `youtube/suno-vs-11-labs-cost-test` | ⬜ | THE VIDEO IS THE EXPERIMENT: its own narration voiced both ways (generate_audio.py vs ./art suno → pantry stem → ./art suno-slice), real credits/time in COST-LOG.md, human picks the voice that ships. BUILD-PROMPT.md ready. |
-| 19c | **Kokoro: Free Voices (With Names)** | generate_audio_kokoro | ✨ `youtube/kokoro-free-voices` | ⬜ | THE THIRD ENGINE — free/local/named. Bear's clone opens (B00, the only paid audio), then the cast carries it: Bella (A-), Sarah, Adam (F+ — the honest-record beat), Michael, Emma, George, Puck, Santa (D-), each introducing themselves via the sheet's per-beat voice field. Grades from the pack's own VOICES.md, re-verified at build. Sheet + GATE P + BUILD-PROMPT ready; ch6. |
-| 19d | **Kokoro: All 28 English Voices (The Full Roster)** | generate_audio_kokoro | ✨ `youtube/kokoro-all-28-english-voices` | ⬜ | COMPANION REFERENCE CUT to 19c — for people who want to hear the full 28 before casting. EL intro → all 28 in group order, each: name + origin + the pack's grade + the SAME closing line (compare voices, not scripts) → Heart (the only A) closes. One props-driven KokoroRosterCard renders every roster beat; YouTube chapter markers per voice make it a usable reference. No chapter slot; cross-links 19c both ways. ~4:16. Sheet + GATE P + BUILD-PROMPT ready. |
-| 19e | **Kokoro: The 8 Mandarin Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-mandarin-voices` | ⬜ | Language-roster reference. EL intro says it straight: all eight are graded D by the pack itself — hear a D before you build with it. In-language name lines + localized house tagline. ~1:41. Sheet + GATE P + BUILD-PROMPT ready. |
-| 19f | **Kokoro: The 5 Japanese Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-japanese-voices` | ⬜ | Language-roster reference, C+ to C-. jf_tebukuro's grade flagged for build-time verification. ~1:14. Sheet + GATE P + BUILD-PROMPT ready. |
-| 19g | **Kokoro: The 4 Hindi Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-hindi-voices` | ⬜ | Language-roster reference — Alpha, Beta, Omega, Psi, all C. ~1:05. Sheet + GATE P + BUILD-PROMPT ready. |
-| 19h | **Kokoro: The 9 Romance-Language Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-romance-voices` | ⬜ | ES 3 + PT-BR 3 + IT 2 + FR 1 in one cut; Spanish/Portuguese ship UNGRADED (cards say so); Siwis (FR, B-) is the pack's best non-English and closes. ~1:50. Sheet + GATE P + BUILD-PROMPT ready. |
+| 19a | **Suno vs Kokoro Cost Test** | (voice-engine A/B) | ✨ `youtube/suno-vs-kokoro-cost-test` | ⬜ | THE VIDEO IS THE EXPERIMENT: its own narration voiced both ways (generate_audio_kokoro.py vs ./art suno → pantry stem → ./art suno-slice), real time/quality in COST-LOG.md, human picks the voice that ships. BUILD-PROMPT.md ready. |
+| 19c | **Kokoro: Free Voices (With Names)** | generate_audio_kokoro | ✨ `youtube/kokoro-free-voices` | ⬜ | THE THIRD ENGINE — free/local/named. Onyx opens (B00), then the cast carries it: Bella (A-), Sarah, Adam (F+ — the honest-record beat), Michael, Emma, George, Puck, Santa (D-), each introducing themselves via the sheet's per-beat voice field. Grades from the pack's own VOICES.md, re-verified at build. Sheet + BUILD-PROMPT ready; ch6. |
+| 19d | **Kokoro: All 28 English Voices (The Full Roster)** | generate_audio_kokoro | ✨ `youtube/kokoro-all-28-english-voices` | ⬜ | COMPANION REFERENCE CUT to 19c — for people who want to hear the full 28 before casting. Onyx intro → all 28 in group order, each: name + origin + the pack's grade + the SAME closing line (compare voices, not scripts) → Heart (the only A) closes. One props-driven KokoroRosterCard renders every roster beat; YouTube chapter markers per voice make it a usable reference. No chapter slot; cross-links 19c both ways. ~4:16. Sheet + BUILD-PROMPT ready. |
+| 19e | **Kokoro: The 8 Mandarin Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-mandarin-voices` | ⬜ | Language-roster reference. Onyx intro says it straight: all eight are graded D by the pack itself — hear a D before you build with it. In-language name lines + localized house tagline. ~1:41. Sheet + BUILD-PROMPT ready. |
+| 19f | **Kokoro: The 5 Japanese Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-japanese-voices` | ⬜ | Language-roster reference, C+ to C-. jf_tebukuro's grade flagged for build-time verification. ~1:14. Sheet + BUILD-PROMPT ready. |
+| 19g | **Kokoro: The 4 Hindi Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-hindi-voices` | ⬜ | Language-roster reference — Alpha, Beta, Omega, Psi, all C. ~1:05. Sheet + BUILD-PROMPT ready. |
+| 19h | **Kokoro: The 9 Romance-Language Voices** | generate_audio_kokoro | ✨ `youtube/kokoro-romance-voices` | ⬜ | ES 3 + PT-BR 3 + IT 2 + FR 1 in one cut; Spanish/Portuguese ship UNGRADED (cards say so); Siwis (FR, B-) is the pack's best non-English and closes. ~1:50. Sheet + BUILD-PROMPT ready. |
 | 19b | **Session, Karaoke & Audiogram** | session + lyric-overlay | ✨ `youtube/session-karaoke-audiogram` | ⬜ | Teaches session notes (direct the reading), the align.py word clock, and the lyric-overlay audiogram — Byron's *She Walks in Beauty* (channel's own session-directed Suno reading, `youtube/she-walks-in-beauty/pantry/`) threaded through as the worked example. BUILD-PROMPT.md ready. |
 
 ### Tier 2 — higgsfield CLI (AI image/video)

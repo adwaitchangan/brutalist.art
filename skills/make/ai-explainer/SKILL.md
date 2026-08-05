@@ -4,9 +4,8 @@ description: >
   Full-fledged Brutalist explainer reels in the CLAUDE brand — the Claude
   desktop app's own look (cream #FAF9F5 page, warm ink #3D3929, terracotta
   #D97757 spark as the ONE accent, EB Garamond serif + UI sans). Default
-  working channel is claude-liam (Liam in for Bear, Kokoro am_onyx, free);
-  Bear's ElevenLabs clone is opt-in on explicit request. Beat-sheet driven
-  and phase-gated; visuals mix the
+  working channel is claude-liam (Liam in for Bear, Kokoro am_onyx, free).
+  Beat-sheet driven and phase-gated; visuals mix the
   Claude Remotion scenes, Onda code-block for code, Manim fragments for math
   beats, and human-added media via the per-beat slot convention. ILLUSTRATE
   LAW: middles are concept-illustrated — the Claude UI appears only where
@@ -17,7 +16,7 @@ description: >
   bookends, body breaks the skill down and demos it live. AUDIT MODE
   modifier arms on: `audit`, `evaluate the tool`, `what can X do`,
   `capability audit`, `is X useful for` — see AUDIT-MODE.md. Register:
-  Teardown. GATE P before audio spend. Never publishes.
+  Teardown. Never publishes.
 
 ---
 
@@ -52,7 +51,7 @@ Both skills produce the SAME Claude-branded bookends; only the MIDDLE differs.
 - `cli-ideas.md` (cli-scout) and `simulation-ideas.md` (sim-scout) cards → **claude-cli**
 - video-idea cards (`vids/` scouts, `media-scout` video cards) → **claude-explainer**
 
-Both are audio-first, phase-gated (GATE P before audio spend), fill-in-first, and
+Both are audio-first, phase-gated, fill-in-first, and
 output `[slug].mp4` + `[slug]-slate.mp4`. See `docs/how-to-create-a-claude-explainer.md`.
 
 
@@ -92,7 +91,7 @@ build fresh. Also triggers on `claude reel`, `claude style`, `claude cut`.
 | Palette | `claude` — tokens in `runtime/remotion/src/tokens/claude.ts` (CLAUDE + CLAUDE_FONT). Shared by ALL channels — the look never changes per channel. |
 | Accent law | Terracotta `#D97757` is the ONE accent: the spark, the send button, a summoned `/skill` token, one focal moment per beat. Everything else warm ink on cream. |
 | Type | Serif for greetings + segment titles (`Tiempos → EB Garamond` — Tiempos is proprietary, so **EB Garamond is the effective default**; it's bundled in `runtime/fonts`). UI sans for chrome; mono for terminal/output lines only. Segment titles are **Title Case** (`Photoelectric Effect`) — never all caps, never sentence case. |
-| Voice | Per channel — see the channels table. Working default: `claude-liam` (Kokoro `am_onyx`, free). Bear's ElevenLabs `ELEVENLABS_VOICE_NIKBEARBROWN` on explicit request (GATE P). |
+| Voice | Per channel — see the channels table. Working default: `claude-liam` (Kokoro `am_onyx`). Bear's channel uses Kokoro `am_onyx` too. |
 | Register | Per channel — default Teardown (Feynman × MKBHD). |
 
 ## Channels
@@ -102,11 +101,11 @@ register, greeting persona, and the footer folder chip:
 
 | Brand key | Persona | Folder chip | Voice | Register |
 |---|---|---|---|---|
-| `claude` (Bear's voice — on explicit request) | Bear | `@NikBearBrown` | ElevenLabs `ELEVENLABS_VOICE_NIKBEARBROWN` | Teardown |
-| `claude-liam` **(working default)** | Liam (in for Bear) | `@NikBearBrown` | kokoro `am_onyx` (override: `ELEVENLABS_VOICE_LIAM`) | Teardown |
-| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `am_onyx` (override: `ELEVENLABS_VOICE_HUMANITARIANS`) | Pragmatist |
-| `claude-medhavy` | Medhavy | `@Medhavy` | kokoro `af_kore` (override: `ELEVENLABS_VOICE_MEDHAVY`) | Wonder |
-| `claude-musinique` | Musinique | `@Musinique` | kokoro `am_puck` (override: `ELEVENLABS_VOICE_MUSINIQUE`) | Baldwin (charter: MUSINIQUE.md — fights for the indie musician) |
+| `claude` (Bear's voice — on explicit request) | Bear | `@NikBearBrown` | kokoro `am_onyx` | Teardown |
+| `claude-liam` **(working default)** | Liam (in for Bear) | `@NikBearBrown` | kokoro `am_onyx` | Teardown |
+| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `am_onyx` | Pragmatist |
+| `claude-medhavy` | Medhavy | `@Medhavy` | kokoro `af_kore` | Wonder |
+| `claude-musinique` | Musinique | `@Musinique` | kokoro `am_puck` | Baldwin (charter: MUSINIQUE.md — fights for the indie musician) |
 
 Scaffold any of them: `python3 runtime/scripts/brand_variant.py [input] claude-medhavy` etc.
 When authoring the beat sheet, set the scene's `greeting` persona and
@@ -133,8 +132,8 @@ When authoring the beat sheet, set the scene's `greeting` persona and
 **Liam — the substitute narrator (IN-FOR-BEAR LAW).** `claude-liam` is not a
 new channel: Liam is the nbb persona's stand-in voice on the SAME
 @NikBearBrown channel — same Teardown register, same laws, same footer chip —
-for reels that shouldn't spend ElevenLabs credits (batch runs, high-volume
-series, previz-grade uploads). Two rules whenever Liam narrates:
+for reels where Liam's voice is the right choice (batch runs, high-volume
+series). Two rules whenever Liam narrates:
 
 1. **Say it out loud.** B00's narration introduces the voice in its first
    breath — pattern: "… this is Liam, in for Bear." — and the outro signs
@@ -317,7 +316,7 @@ MIDDLE:
    skills, the upstream URL.
 
 Channel, voice, and spend rules are unchanged: default `claude-liam`
-(Kokoro, free), GATE P before any ElevenLabs call, never publishes.
+(Kokoro, free), never publishes.
 
 ## The `audit` modifier (opt-in — NOT the default)
 
@@ -353,7 +352,8 @@ the canonical source is never modified. Metadata lands as:
 ```json
 {
   "audience": "Claude",
-  "engine": "elevenlabs",
+  "engine": "kokoro",
+  "voice_kokoro": "am_onyx",
   "palette": "claude",
   "typography": { "serif": "Tiempos/EB Garamond", "ui": "system sans", "mono": "SF Mono" },
   "register": "Teardown",
@@ -377,9 +377,6 @@ Rewrite/write every beat's narration in the Teardown register. The subject
 matter for this brand is usually *workflows* — what to type, what Claude does,
 where the output lands — so narrate the mechanism, then judge it: what this
 design gets right, where it bites.
-
-**GATE P — human signs off on the narration before any audio spend — reviewed
-on an ANIMATED slate that plays the `show` events, never a page of text.**
 
 ### PROOF GATE — beat-authoring exit condition
 
@@ -422,7 +419,7 @@ silently passed.
 ### Step 3 — Audio (the master clock)
 
 ```bash
-python3 runtime/scripts/generate_audio.py [REEL_DIR]   # ELEVENLABS_VOICE_NIKBEARBROWN
+python3 runtime/scripts/generate_audio_kokoro.py [REEL_DIR]   # Kokoro am_onyx (free)
 ```
 
 Audio-first: per-beat MP3 durations become the clock everything conforms to.
@@ -514,8 +511,7 @@ Claude Code prompt that builds the final cut end to end (gate check → audio �
 conform → render → visual QC → report, never publish). QC here means the
 frame-level VISUAL QC LAW pass (see Hard rules), not just the mp4 probe. Run from `books/` — typically
 under `claude --dangerously-skip-permissions`, appropriate here BECAUSE the
-pipeline meets the seatbelt rules (git-tracked, regenerable outputs, GATE P
-still requires a human signature before spend). A reel without its build
+pipeline meets the seatbelt rules (git-tracked, regenerable outputs, no paid calls). A reel without its build
 prompt is unfinished.
 
 ## Hard rules
@@ -524,8 +520,7 @@ prompt is unfinished.
 
 - **DEFAULT CHANNEL: claude-liam.** Unless the human names a channel or
   explicitly asks for Bear's own voice, build on `claude-liam` (Kokoro
-  `am_onyx`, free pipeline — no ElevenLabs spend, IN-FOR-BEAR LAW applies).
-  Bear's ElevenLabs voice is opt-in and still passes GATE P.
+  `am_onyx`, free pipeline — IN-FOR-BEAR LAW applies).
 - **LOGO LAW.** Every beat carries the channel's brand mark as a small,
   low-opacity corner bug (lower-right), inside the title-safe area, never
   covering content — the NBB logo for the `@NikBearBrown` channels
@@ -598,8 +593,8 @@ prompt is unfinished.
   its place: animation that enacts the narration is the point; animation
   that merely decorates it stays banned. The previz/slate is bound too: a
   slate that presents beats as static text pages misrepresents the reel —
-  slates animate their `show` events at estimated timing so GATE P reviews
-  the SHOW, not a deck of paragraphs.
+  slates conform to measured audio and animate their `show` events; a static-text
+  slate is the same defect as a static-text beat.
 - **DOUBLE-CHECK LAW.** The source is fact-checked and REWRITTEN in the
   episode's register (Teardown by default) — never parroted. Before
   scripting: verify the source's claims, strip anything that will date the
@@ -704,7 +699,11 @@ prompt is unfinished.
   **@NikBearBrown outro card is locked** — exact title restate, hardcoded `@NikBearBrown` handle, one of the 18 crisp-safe mascots (slug-seeded), NO subline; claude-liam reels only. See `OUTRO-LOCK.md`.
 
 - **Never publish.** Output stays in the reel folder for human review.
-- **GATE P** before every ElevenLabs call.
+- **There is always a free option. Kokoro is the default and the fallback. No
+  build ever waits on a human for audio, and no build ever calls a paid API.**
+  Generate audio immediately on every build, attended or silent. A silent
+  `<slug>-slate.mp4` with an empty `mp3/` directory is a FAILED BUILD — if
+  audio is absent, the build fails and reports the reason.
 - **PIXEL-ART LAW — hard, no exceptions.** `ClaudeMascotScene`, `ClaudeMascotGrid`,
   and `ClaudeTitleOutro` all use `shapeRendering="crispEdges"` pixel-art rects.
   These rects may move ONLY by **translation** and **axis-aligned scale**. NEVER

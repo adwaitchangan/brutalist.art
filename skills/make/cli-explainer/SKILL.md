@@ -44,7 +44,7 @@ Both skills produce the SAME Claude-branded bookends; only the MIDDLE differs.
 - `cli-ideas.md` (cli-scout) and `simulation-ideas.md` (sim-scout) cards → **claude-cli**
 - video-idea cards (`vids/` scouts, `media-scout` video cards) → **claude-explainer**
 
-Both are audio-first, phase-gated (GATE P before audio spend), fill-in-first, and
+Both are audio-first, phase-gated, fill-in-first, and
 output `[slug].mp4` + `[slug]-slate.mp4`. See `docs/how-to-create-a-claude-explainer.md`.
 
 
@@ -82,8 +82,8 @@ command → output, terracotta sigil). New CLI tools slot in here as one more sk
 
 **`--persona` picks the voice. Default is `liam`.** `liam` = the claude-liam
 channel (Liam in for Bear, Kokoro `am_onyx`, free — IN-FOR-BEAR LAW applies);
-`--persona bear` = Bear's ElevenLabs clone, opt-in and GATE P–gated exactly as
-in ai-explainer. The persona also names the `[Hello], [Name]` greeting in B00.
+`--persona bear` = Bear's Kokoro am_onyx voice, same as the default channel.
+The persona also names the `[Hello], [Name]` greeting in B00.
 New personas slot in as channel voices the same way new tools slot in as skins.
 
 ## The required beat spine (EVERY CLI video — not optional)
@@ -276,11 +276,11 @@ pipeline as claude-explainer, so every House law in
 `skills/make/ai-explainer/SKILL.md` applies here too. Canonical text lives
 there; the CLI-specific application:
 
-- **DEFAULT CHANNEL: claude-liam.** Unless the human names a channel, passes
-  `--persona bear`, or asks for Bear's ElevenLabs voice, build on claude-liam
+- **DEFAULT CHANNEL: claude-liam.** Unless the human names a channel or
+  passes `--persona bear`, build on claude-liam
   (Kokoro `am_onyx`, free; IN-FOR-BEAR LAW — "this is Liam, in for Bear" in
-  B00 and the outro). Bear's voice is opt-in (GATE P). `--persona` is the
-  explicit switch; the channel roster is the extension point for new voices.
+  B00 and the outro). `--persona` is the explicit switch; the channel roster
+  is the extension point for new voices.
 - **LOGO LAW.** The channel brand bug (NBB for @NikBearBrown) rides EVERY beat
   — input and output alike — as a low-opacity lower-right corner mark inside
   the safe area, and full-size on the OUTRO title card. Never skip it.
@@ -308,7 +308,7 @@ there; the CLI-specific application:
   that only appears on screen is a defect.
 
 (COLD OPEN, SPARK-LINE, ASK→RESULT, OUTRO, one-terracotta, never-publish,
-GATE P, and **DOODLE-BANNED LAW** — DoodleScene/DoodleChart permanently cut
+and **DOODLE-BANNED LAW** — DoodleScene/DoodleChart permanently cut
 from this register; §8.0 checker in type_check.py enforces; validators
 enforce locks, never loosen them to pass a cut style — cited inline above,
 bind unchanged.)
@@ -328,7 +328,7 @@ the machinery; NO FABRICATION. Forbidden phrases per `voices/teardown/VOICE.md`.
 ## Build & render (reuses the vox pipeline unchanged)
 1. Emit `beat_sheet.json` in the required spine above — INTRO, PROBLEM, the CLI loop
    with ≥1 revision, SUMMARY, NEXT STEPS, OUTRO. Add `scenes.py` for Manim outputs.
-2. `python3 scripts/generate_audio.py [reel]` — Teardown-voice narration (spends).
+2. `python3 runtime/scripts/generate_audio_kokoro.py [reel]` — Teardown-voice narration (free, local).
 3. `bash scripts/vox_run.sh [reel]` — renders composer/code/brand beats, renders
    Manim outputs, leaves un-filled output beats as slates, compiles the review cut.
    (Batch D3 lane: `runtime/scripts/build_cli_d3_reels.py` does the same spine

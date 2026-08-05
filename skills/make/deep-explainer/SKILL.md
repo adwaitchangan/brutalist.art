@@ -18,7 +18,7 @@ description: >
   `is X useful for` — BUT: if the exhibits are real rendered artifacts
   with no pantry need, prefer `ai-explainer` audit mode (lighter chassis).
   Register: Teardown. Default channel claude-liam (Kokoro am_onyx, free).
-  GATE P before any audio spend. Never publishes.
+  Never publishes.
 ---
 
 # deep-explainer — the long-form Claude-bookended documentary cut
@@ -38,7 +38,7 @@ repeals a parent law; this file only adds the genre's own contracts.
   LAW (B00 is `ClaudeComposerAsk`, ask lands answered), ASK→RESULT LAW,
   ILLUSTRATE LAW, SHOW-DON'T-TELL LAW, SPARK-LINE LAW, REBUILD LAW,
   DOUBLE-CHECK LAW, FILL-THE-CANVAS, LOGO LAW, VISUAL QC LAW, HANDOFF LAW,
-  OUTRO LAW, the channels table, IN-FOR-BEAR LAW, GATE P, and
+  OUTRO LAW, the channels table, IN-FOR-BEAR LAW, and
   **DOODLE-BANNED LAW** (DoodleScene/DoodleChart permanently cut from this
   register; replace with clean Manim/Remotion; §8.0 checker enforces).
 - **Closing block** → the `your-turn` skill's three-beat standard: VERDICT
@@ -252,7 +252,7 @@ detail (beat 1) to reveal the whole plate (beat 2), pan to the consequence
 The first compile is always a **full-length watchable previz**: every vox
 beat renders as a slate (beat id + narration line + terracotta pipeline
 pointer), Manim/Remotion beats render for real (they're free), audio is real
-(post-GATE P). This is honest by design — at this genre's scale the pantry is
+(generated immediately after narration is authored). This is honest by design — at this genre's scale the pantry is
 the bottleneck, and the previz is what the human reviews for pacing while
 sourcing stills. Never present a previz as a finished cut.
 
@@ -298,8 +298,7 @@ The short version:
    episode (tool names, versions, "as of [month]"); anything the source
    itself flags as unverified either dies or is presented AS unverified.
    `FACTCHECK.md` in the reel folder. **GATE: claims hold.**
-3. **GATE P** — narration reviewed on an animated slate. Then audio
-   (Kokoro free by default; ElevenLabs only on explicit request).
+3. **Audio** — generate_audio_kokoro.py (Kokoro, free, the default). Measured mp3s become the clock.
 4. **Audio lock** — measured mp3s become the clock; align writes the word
    clock.
 5. **Gate D2** — tier-0 library pass (`pantry_search.py` per vox still; copy

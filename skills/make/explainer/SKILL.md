@@ -2,7 +2,7 @@
 name: explainer
 description: >
   Vox-style mixed-media explainer videos — a PRODUCTION COMPOSITING PIPELINE,
-  not a previz renderer. Voiceover (ElevenLabs) or a music bed is the master
+  not a previz renderer. Voiceover (Kokoro) or a music bed is the master
   clock; the film is a composite of Manim motion-graphics fragments, Ken Burns
   animation over stills (archival or FLUX/nano-banana), AI video clips
   (Higgsfield/Hailuo/Seedance), public-domain footage, and a Remotion
@@ -11,10 +11,10 @@ description: >
   (swap media/[beat].png|.mp4 by filename, rebuild recompiles only changed
   slots). Use when the user types `vox`, `vox-explainer`, `vox style`, or asks
   for a Vox-style / editorial-collage / isotype explainer. Audio-first,
-  phase-gated; generation costs are LOW and expected (FLUX/nano-banana stills,
-  ElevenLabs VO) — ask per step, then spend.
+  phase-gated; Kokoro VO is free and local — image generation costs apply
+  (FLUX/nano-banana stills, Higgsfield) — ask per step, then spend.
 metadata:
-  tags: vox, isotype, explainer, mixed-media, compositing, manim, remotion, kenburns, elevenlabs, higgsfield
+  tags: vox, isotype, explainer, mixed-media, compositing, manim, remotion, kenburns, higgsfield
 ---
 
 # vox-explainer — mixed-media editorial explainers (production pipeline)
@@ -36,11 +36,10 @@ media is EASIER here than one visual style.
 
 ## The clock
 
-1. **Voiceover films:** script → beats → ElevenLabs mp3 per beat
-   (`scripts/generate_audio.py`, Bear's voice default) → measured
+1. **Voiceover films:** script → beats → Kokoro mp3 per beat
+   (`scripts/generate_audio_kokoro.py`, free and local) → measured
    `actual_duration_s`; then `scripts/vox_align.py` (REMOTION.md) writes the
-   word clock `mp3/words.json`. GATE 0: audio lock. Credits are
-   cheap and available — ask, then generate. Runs on the user's machine.
+   word clock `mp3/words.json`. GATE 0: audio lock. Runs on the user's machine.
 2. **Music films:** librosa beat grid on the track (songbird machinery);
    downbeat-aligned segments become the beats.
 3. **Recreations:** the source's transcript timestamps are the clock (the
@@ -267,7 +266,7 @@ finished film awaiting plates, not a previz.
    labeled as such, simplifications defended or reworded. run.sh REFUSES
    to render without FACTCHECK.md (Gate F; `VOX_FACTS=0` for previz only).
    Regenerate whenever narration or viz data changes. **GATE: claims hold.**
-3. `audio` — ElevenLabs per beat, measure, lock. **GATE: hear it.**
+3. `audio` — Kokoro per beat (free, local), measure, lock. **GATE: hear it.**
 4. `run` — `bash scripts/run.sh reels/[slug]` — THE FULL MACHINE PASS,
    one command, free/local: Gate A (static check) → render every pending
    Manim scene to the measured durations → Gate B (pixel layout audit) →
@@ -321,7 +320,7 @@ SHOTLIST (old visual → assigned type), and a per-reel `scenes.py` scaffold
 that `run.sh` picks up automatically. Old Manim scenes are NOT ported —
 convert first, then let the QC gates audit only what survives. Narration is
 per-beat `keep` (reuse mp3, free) or `rewrite` (Vox-register rewrites are
-expected — regenerate only those beats with `generate_audio.py --only`).
+expected — regenerate only those beats with `generate_audio_kokoro.py --only`).
 
 ## Test fixture
 

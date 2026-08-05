@@ -30,7 +30,7 @@ MODEL FILES (one-time, ~330MB total, no account needed):
 Install:  pip install kokoro-onnx        (and ffmpeg on PATH)
 
 Usage:
-    python3 generate_audio_kokoro.py path/to/<slug>              # GATE P applies
+    python3 generate_audio_kokoro.py path/to/<slug>              # generates immediately — no gate
     python3 generate_audio_kokoro.py path/to/<slug> --dry-run
     python3 generate_audio_kokoro.py path/to/<slug> --only B03 B08
     python3 generate_audio_kokoro.py --list-voices
@@ -51,7 +51,7 @@ DEFAULT_VOICE = "am_onyx"    # Onyx — the house default (nbb / Liam-in-for-Bea
 ALLOWED_VOICES = {"am_onyx", "af_bella"}   # the only two voices in this toolkit
 
 # Math/symbol → spoken form. Applied as a safety net even if the beat sheet
-# already carries tts_normalized_text. (Inlined from the old generate_audio.py.)
+# already carries tts_normalized_text. (Inlined from the legacy generate_audio.py.)
 SYMBOLS = {
     "ψ": "psi", "Ψ": "Psi", "ℏ": "h-bar", "|ψ|²": "psi squared",
     "∫": "integral of", "→": "goes to", "≥": "greater than or equal to",
@@ -137,8 +137,6 @@ def main():
     ap.add_argument("--only", nargs="*", default=None, help="beat ids to (re)generate")
     ap.add_argument("--speed", type=float, default=1.0)
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--no-gate", action="store_true",
-                    help="skip the GATE P (PEDAGOGY VERDICT: PASS) check")
     ap.add_argument("--list-voices", action="store_true")
     ap.add_argument("--sheet", default="beat_sheet.json",
                     help="beat sheet filename to read/write (default: beat_sheet.json)")
@@ -157,12 +155,6 @@ def main():
     sheet = json.loads(sheet_path.read_text())
     md = sheet["metadata"]
     default_voice = md.get("voice_kokoro", DEFAULT_VOICE)
-
-    if not a.no_gate:
-        ped = folder / "PEDAGOGY.md"
-        if not (ped.exists() and "VERDICT: PASS" in ped.read_text()):
-            sys.exit("[kokoro] GATE P: PEDAGOGY.md with VERDICT: PASS required "
-                     "(--no-gate to override)")
 
     todo = []
     for b in sheet["beats"]:

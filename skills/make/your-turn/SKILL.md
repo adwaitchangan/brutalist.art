@@ -5,7 +5,7 @@ description: >
   a three-beat, Liam-narrated sign-off — VERDICT recap (ClaudeVerdictArtifact) →
   YOUR TURN prompt the viewer can run (ClaudeComposerAsk) → TITLE re-read
   (ClaudeTitleOutro). Adds the handoff line ("Thanks Bear, let's recap with
-  Claude." after a Bear/ElevenLabs body; "Let's recap with Claude." after a
+  Claude." after a Bear body; "Let's recap with Claude." after a
   Liam body) with a 0.5s lead pause; makes the YOUR TURN prompt RELEVANT to the
   specific video and has Liam read it in full; has Liam re-read the title on the
   outro; enlarges the verdict card and kills double-numbered recap lines. Use
@@ -31,7 +31,7 @@ voices, palette, and render all inherit from there.
 
 1. **Handoff + VERDICT** — `ClaudeVerdictArtifact`, Liam (`kokoro`/`am_onyx`).
    - 0.5s lead pause (`lead_silence_s: 0.5`), then the handoff line:
-     - **prior body beat was ElevenLabs (Bear)** → `"Thanks Bear, let's recap with Claude."`
+     - **prior body beat persona was Bear** → `"Thanks Bear, let's recap with Claude."`
      - **prior body beat was already Liam** → `"Let's recap with Claude."`
    - then the full recap narration over the card.
    - card is enlarged (see Fixes); recap lines are BARE sentences — the card
@@ -49,10 +49,10 @@ voices, palette, and render all inherit from there.
 | Persona | Engine / voice | Role |
 |---|---|---|
 | **Liam** | `kokoro` / `am_onyx` (free) | the recap voice — owns all three closing beats |
-| **Bear** | `elevenlabs` (`ELEVENLABS_VOICE_NIKBEARBROWN`) | main body narrator; the handoff thanks him by name |
+| **Bear** | `kokoro` / `am_onyx` | main body narrator; the handoff thanks him by name |
 
-The handoff wording is decided by the engine of the beat immediately before the
-verdict — `elevenlabs` → thank Bear; anything else → straight to the recap.
+The handoff wording is decided by the persona of the beat immediately before the
+verdict — persona `bear` → "Thanks Bear, let's recap with Claude."; anything else → "Let's recap with Claude."
 
 ## Auto-drafting the YOUR TURN prompt
 

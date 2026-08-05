@@ -20,7 +20,7 @@ make a video.
 |---|---|
 | deep-explainer | Multi-layered concept depth passes |
 | cli-explainer | Claude session + live code + output as vox beat |
-| nbb | NikBearBrown/Teardown register — ElevenLabs Bear voice (paid voice) |
+| nbb | NikBearBrown/Teardown register — Kokoro am_onyx voice |
 | guests | Board members, advisors, invited speakers. NO feedback beat — staff do not evaluate board members. GATE G. |
 | finance | SEC filings → 11 fixed beats, EDGAR XBRL data, two deterministic audits |
 | anthropics | The beat: repos, papers, their content, capability claims — read independently |
@@ -36,7 +36,7 @@ make a video.
 
 | Skill | Cost note |
 |---|---|
-| explainer | FLUX/nano-banana stills + ElevenLabs VO. Ask per step, then spend. |
+| explainer | FLUX/nano-banana stills + Higgsfield video. Ask per step, then spend. Kokoro VO is free. |
 
 ---
 

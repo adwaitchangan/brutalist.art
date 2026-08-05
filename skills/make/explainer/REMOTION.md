@@ -32,13 +32,13 @@ sets kicker typography, and renders the auto-credits block from sidecars.
 ## The word clock (`scripts/vox_align.py` — build first)
 
 Port of `skills/deck-lecture/scripts/align_captions.py` (itself the muzak
-lyric aligner): narration text is KNOWN — we sent it to ElevenLabs — so
+lyric aligner): narration text is KNOWN — the TTS already synthesised it — so
 faster-whisper supplies word-level TIMING and we sequence-align the known
 words onto it; missed words interpolate between anchors. Exact text, no
 drift, free, local.
 
 - Runs at audio lock (workflow step 3), immediately after
-  `generate_audio.py`. Rerun whenever any beat's mp3 regenerates.
+  `generate_audio_kokoro.py`. Rerun whenever any beat's mp3 regenerates.
 - Reads `beat_sheet.json` (narration_text + audio_file per beat), writes
   `reels/<slug>/mp3/words.json`:
 

@@ -5,7 +5,7 @@ description: >
   this be?" the right way. Use when the user types `pacing`, `length`, `duration`,
   `how long`, `too long`, `too short`, `beat count`, or asks whether a video / beat
   is the right length, or wants to stop hitting a fixed 30s/1-min target. In this
-  AUDIO-FIRST pipeline, duration is an OUTPUT (real ElevenLabs MP3 durations drive
+  AUDIO-FIRST pipeline, duration is an OUTPUT (real Kokoro MP3 durations drive
   it), so the levers are script-sizing (beats per idea) and holds (extra on-screen
   time for consolidation). Enforces a per-content-type consolidation floor, rejects
   padding, recommends inter-beat holds, and lets total runtime fall where the
@@ -24,7 +24,7 @@ compresses (destroying integration) or pads (adding extraneous load).
 ## The audio-first reality (read this first — it changes everything)
 
 This pipeline is **audio-first**: each beat's runtime is the real duration of its
-ElevenLabs narration (`mp3/timings.json`), and the animation is timed to it. So you do
+Kokoro narration (`mp3/timings.json`), and the animation is timed to it. So you do
 **not** "assign 15 seconds" to a beat. Your two real levers are:
 
 1. **Script-sizing** — how many sentences/beats an idea gets. One sentence = one beat

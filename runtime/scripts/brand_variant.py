@@ -117,8 +117,7 @@ def main():
             "see skills/make/nbb/SKILL.md §Step 3)",
             f"add/replace outro with NikBearBrown outro from {meta['outro_source']} (LAST beat)",
             "verify ending order: body → [LLM exercise] → [outro]",
-            "GATE P before audio — then build: generate_audio_kokoro.py (voice am_onyx) "
-            "→ palette=teardown → compile",
+            "build: generate_audio_kokoro.py (voice am_onyx) → palette=teardown → compile",
         ]
     else:
         meta["_variant_todo"] = [

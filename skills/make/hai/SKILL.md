@@ -70,8 +70,6 @@ the source dir. No API calls, no spend.
 }
 ```
 
-ElevenLabs override: set `metadata.engine: "elevenlabs"` — `voice_id` from
-`ELEVENLABS_VOICE_HUMANITARIANS` is already written into the sheet.
 
 ### Step 2 — Rewrite the register (Pragmatist)
 
@@ -184,11 +182,8 @@ Then perform Steps 2–6 for each resulting `hai-` directory.
 From the `hai-` directory, build is audience-namespaced:
 
 ```bash
-# Audio (Kokoro default)
-python3 runtime/scripts/generate_audio_kokoro.py [hai-dir]/beat_sheet.hai.json
-
-# Audio (ElevenLabs override — set engine:"elevenlabs" first)
-python3 runtime/scripts/generate_audio.py [hai-dir]/beat_sheet.hai.json
+# Audio (Kokoro af_bella — free and local)
+python3 runtime/scripts/generate_audio_kokoro.py [hai-dir]
 
 # Lectures: deck + render from the copied build scripts
 python3 [hai-dir]/build_deck.py
@@ -198,7 +193,6 @@ python3 [hai-dir]/render.py
 python3 runtime/scripts/compile.py [hai-dir] --height 1080
 ```
 
-GATE P applies: a `PEDAGOGY.md` pass before any spend.
 
 ---
 
@@ -249,7 +243,6 @@ background, not as a watermark or badge.
 ## Standing rules
 
 - Source files (`beat_sheet.json`, build scripts, media) are **never modified**.
-- GATE P applies before any audio spend.
 - `metadata.channel_title: "@HumanitariansAI"` is required in every HAI beat sheet
   (see above — compile.py enforces the first-beat overlay automatically).
 - HAI Fellows take the slate cut and refine it further with Claude Code — the

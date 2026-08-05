@@ -38,7 +38,7 @@ brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fell
 |---|---|
 | `deep-explainer` | Multi-layered concept depth passes on the ai-explainer chassis (~20–25% vox body beats) |
 | `cli-explainer` | Claude session + live code + output as a moving vox beat |
-| `nbb` | NikBearBrown/Teardown register — uses ElevenLabs Bear voice (paid; requires ELEVENLABS_API_KEY) |
+| `nbb` | NikBearBrown/Teardown register — Kokoro am_onyx voice (free, local) |
 
 ---
 
@@ -48,7 +48,7 @@ brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fell
 
 | Skill | Cost note |
 |---|---|
-| `explainer` | FLUX/nano-banana stills + ElevenLabs VO. Ask per step before any spend. |
+| `explainer` | FLUX/nano-banana stills + Higgsfield video. Ask per step, then spend. Kokoro VO is free. |
 
 ---
 
@@ -62,12 +62,11 @@ Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). 
 
 1. **Read the whole SKILL.md before building.** Every skill under `skills/make/` has a `SKILL.md` — it is doctrine, not a README. Read it completely.
 2. **Audio-first.** Narration MP3s are generated and measured first (`runtime/scripts/generate_audio_kokoro.py`); their durations are the master clock. Never fix timing by hand — regenerate audio, recompile.
-3. **GATE P binds.** A human signs `PEDAGOGY.md` ("VERDICT: PASS") before audio is generated. It is a quality gate, not a cost gate — audio here is free.
-4. **Videos travel with their book.** Build into `<book>/youtube/<slug>/`, never into this toolkit folder. `examples/` holds study copies only.
-5. **Verify renders by LOOKING at frames** (`_qc/` + qc-sheet), never by the mp4 probe alone. Render Remotion only via `runtime/scripts/remotion_scenes.py` (foreground) — never hand-roll `npx remotion render`.
-6. **Never publish.** There is no publishing machinery here; the master stays in the reel folder.
-7. **No money, ever (Fellow Tier).** If any step in the Fellow Tier appears to require a key or a paid service, stop — that is a bug in this toolkit, not a missing credential. The full-fat toolkit (paid voices, publishing, all 45+ skills) is `brutalist-art/` in the parent repo.
-8. **Tier discipline.** ADVANCED skills require Bear's sign-off. PAID skills require explicit spend approval before every paid API call. Never escalate a fellow into the PAID tier by default.
+3. **Videos travel with their book.** Build into `<book>/youtube/<slug>/`, never into this toolkit folder. `examples/` holds study copies only.
+4. **Verify renders by LOOKING at frames** (`_qc/` + qc-sheet), never by the mp4 probe alone. Render Remotion only via `runtime/scripts/remotion_scenes.py` (foreground) — never hand-roll `npx remotion render`.
+5. **Never publish.** There is no publishing machinery here; the master stays in the reel folder.
+6. **No money, ever (Fellow Tier).** If any step in the Fellow Tier appears to require a key or a paid service, stop — that is a bug in this toolkit, not a missing credential. The full-fat toolkit (paid voices, publishing, all 45+ skills) is `brutalist-art/` in the parent repo.
+7. **Tier discipline.** ADVANCED skills require Bear's sign-off. PAID skills require explicit spend approval before every paid API call. Never escalate a fellow into the PAID tier by default.
 
 ## Skill reference
 

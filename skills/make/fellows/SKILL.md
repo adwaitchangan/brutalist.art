@@ -137,7 +137,7 @@ face mid-sentence.
 ## Laws — inherited, plus three of this skill's own
 
 All ai-explainer house laws bind (LOGO, SHOW-DON'T-TELL, FILL-THE-CANVAS,
-DOUBLE-CHECK, VISUAL QC, SPARK-LINE, COLD OPEN, ASK→RESULT, HANDOFF, GATE P,
+DOUBLE-CHECK, VISUAL QC, SPARK-LINE, COLD OPEN, ASK→RESULT, HANDOFF,
 never-publish). The fellows-specific law set:
 
 - **THE REPORT IS THE CLOCK (the one exception to audio-first).** Everywhere
@@ -171,8 +171,7 @@ never-publish). The fellows-specific law set:
   register, as a starting point — but the notes beats never go to audio until
   Bear has edited or signed `NOTES.md`. The selected narrator reads them AS Bear's notes
   ("Professor Bear's notes—"), so shipping an unsigned draft is
-  impersonation, not a shortcut. GATE N sits beside GATE P in the build
-  prompt and is logged in BUILD-LOG.md.
+  impersonation, not a shortcut. GATE N is logged in BUILD-LOG.md.
 - **HONESTY (people-sharpened, from the profile modifier).** Only claims the
   fellow's own report makes — never invent an accomplishment, metric, quote,
   credential, or link. Soft attributions stay soft. Log the source video
@@ -188,9 +187,8 @@ never-publish). The fellows-specific law set:
    `voice: "[fellow-persistent-kokoro-id]"`, `voice_policy:
    "persistent-fellow-selected"`, `voice_approval: "APPROVED | PENDING"`,
    `register: "Teardown-warm"`.
-3. **GATE N** — Bear signs `NOTES.md`. (GATE P too if ElevenLabs was
-   requested; the Kokoro default spends nothing.)
-4. **Audio**: `python3 runtime/scripts/generate_audio.py [reel]` — narration
+3. **GATE N** — Bear signs `NOTES.md`.
+4. **Audio**: `python3 runtime/scripts/generate_audio_kokoro.py [reel]` — narration
    beats only; B04 is pass-through.
 5. **Transcode the report** into `media/B04.mp4` (letterboxed, own audio) —
    applying SOUND REPAIR here if the report's audio needs it (loudnorm always;

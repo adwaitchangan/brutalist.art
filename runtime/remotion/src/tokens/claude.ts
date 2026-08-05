@@ -9,8 +9,8 @@
 // summoned /skill token, the single focal moment). Everything else is warm
 // ink on cream. Same "accent is earned" law as teardown — different hue.
 //
-// Voice pairing: ElevenLabs ELEVENLABS_VOICE_NIKBEARBROWN (Bear's clone) —
-// the claude brand is an ElevenLabs brand like nbb, never Kokoro.
+// Voice pairing: Kokoro am_onyx (Bear / Liam) — free, local, the default
+// for all claude-brand channels.
 
 export const CLAUDE = {
   PAGE: '#FAF9F5',        // ground — the app's cream, never pure white

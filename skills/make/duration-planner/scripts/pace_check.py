@@ -3,7 +3,7 @@
 pace_check.py — pacing check for a beat sheet (audio-first).
 
 Duration in this pipeline is an OUTPUT: each beat runs for the length of its real
-ElevenLabs narration (mp3/timings.json). This tool reads those real durations and, per
+Kokoro narration (mp3/timings.json). This tool reads those real durations and, per
 beat, checks them against a per-content_type *consolidation floor* (the minimum
 on-screen time for working memory to register and start integrating the new element).
 
