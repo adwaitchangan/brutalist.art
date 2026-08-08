@@ -15,3 +15,17 @@ _qc/
 # editor / script backups
 *.bak
 *.bak-*
+
+# abandoned agent worktree (a full copy of this repo — never a commit)
+.claude/worktrees/
+
+# stale git index.lock files: this tree is sometimes reached over a mount that
+# refuses unlink(), so git cannot clean up its own lock and every later write
+# fails with "Unable to create index.lock". Move the lock here, don't commit it.
+_stale_git_locks/
+
+# strip_spark.py's pre-strip safety copy — reversibility scaffolding, not source
+runtime/remotion/.spark-strip-backup/
+
+# pre-edit safety copies
+*.pre-spec-fix

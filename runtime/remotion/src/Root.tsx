@@ -660,6 +660,22 @@ import {
   DtlChipGrid,  dtlChipGridSchema,
   DtlLayerStack, dtlLayerStackSchema,
 } from './DashboardThatLied';
+// ── finance skill — four chart shapes (SKILL.md §Shape logic, locked) ──
+import {FinanceSankey,      financeSankeySchema}      from './scenes/FinanceSankey';
+import {FinanceMirroredBar, financeMirroredBarSchema} from './scenes/FinanceMirroredBar';
+import {FinanceStackedBar,  financeStackedBarSchema}  from './scenes/FinanceStackedBar';
+import {FinanceDotPlot,     financeDotPlotSchema}     from './scenes/FinanceDotPlot';
+// ── fashionista modifier — photo-critique beat components ──
+import {LookPlate,      lookPlateSchema}      from './scenes/LookPlate';
+import {LookPlate916,   lookPlate916Schema}   from './scenes/LookPlate916';
+import {ContactSheet,   contactSheetSchema}   from './scenes/ContactSheet';
+import {ContactSheet916,contactSheet916Schema}from './scenes/ContactSheet916';
+import {GitHubRepoHero,    gitHubRepoHeroSchema}    from './scenes/GitHubRepoHero';
+import {GitHubCodeViewer,  gitHubCodeViewerSchema}  from './scenes/GitHubCodeViewer';
+import {GitHubCodeDiff,    gitHubCodeDiffSchema}    from './scenes/GitHubCodeDiff';
+import {GitHubCallChain,   gitHubCallChainSchema}   from './scenes/GitHubCallChain';
+import {GitHubChurn,       gitHubChurnSchema}       from './scenes/GitHubChurn';
+import {BadgeReveal}                               from './scenes/BadgeReveal';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -3615,6 +3631,246 @@ export const RemotionRoot: React.FC = () => {
           })} />
       </Folder>
 
+      {/* ── finance skill — four chart shapes (SKILL.md §Shape logic, locked) ── */}
+      <Folder name="Finance-Charts">
+        {/* B04 / B05 — Flow → Sankey. Income statement or cash flow. */}
+        <Composition
+          id="FinanceSankey"
+          component={FinanceSankey}
+          durationInFrames={480}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={financeSankeySchema}
+          defaultProps={financeSankeySchema.parse({
+            title: 'NVDA FY2026 — Income Statement',
+            subtitle: 'Revenue to Net Income',
+            statement: 'income' as const,
+            nodes: [
+              { id: 'rev',    label: 'Revenue',          value: 215.9, column: 0, color: 'total'   as const },
+              { id: 'cogs',   label: 'Cost of Revenue',  value: 62.5,  column: 1, color: 'outflow' as const },
+              { id: 'gp',     label: 'Gross Profit',     value: 153.5, column: 1, color: 'inflow'  as const },
+              { id: 'opex',   label: 'Operating Exp.',   value: 23.1,  column: 2, color: 'outflow' as const },
+              { id: 'ebit',   label: 'Operating Income', value: 130.4, column: 2, color: 'inflow'  as const },
+              { id: 'taxoth', label: 'Tax & Other',      value: 10.3,  column: 3, color: 'outflow' as const },
+              { id: 'ni',     label: 'Net Income',       value: 120.1, column: 3, color: 'inflow'  as const },
+            ],
+            links: [
+              { source: 'rev',  target: 'cogs',   value: 62.5,  color: 'outflow' as const, estimate: false },
+              { source: 'rev',  target: 'gp',     value: 153.5, color: 'inflow'  as const, estimate: false },
+              { source: 'gp',   target: 'opex',   value: 23.1,  color: 'outflow' as const, estimate: false },
+              { source: 'gp',   target: 'ebit',   value: 130.4, color: 'inflow'  as const, estimate: false },
+              { source: 'ebit', target: 'taxoth', value: 10.3,  color: 'outflow' as const, estimate: false },
+              { source: 'ebit', target: 'ni',     value: 120.1, color: 'inflow'  as const, estimate: false },
+            ],
+            unit:      '$B',
+            source:    'NVDA 10-K FY2026, SEC EDGAR XBRL',
+            sparkLine: '71.1% gross margin. 55.6% net.',
+          })}
+        />
+        {/* B06 — Snapshot → mirrored bar. Balance sheet. NEVER a Sankey. */}
+        <Composition
+          id="FinanceMirroredBar"
+          component={FinanceMirroredBar}
+          durationInFrames={480}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={financeMirroredBarSchema}
+          defaultProps={financeMirroredBarSchema.parse({
+            title:      'NVDA FY2026 — Balance Sheet',
+            subtitle:   'Period ending 2026-01-25',
+            leftLabel:  'Assets',
+            rightLabel: 'Liabilities & Equity',
+            leftItems: [
+              { label: 'Current Assets',     pct: 42.1, value: '$87.1B', color: 'inflow'  as const, estimate: false, isSubtotal: false },
+              { label: 'Non-Current Assets', pct: 57.9, value: '$119.7B',color: 'other'   as const, estimate: false, isSubtotal: false },
+            ],
+            rightItems: [
+              { label: 'Current Liabilities',   pct: 12.1, value: '$25.0B', color: 'outflow' as const, estimate: false, isSubtotal: false },
+              { label: 'Long-term Liabilities', pct: 11.8, value: '$24.5B', color: 'outflow' as const, estimate: false, isSubtotal: false },
+              { label: 'Shareholders Equity',   pct: 76.1, value: '$157.3B',color: 'inflow'  as const, estimate: false, isSubtotal: true  },
+            ],
+            totalValue: '$206.8B',
+            source:     'NVDA 10-K FY2026, SEC EDGAR XBRL',
+            sparkLine:  'Equity-to-assets 76%. Net cash position.',
+          })}
+        />
+        {/* B07 — Composition × time → stacked bar. Segments. */}
+        <Composition
+          id="FinanceStackedBar"
+          component={FinanceStackedBar}
+          durationInFrames={480}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={financeStackedBarSchema}
+          defaultProps={financeStackedBarSchema.parse({
+            title:    'NVDA — Revenue by Segment',
+            subtitle: 'FY2024–FY2026',
+            periods:  ['FY2024', 'FY2025', 'FY2026'],
+            segments: [
+              { label: 'Data Center',              color: 'inflow'  as const, values: [47.5,  115.2, 187.0], estimates: [false, false, false] },
+              { label: 'Gaming',                   color: 'outflow' as const, values: [10.4,   11.3,  11.0], estimates: [false, false, false] },
+              { label: 'Professional Visualization',color: 'other'  as const, values: [1.6,    1.9,   4.5],  estimates: [false, false, false] },
+              { label: 'Automotive',               color: 'total'   as const, values: [1.1,    1.7,   5.0],  estimates: [false, false, false] },
+              { label: 'OEM & Other',              color: 'subject' as const, values: [0.4,    0.4,   8.5],  estimates: [false, false, true  ] },
+            ],
+            unit:      '$B',
+            normalize: false,
+            source:    'NVDA 10-K FY2026, SEC EDGAR XBRL',
+            sparkLine: 'Data Center: 87% of FY2026 revenue.',
+          })}
+        />
+        {/* B08 — Distribution → dot-plot. Sector comparator. Subject lands wherever it lands. */}
+        <Composition
+          id="FinanceDotPlot"
+          component={FinanceDotPlot}
+          durationInFrames={480}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={financeDotPlotSchema}
+          defaultProps={financeDotPlotSchema.parse({
+            title:    'Gross Margin — Semiconductor Sector',
+            subtitle: 'SIC 3674 — NVDA vs. peers (revenue ≥ 10% of NVDA)',
+            metric:   'Gross Margin (%)',
+            subject:  'NVDA',
+            companies: [
+              { ticker: 'INTC', name: 'Intel Corp.',         value: 34.8, estimate: false },
+              { ticker: 'MU',   name: 'Micron Technology',   value: 39.8, estimate: false },
+              { ticker: 'AMAT', name: 'Applied Materials',   value: 48.7, estimate: false },
+              { ticker: 'AMD',  name: 'Advanced Micro Devices', value: 49.5, estimate: false },
+              { ticker: 'AVGO', name: 'Broadcom Inc.',        value: 67.8, estimate: false },
+              { ticker: 'NVDA', name: 'NVIDIA Corp.',         value: 71.1, estimate: false },
+            ],
+            source:    'SEC EDGAR XBRL frames API, SIC 3674. Corrected even-count median.',
+            sparkLine: 'NVDA ranks #1 of 6. Median 49.1%. +22.0pp above sector.',
+          })}
+        />
+      </Folder>
+      {/* ── fashionista modifier — photo-critique beat components ── */}
+      <Folder name="Fashionista">
+        <Composition
+          id="LookPlate"
+          component={LookPlate}
+          durationInFrames={600}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={lookPlateSchema}
+          defaultProps={lookPlateSchema.parse({
+            imagePath: 'fashionista/2026-08-03/B03.png',
+            lookName: 'The Front',
+            lookNumber: 3,
+            dateFolder: '2026-08-03',
+            generatedModel: 'Higgsfield Soul ID',
+            lens: 'silhouette',
+            rendered: ['Clean vertical center seam, even hem'],
+            reference: ['Sherwani — South Asian formal wear, Mughal-era origins'],
+            call: 'The silhouette reads intentional front-to-back.',
+            notDeterminable: ['fibre content', 'construction quality', 'how this hangs on Bear\'s actual proportions'],
+            sparkLine: '',
+          })}
+        />
+        <Composition
+          id="LookPlate916"
+          component={LookPlate916}
+          durationInFrames={600}
+          fps={30}
+          width={1080}
+          height={1920}
+          schema={lookPlate916Schema}
+          defaultProps={lookPlate916Schema.parse({
+            imagePath: 'fashionista/2026-08-03/B03.png',
+            lookName: 'The Front',
+            lookNumber: 3,
+            dateFolder: '2026-08-03',
+            generatedModel: 'Higgsfield Soul ID',
+            lens: 'silhouette',
+            rendered: ['Clean vertical center seam, even hem'],
+            reference: ['Sherwani — South Asian formal wear, Mughal-era origins'],
+            call: 'The silhouette reads intentional front-to-back.',
+            notDeterminable: ['fibre content', 'construction quality', 'how this hangs on Bear\'s actual proportions'],
+            sparkLine: '',
+          })}
+        />
+        <Composition
+          id="ContactSheet"
+          component={ContactSheet}
+          durationInFrames={480}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={contactSheetSchema}
+          defaultProps={{
+            dateFolder: '2026-08-03',
+            lens: 'silhouette',
+            looks: [
+              { name: 'The Front',   imagePath: 'fashionista/2026-08-03/B03.png' },
+              { name: 'The Profile', imagePath: 'fashionista/2026-08-03/B04.png' },
+              { name: 'The Back',    imagePath: 'fashionista/2026-08-03/B05.png' },
+              { name: 'The Hem',     imagePath: 'fashionista/2026-08-03/B07.png' },
+            ],
+            sparkLine: 'One garment. Five views.',
+          }}
+        />
+        <Composition
+          id="ContactSheet916"
+          component={ContactSheet916}
+          durationInFrames={480}
+          fps={30}
+          width={1080}
+          height={1920}
+          schema={contactSheet916Schema}
+          defaultProps={{
+            dateFolder: '2026-08-03',
+            lens: 'silhouette',
+            looks: [
+              { name: 'The Front',   imagePath: 'fashionista/2026-08-03/B03.png' },
+              { name: 'The Profile', imagePath: 'fashionista/2026-08-03/B04.png' },
+              { name: 'The Back',    imagePath: 'fashionista/2026-08-03/B05.png' },
+              { name: 'The Hem',     imagePath: 'fashionista/2026-08-03/B07.png' },
+            ],
+            sparkLine: 'One garment. Five views.',
+          }}
+        />
+      </Folder>
+      <Folder name="GitHub-Scenes">
+        <Composition id="GitHubRepoHero" component={GitHubRepoHero}
+          durationInFrames={240} fps={30} width={1920} height={1080}
+          schema={gitHubRepoHeroSchema} defaultProps={gitHubRepoHeroSchema.parse({})} />
+        <Composition id="GitHubCodeViewer" component={GitHubCodeViewer}
+          durationInFrames={300} fps={30} width={1920} height={1080}
+          schema={gitHubCodeViewerSchema} defaultProps={gitHubCodeViewerSchema.parse({})} />
+        <Composition id="GitHubCodeDiff" component={GitHubCodeDiff}
+          durationInFrames={300} fps={30} width={1920} height={1080}
+          schema={gitHubCodeDiffSchema} defaultProps={gitHubCodeDiffSchema.parse({})} />
+        <Composition id="GitHubCallChain" component={GitHubCallChain}
+          durationInFrames={300} fps={30} width={1920} height={1080}
+          schema={gitHubCallChainSchema} defaultProps={gitHubCallChainSchema.parse({})} />
+        <Composition id="GitHubChurn" component={GitHubChurn}
+          durationInFrames={300} fps={30} width={1920} height={1080}
+          schema={gitHubChurnSchema} defaultProps={gitHubChurnSchema.parse({})} />
+      </Folder>
+      <Composition
+        id="badge-reveal"
+        component={BadgeReveal}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          letter: 'M',
+          fontFamily: '"EB Garamond", Georgia, serif',
+          badgeColors: ['#F7A8C4', '#E8639B', '#C0417E'],
+          gradientAngle: 135,
+          markColor: '#FFFFFF',
+          ground: '#F6F1F3',
+          wordmark: '',
+          badgeScale: 0.5,
+        }}
+      />
     </>
   );
 };

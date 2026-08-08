@@ -113,6 +113,21 @@ if [ "$ART_QC" = "1" ] && [ -f "$QC/beat_lint.py" ] && [ -f "$REEL_DIR/beat_shee
   fi
 fi
 
+# ---- GATE SHAPE: finance reels must declare a chart-shape on every Manim beat
+# SKILL.md §Shape logic is locked — a bar chart where the spec calls for a Sankey
+# is the failure mode, not a style note. Gate runs whether or not scenes are pending.
+if [ "$ART_QC" = "1" ] && [ -f "$QC/gate_shape.py" ] && [ -f "$REEL_DIR/beat_sheet.json" ]; then
+  echo "[run] GATE SHAPE — finance chart-shape enforcement"
+  rc=0
+  python3 "$QC/gate_shape.py" "$REEL_DIR/beat_sheet.json" || rc=$?
+  if [ "$rc" -ge 2 ]; then
+    echo "[run] GATE SHAPE FAILED: finance beat(s) missing or wrong chart shape."
+    echo "[run] See SKILL.md §Shape logic — sankey/mirrored-bar/stacked-bar/dot-plot."
+    echo "[run] Add 'shape' to each finance beat before any render."
+    exit 2
+  fi
+fi
+
 # ---- GATE A: render-free pre-flight on every pending scene (isolated copy)
 if [ "$ART_QC" = "1" ] && [ -n "$PENDING" ] && [ -f "$QC/static_scene_check.py" ]; then
   echo "[run] GATE A — static pre-flight"
