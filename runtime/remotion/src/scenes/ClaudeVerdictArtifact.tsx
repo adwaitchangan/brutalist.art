@@ -35,16 +35,6 @@ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 // the component owns the numbering, so authored digits would double-render.
 const stripLeadNum = (s: string) => s.replace(/^\s*\d+\s*[.)\-–—:]\s*/, '');
 
-const Spark: React.FC<{ size?: number }> = ({ size = 30 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 export const ClaudeVerdictArtifact: React.FC<ClaudeVerdictArtifactProps> = ({
   artifactTitle, artifactHeading, artifactLines,
@@ -77,7 +67,6 @@ export const ClaudeVerdictArtifact: React.FC<ClaudeVerdictArtifactProps> = ({
           background: CLAUDE.PAGE, borderBottom: `1px solid ${CLAUDE.BORDER}`,
           padding: '22px 40px', display: 'flex', alignItems: 'center', gap: 16,
         }}>
-          <Spark size={30} />
           <span style={{ fontFamily: SERIF, fontSize: 30, color: CLAUDE.INK, fontWeight: 600 }}>
             {artifactTitle}
           </span>

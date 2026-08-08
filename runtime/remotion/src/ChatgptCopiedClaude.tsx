@@ -44,14 +44,6 @@ const SlateBeat: React.FC<{
       <div style={{ position: 'absolute', bottom: '6%', left: 0, right: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         gap: 10, opacity: cl(sparkIn, 0, 1) }}>
-        <svg width={18} height={18} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-          {Array.from({ length: 8 }, (_, i) => (
-            <line key={i} x1={12} y1={12}
-              x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-              y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-              stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-          ))}
-        </svg>
         <span style={{ fontFamily: SERIF, fontSize: 22, fontStyle: 'italic', color: '#F3EBDD' }}>
           {sparkLine}
         </span>

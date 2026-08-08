@@ -45,19 +45,6 @@ export const claudeComposerAskSchema = z.object({
 });
 export type ClaudeComposerAskProps = z.infer<typeof claudeComposerAskSchema>;
 
-const Spark: React.FC<{size: number}> = ({size}) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{display: 'block'}}>
-    {Array.from({length: 8}, (_, i) => (
-      <line
-        key={i}
-        x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round"
-      />
-    ))}
-  </svg>
-);
 
 export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
   command, topic, segment, greeting, runningText, output, folderLabel,
@@ -154,7 +141,6 @@ export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
       }}>
         {greeting !== '' ? (
           <>
-            <Spark size={height * 0.042} />
             <span style={{
               fontFamily: CLAUDE_FONT.serif,
               fontSize: height * 0.05,
@@ -165,9 +151,7 @@ export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
               {greeting}
             </span>
           </>
-        ) : (
-          <Spark size={height * 0.045} />
-        )}
+        ) : null}
       </div>
 
       {/* Composer card */}

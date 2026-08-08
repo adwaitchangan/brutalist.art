@@ -26,16 +26,7 @@ const W = 1280, H = 720;
 const MID = W / 2;
 const PANEL_TOP = 150, PANEL_H = 380;
 
-const Spark: React.FC = () => (
-  <svg width={26} height={26} viewBox="0 0 24 24">
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
+const Spark: React.FC = () => null;
 
 // Generates SVG wave path points for a sine-like waveform
 function wavePoints(cx: number, cy: number, w: number, h: number, phase: number, bars = 8): string {
@@ -68,7 +59,6 @@ export const MusiniqueHearingLimit: React.FC<MusiniqueHearingLimitProps> = ({ sp
     <AbsoluteFill style={{ background: '#F2F0E9', fontFamily: SANS }}>
       {/* SparkLine */}
       <div style={{ position: 'absolute', top: 44, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, opacity: sparkO }}>
-        <Spark />
         <div style={{ fontFamily: SERIF, fontSize: 40, color: CLAUDE.INK }}>{sparkLine}</div>
       </div>
 

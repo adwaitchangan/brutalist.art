@@ -23,16 +23,6 @@ const MONO = CLAUDE_FONT.mono;
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 // Human silhouette SVG for the human-gate nodes
 const HumanIcon: React.FC<{ size?: number; color?: string }> = ({ size = 32, color = '#FFFFFF' }) => (
@@ -44,13 +34,8 @@ const HumanIcon: React.FC<{ size?: number; color?: string }> = ({ size = 32, col
 
 // Machine icon (Claude spark)
 const MachineIcon: React.FC<{ size?: number; color?: string }> = ({ size = 32, color = CLAUDE.INK_SOFT }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'block' }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 9 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 9 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={color} strokeWidth={2.8} strokeLinecap="round" />
-    ))}
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={{ display: 'block' }}>
+    <polygon points="12,3 14.5,9.5 21,12 14.5,14.5 12,21 9.5,14.5 3,12 9.5,9.5" fill={color} opacity={0.9} />
   </svg>
 );
 
@@ -284,7 +269,6 @@ export const ThemeFactoryConsentGate: React.FC<ThemeFactoryConsentGateProps> = (
         opacity: clamp(sparkIn, 0, 1),
         transform: `translateY(${(1 - clamp(sparkIn, 0, 1)) * 8}px)`,
       }}>
-        <Spark size={22} />
         <span style={{ fontFamily: SERIF, fontSize: 24, fontStyle: 'italic', color: CLAUDE.INK }}>
           {sparkLine}
         </span>

@@ -23,16 +23,7 @@ const remap = (x: number, x0: number, x1: number, y0: number, y1: number) =>
   y0 + (y1 - y0) * clamp((x - x0) / (x1 - x0 || 1), 0, 1);
 const ease = (t: number) => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
 
-const Spark: React.FC = () => (
-  <svg width={26} height={26} viewBox="0 0 24 24">
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
+const Spark: React.FC = () => null;
 
 const LANES = [
   {
@@ -97,7 +88,6 @@ export const MusiniqueLanes: React.FC<MusiniqueLanesProps> = ({ sparkLine }) => 
     <AbsoluteFill style={{ background: '#F2F0E9', fontFamily: SANS }}>
       {/* SparkLine */}
       <div style={{ position: 'absolute', top: 44, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, opacity: sparkO }}>
-        <Spark />
         <div style={{ fontFamily: SERIF, fontSize: 40, color: CLAUDE.INK }}>{sparkLine}</div>
       </div>
 

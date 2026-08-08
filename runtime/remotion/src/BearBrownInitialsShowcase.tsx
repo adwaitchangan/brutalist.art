@@ -150,16 +150,6 @@ const DrawOnMark: React.FC<{
 };
 
 // Spark icon
-const SparkIcon: React.FC<{ size?: number; color?: string }> = ({ size = 18, color = SPARK }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'block', flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={color} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 // Reusable technique beat shell: cream bg + technique label + spark line
 interface TechniqueBeatProps {
@@ -238,7 +228,6 @@ const TechniqueBeat: React.FC<TechniqueBeatProps> = ({ label, sparkLine, childre
         gap: 10,
         opacity: clamp(sparkIn, 0, 1),
       }}>
-        <SparkIcon size={18} />
         <span style={{
           fontFamily: SERIF,
           fontSize: 26,
@@ -460,7 +449,6 @@ const ColorInterpolation: React.FC = () => {
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         opacity: clamp(spring({ frame: frame - 12, fps, config: { damping: 28, stiffness: 120, mass: 0.9 } }), 0, 1),
       }}>
-        <SparkIcon size={18} color={fillColor} />
         <span style={{ fontFamily: SERIF, fontSize: 26, fontStyle: 'italic', color: INK }}>
           Signal, or noise?
         </span>
@@ -527,7 +515,6 @@ const KineticGrid: React.FC = () => {
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         opacity: clamp(spring({ frame: frame - 12, fps, config: { damping: 28, stiffness: 120, mass: 0.9 } }), 0, 1),
       }}>
-        <SparkIcon size={18} />
         <span style={{
           fontFamily: SERIF, fontSize: 24, fontStyle: 'italic', color: INK,
           background: `${PAGE}E8`, padding: '2px 12px', borderRadius: 3,
@@ -816,14 +803,6 @@ const ComposerSummon: React.FC = () => {
           width: 60, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center',
           opacity: sparkBurst, transform: `scale(${1 + sparkBurst * 0.8})`,
         }}>
-          <svg width={60} height={60} viewBox="0 0 24 24">
-            {Array.from({ length: 12 }, (_, i) => (
-              <line key={i} x1={12} y1={12}
-                x2={12 + 11 * Math.cos((i * Math.PI) / 6)}
-                y2={12 + 11 * Math.sin((i * Math.PI) / 6)}
-                stroke={SPARK} strokeWidth={2.8} strokeLinecap="round" />
-            ))}
-          </svg>
         </div>
       )}
 
@@ -843,7 +822,6 @@ const ComposerSummon: React.FC = () => {
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         opacity: clamp(markS * 0.8, 0, 1),
       }}>
-        <SparkIcon size={18} />
         <span style={{ fontFamily: SERIF, fontSize: 26, fontStyle: 'italic', color: INK }}>
           The interface is the origin.
         </span>
@@ -1002,7 +980,6 @@ const ExitFamily: React.FC = () => {
         position: 'absolute', bottom: '4%', left: 0, right: 0,
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
       }}>
-        <SparkIcon size={18} />
         <span style={{ fontFamily: SERIF, fontSize: 24, fontStyle: 'italic', color: INK }}>
           Exits are underrated.
         </span>

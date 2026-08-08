@@ -22,16 +22,6 @@ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 const PHASE_SWITCH = 120;
 
-const Spark: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 type Verdict = 'NEVER' | 'AI_GEN' | 'AI_SUB' | 'HUMAN_PREF' | 'HUMAN_REQ';
 
@@ -257,7 +247,6 @@ export const K12Fig11SubLedger: React.FC<K12Fig11SubLedgerProps> = ({ sparkLine 
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         opacity: clamp(sparkIn, 0, 1),
       }}>
-        <Spark size={height * 0.022} />
         <span style={{ fontFamily: SERIF, fontSize: height * 0.022, fontStyle: 'italic', color: '#1A1A18' }}>
           {sparkLine}
         </span>

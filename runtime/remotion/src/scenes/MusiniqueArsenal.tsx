@@ -34,16 +34,7 @@ const CRATES = [
 const CRATE_W = 160, CRATE_H = 100;
 const CASE_X = 140, CASE_Y = 250, CASE_W = 1000, CASE_H = 160;
 
-const Spark: React.FC = () => (
-  <svg width={26} height={26} viewBox="0 0 24 24">
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
+const Spark: React.FC = () => null;
 
 export const MusiniqueArsenal: React.FC<MusiniqueArsenalProps> = ({ sparkLine }) => {
   const frame = useCurrentFrame();
@@ -60,7 +51,6 @@ export const MusiniqueArsenal: React.FC<MusiniqueArsenalProps> = ({ sparkLine })
     <AbsoluteFill style={{ background: '#F2F0E9', fontFamily: SANS }}>
       {/* SparkLine */}
       <div style={{ position: 'absolute', top: 44, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, opacity: sparkO }}>
-        <Spark />
         <div style={{ fontFamily: SERIF, fontSize: 40, color: CLAUDE.INK }}>{sparkLine}</div>
       </div>
 

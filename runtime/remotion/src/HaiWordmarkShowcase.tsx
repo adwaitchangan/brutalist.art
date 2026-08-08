@@ -63,16 +63,6 @@ const iclamp = (v: number, i: [number,number], o: [number,number]) =>
   clamp(interpolate(v, i, o), Math.min(o[0], o[1]), Math.max(o[0], o[1]));
 
 // Spark SVG icon
-const SparkIcon: React.FC<{ size: number; color?: string }> = ({ size, color = SPARK }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ display: 'block', flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={color} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 // Technique label overlay — segment title + subline
 const TechLabel: React.FC<{ name: string; sub?: string; progress?: number }> = ({

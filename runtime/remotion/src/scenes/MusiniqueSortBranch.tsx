@@ -34,16 +34,7 @@ const ROUTES = [
   { x: CX + 420, label: 'CODE', detail: 'a system I\'ll run forever', tone: CLAUDE.INK_SOFT },
 ];
 
-const Spark: React.FC = () => (
-  <svg width={26} height={26} viewBox="0 0 24 24">
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
+const Spark: React.FC = () => null;
 
 export const MusiniqueSortBranch: React.FC<MusiniqueSortBranchProps> = ({ sparkLine }) => {
   const frame = useCurrentFrame();
@@ -60,7 +51,6 @@ export const MusiniqueSortBranch: React.FC<MusiniqueSortBranchProps> = ({ sparkL
     <AbsoluteFill style={{ background: '#F2F0E9', fontFamily: SANS }}>
       {/* SparkLine */}
       <div style={{ position: 'absolute', top: 44, left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, opacity: sparkO }}>
-        <Spark />
         <div style={{ fontFamily: SERIF, fontSize: 40, color: CLAUDE.INK }}>{sparkLine}</div>
       </div>
 

@@ -21,16 +21,6 @@ const SANS = CLAUDE_FONT.ui;
 const MONO = CLAUDE_FONT.mono;
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 export const SleeperAgentsBehaviorSwitch916: React.FC<SleeperAgentsBehaviorSwitch916Props> = ({ sparkLine }) => {
   const frame = useCurrentFrame();
@@ -355,7 +345,6 @@ export const SleeperAgentsBehaviorSwitch916: React.FC<SleeperAgentsBehaviorSwitc
         paddingLeft: PAD_X,
         paddingRight: PAD_X,
       }}>
-        <Spark size={height * 0.020} />
         <span style={{
           fontFamily: SERIF,
           fontSize: height * 0.020,

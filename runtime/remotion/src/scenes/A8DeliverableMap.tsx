@@ -14,16 +14,6 @@ const SANS = CLAUDE_FONT.ui;
 const GREEN_BG = '#F0FAF4';
 const GREEN_BD = '#52C47C';
 
-const Spark: React.FC<{ size?: number }> = ({ size = 20 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
@@ -187,7 +177,6 @@ export const A8DeliverableMap: React.FC<A8DeliverableMapProps> = ({ sparkLine })
         opacity: clamp(sparkIn, 0, 1),
         transform: `translateY(${(1 - clamp(sparkIn, 0, 1)) * 8}px)`,
       }}>
-        <Spark size={20} />
         <span style={{ fontFamily: SERIF, fontSize: 22, fontStyle: 'italic', color: CLAUDE.INK }}>
           {sparkLine}
         </span>

@@ -161,7 +161,6 @@ export const SkillDevTell: React.FC<SkillDevTellProps> = ({ sparkLine }) => {
         opacity: clamp(calloutIn, 0, 1),
         transform: `translateY(${(1 - clamp(calloutIn, 0, 1)) * 10}px)`,
       }}>
-        <SparkIcon />
         <div style={{ fontFamily: SANS, fontSize: 12, color: CLAUDE.INK, lineHeight: 1.5 }}>{CALLOUT}</div>
       </div>
 

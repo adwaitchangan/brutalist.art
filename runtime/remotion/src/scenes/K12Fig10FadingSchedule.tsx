@@ -27,16 +27,6 @@ const BAR_READING = '#C4B9A8';   // warm grey — reading protocol
 const BAR_VOCAB = '#B5C4B1';     // sage — vocab gloss
 const BAR_STARTERS = '#D4C5A9'; // tan — sentence starters
 
-const Spark: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 // Which bars are shown each week: true = present, false = removed
 const WEEK_BARS: Array<{ reading: boolean; vocab: boolean; starters: boolean }> = [
@@ -265,7 +255,6 @@ export const K12Fig10FadingSchedule: React.FC<K12Fig10FadingScheduleProps> = ({ 
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
         opacity: clamp(sparkIn, 0, 1),
       }}>
-        <Spark size={height * 0.022} />
         <span style={{ fontFamily: SERIF, fontSize: height * 0.022, fontStyle: 'italic', color: '#1A1A18' }}>
           {sparkLine}
         </span>

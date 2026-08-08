@@ -17,16 +17,6 @@ const SANS = CLAUDE_FONT.ui;
 const MONO = CLAUDE_FONT.mono;
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 26 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 const GETS_RIGHT = [
   'Three-mode dispatch covers all entry points — status, save, and clear — with concrete behavior defined for each',
@@ -152,7 +142,6 @@ export const ConfigureTell: React.FC<ConfigureTellProps> = ({ sparkLine }) => {
         display: 'flex', alignItems: 'center', gap: 12,
         opacity: clamp(sparkIn, 0, 1), transform: `translateY(${(1 - clamp(sparkIn, 0, 1)) * 10}px)`,
       }}>
-        <Spark size={26} />
         <span style={{ fontFamily: SERIF, fontSize: 24, fontStyle: 'italic', color: CLAUDE.INK }}>
           {sparkLine}
         </span>

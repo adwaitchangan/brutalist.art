@@ -221,14 +221,6 @@ export const AlgArtSeedGrid: React.FC<AlgArtSeedGridProps> = ({ sparkLine, highl
         transform: `translateY(${(1 - clamp(captionIn, 0, 1)) * 8}px)`,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-          <svg width={18} height={18} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-            {Array.from({ length: 8 }, (_, i) => (
-              <line key={i} x1={12} y1={12}
-                x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-                y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-                stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-            ))}
-          </svg>
           <span style={{
             fontFamily: SERIF,
             fontSize: 22,

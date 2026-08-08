@@ -27,19 +27,6 @@ const SANS = CLAUDE_FONT.ui;
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line
-        key={i}
-        x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round"
-      />
-    ))}
-  </svg>
-);
 
 // Wireframe placeholder rows inside each panel
 const PlaceholderRows: React.FC<{ count: number; accent?: boolean }> = ({ count, accent = false }) => (
@@ -308,7 +295,6 @@ export const HowWeCode_Phase2: React.FC<HowWeCodePhase2Props> = ({ sparkLine }) 
         gap: 10,
         opacity: clamp(sparkIn, 0, 1),
       }}>
-        <Spark size={height * 0.022} />
         <span style={{
           fontFamily: SERIF,
           fontSize: height * 0.022,

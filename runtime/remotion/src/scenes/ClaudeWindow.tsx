@@ -30,16 +30,6 @@ const SERIF = CLAUDE_FONT.serif;
 const SANS  = CLAUDE_FONT.ui;
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 export const ClaudeWindow: React.FC<ClaudeWindowProps> = ({
   view, artifactTitle, artifactHeading, artifactLines, sparkLine,
@@ -79,7 +69,6 @@ export const ClaudeWindow: React.FC<ClaudeWindowProps> = ({
           alignItems: 'center',
           gap: 10,
         }}>
-          <Spark />
           <span style={{ fontFamily: SERIF, fontSize: 20, color: CLAUDE.INK, fontWeight: 600 }}>
             {artifactTitle}
           </span>
@@ -147,7 +136,6 @@ export const ClaudeWindow: React.FC<ClaudeWindowProps> = ({
           opacity: clamp(sparkIn, 0, 1),
           transform: `translateY(${(1 - clamp(sparkIn, 0, 1)) * 8}px)`,
         }}>
-          <Spark size={18} />
           <span style={{
             fontFamily: SERIF,
             fontSize: 26,

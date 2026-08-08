@@ -56,14 +56,6 @@ export const SparkLine: React.FC<{ text: string; pos?: 'top' | 'bottom' }> = ({ 
   const o = remap(p, 0, 0.06, 0, 1);
   return (
     <div style={{ position: 'absolute', ...(pos === 'top' ? { top: 44 } : { bottom: 40 }), left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 16, opacity: o }}>
-      <svg width={26} height={26} viewBox="0 0 24 24">
-        {Array.from({ length: 8 }, (_, i) => (
-          <line key={i} x1={12} y1={12}
-            x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-            y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-            stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-        ))}
-      </svg>
       <div style={{ fontFamily: SERIF, fontSize: 40, color: CLAUDE.INK }}>{text}</div>
     </div>
   );

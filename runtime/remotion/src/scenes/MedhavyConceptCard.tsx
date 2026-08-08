@@ -26,16 +26,6 @@ const MONO = CLAUDE_FONT.mono;
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-const Spark: React.FC<{ size?: number }> = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0 }}>
-    {Array.from({ length: 8 }, (_, i) => (
-      <line key={i} x1={12} y1={12}
-        x2={12 + 10 * Math.cos((i * Math.PI) / 4 + 0.2)}
-        y2={12 + 10 * Math.sin((i * Math.PI) / 4 + 0.2)}
-        stroke={CLAUDE.SPARK} strokeWidth={3.2} strokeLinecap="round" />
-    ))}
-  </svg>
-);
 
 export const MedhavyConceptCard: React.FC<MedhavyConceptCardProps> = ({
   sparkLine, heading, body, evidenceNote,
@@ -57,7 +47,6 @@ export const MedhavyConceptCard: React.FC<MedhavyConceptCardProps> = ({
         display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 14,
         opacity: sparkIn,
       }}>
-        <Spark size={26} />
         <span style={{ fontFamily: SERIF, fontSize: 38, color: CLAUDE.INK }}>{sparkLine}</span>
       </div>
 
