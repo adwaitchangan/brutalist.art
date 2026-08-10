@@ -240,6 +240,7 @@ import {BearBrownLogoRemotionShowcase16x9, TOTAL_FRAMES as BearBrownLogoRemotion
 import {MusiniquLogoShowcase169, TOTAL_FRAMES_MUSINIQUE} from './MusiniquLogoShowcase169';
 // logo skill — the random-once brand sting appended after a reel's last beat
 import {LogoOutro, logoOutroSchema} from './scenes/LogoOutro';
+import {LogoMotion, logoMotionSchema} from './scenes/LogoMotion';
 // ── claude-liam — k12-teacher-skills figures ──
 import {K12Fig01Division, k12Fig01DivisionSchema} from './scenes/K12Fig01Division';
 import {K12Fig02CRA, k12Fig02CRASchema} from './scenes/K12Fig02CRA';
@@ -3598,6 +3599,22 @@ export const RemotionRoot: React.FC = () => {
           schema={dtlLayerStackSchema}
           defaultProps={dtlLayerStackSchema.parse({})} />
       </Folder>
+      {/* ── logo-motion — parametric logo stings (skills/make/logo-motion) ──
+          ONE composition for every mark. Length is a prop: calculateMetadata
+          turns durationInSeconds into durationInFrames, and every ramp in the
+          scene is a fraction of the total, so the animation re-times instead
+          of truncating. Add a mark by adding a logos/<name>.ts and a key to
+          the LOGOS registry — never by copying this block. */}
+      <Folder name="LogoMotion">
+        <Composition id="LogoMotion" component={LogoMotion}
+          durationInFrames={180} fps={30} width={1920} height={1080}
+          schema={logoMotionSchema}
+          defaultProps={logoMotionSchema.parse({})}
+          calculateMetadata={({props}) => ({
+            durationInFrames: Math.max(1, Math.round(props.durationInSeconds * 30)),
+          })} />
+      </Folder>
+
     </>
   );
 };

@@ -29,6 +29,7 @@ make a video.
 | Skill | Notes |
 |---|---|
 | screen-clean | Prepares any screen recording (Zoom/Teams/QuickTime) for a reel beat. Called by `fellows` and `guests`. |
+| logo-motion | Animates a brand mark into a 4–8s sting for a reel's open/close. Free (potrace + Remotion, no keys). Deliberately NOT a Fellow-tier builder — it makes a *component*, not a video, and the Fellow tier is capped at five builders on purpose. |
 
 ## PAID — REQUIRES EXPLICIT SPEND APPROVAL
 ⚠️ Never present these as default options to a fellow.
