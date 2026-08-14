@@ -48,7 +48,7 @@ brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fell
 
 | Skill | Cost note |
 |---|---|
-| `explainer` | FLUX/nano-banana stills + Higgsfield video. Ask per step, then spend. Kokoro VO is free. |
+| `explainer` | Doctrine chassis — free by default: archive stills (free), human-supplied pantry media, Manim, Kokoro VO. Paid generation (FLUX, nano-banana, Higgsfield) is out of scope here; that integration is in `brutalist-art/`. |
 
 ---
 

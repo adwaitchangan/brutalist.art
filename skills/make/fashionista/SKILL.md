@@ -147,7 +147,7 @@ The verdict slot stays null until a human fills it from comments. Without this t
 
 5. **DISCLOSURE**: AI-generated imagery; the garment may not be real.
    ```
-   The imagery is AI-generated (Higgsfield). The garment may not correspond to any real piece. That is part of what the series is testing.
+   The imagery is AI-generated. The garment may not correspond to any real piece. That is part of what the series is testing.
    ```
 
 6. **Date, handle, hashtags.**

@@ -4,17 +4,18 @@ description: >
   Vox-style mixed-media explainer videos — a PRODUCTION COMPOSITING PIPELINE,
   not a previz renderer. Voiceover (Kokoro) or a music bed is the master
   clock; the film is a composite of Manim motion-graphics fragments, Ken Burns
-  animation over stills (archival or FLUX/nano-banana), AI video clips
-  (Higgsfield/Hailuo/Seedance), public-domain footage, and a Remotion
-  annotation plane (REMOTION.md) — all unified by the editorial newsprint treatment
-  and assembled per beat. Two-axis shot system (type × source), slot contract
-  (swap media/[beat].png|.mp4 by filename, rebuild recompiles only changed
-  slots). Use when the user types `vox`, `vox-explainer`, `vox style`, or asks
-  for a Vox-style / editorial-collage / isotype explainer. Audio-first,
-  phase-gated; Kokoro VO is free and local — image generation costs apply
-  (FLUX/nano-banana stills, Higgsfield) — ask per step, then spend.
+  animation over stills (archival downloads or human-supplied pantry stills),
+  public-domain footage, and a Remotion annotation plane (REMOTION.md) — all
+  unified by the editorial newsprint treatment and assembled per beat. Two-axis
+  shot system (type × source), slot contract (swap media/[beat].png|.mp4 by
+  filename, rebuild recompiles only changed slots). Use when the user types
+  `vox`, `vox-explainer`, `vox style`, or asks for a Vox-style /
+  editorial-collage / isotype explainer. Audio-first, phase-gated; Kokoro VO
+  is free and local; stills come from archives (free) or pantry/ (human-supplied).
+  Paid image/video generation (FLUX, nano-banana, Higgsfield) is out of scope
+  here — use brutalist-art/ for the full pipeline.
 metadata:
-  tags: vox, isotype, explainer, mixed-media, compositing, manim, remotion, kenburns, higgsfield
+  tags: vox, isotype, explainer, mixed-media, compositing, manim, remotion, kenburns
 ---
 
 # vox-explainer — mixed-media editorial explainers (production pipeline)
@@ -68,7 +69,7 @@ swaps free.
 | type | is | produced by |
 |---|---|---|
 | STILL | treated image, `hold` or `kenburns` | archive download / FLUX / nano-banana → compile animates |
-| FOOTAGE | moving clip fills the beat | PD film / Higgsfield i2v from the slot's still (key action early — tail trims) |
+| FOOTAGE | moving clip fills the beat | PD film or human-supplied clip (drop into media/; key action early — tail trims) |
 | DOCUMENT | scan/quote, annotation-driven motion | archive scan + Remotion highlight/underline/zoom keyed to words |
 | GRAPHIC | isotype grid, bars, map, cards | **Manim fragment** (`manim/animated_graphics.py`) rendered to the beat's measured duration |
 | COMPOSITE | treated plate + annotation collage | plate like STILL; annotation on the Remotion plane |
@@ -143,14 +144,13 @@ otherwise. NO GOOD MATCH → write the SHOTLIST card exactly as before; the
 human searches. Never let a near-miss through on filename similarity alone.
 
 Raw finds never go straight into `media/`. They land in `reels/[slug]/pantry/`,
-prefixed with their beat id, already RESTORED: nanobanana (via Higgsfield)
-restoration pass — WARMONO for period images, NATGEO for modern ones
-(`aspects/stock-styles.md`) — and upscaled to survive the Ken Burns crop.
+prefixed with their beat id, upscaled as needed to survive the Ken Burns crop.
+(Restoration via nano-banana/Higgsfield is out of scope here — use brutalist-art/.)
 Then one command does the mechanical rest:
 `python3 scripts/vox_pantry.py reels/[slug]` — strips audio from video
 (narration is the only voice on the timeline), crops non-16:9 DOCUMENT scans
 to 16:9 anchored so the title survives (verify by eye), renames everything to
-`media/[beat].png|.mp4`, and writes sidecar stubs (ai/Higgsfield assets get
+`media/[beat].png|.mp4`, and writes sidecar stubs (ai-generated assets get
 the disclosure line). It warns on clips shorter than their beat, undersized
 stills, and source-axis contradictions. After intake: set `shot.focus` per
 still, fill the sidecars, rerun `run.sh`.
@@ -274,12 +274,12 @@ finished film awaiting plates, not a previz.
    is ALWAYS a full watchable video: motion graphics and outro finished,
    slates ONLY in slots that are yours (archive/ai media per SHOTLIST).
    **GATE: watch the cut — timing, pacing, beat-to-visual map.**
-5. `stills` — FLUX / nano-banana plates for ai slots (cheap — batch with
-   per-step go-ahead); download archive picks for archive slots (free) with
-   `.source.txt` sidecars; set `shot.focus` per still. Rerun `run.sh` —
-   only changed slots recompile.
-6. `video` — Higgsfield i2v only for beats where the still + audio demand
-   motion (the expensive step, last, per-beat approval).
+5. `stills` — download archive picks for archive slots (free) with
+   `.source.txt` sidecars, or drop human-supplied images into pantry/; set
+   `shot.focus` per still. Rerun `run.sh` — only changed slots recompile.
+   (AI image generation — FLUX, nano-banana — is out of scope here; use brutalist-art/.)
+6. `video` — drop human-supplied footage into media/ for beats where motion is
+   needed. (AI video via Higgsfield is out of scope here — use brutalist-art/.)
 7. `assemble` — Remotion annotation plane keyed to word timestamps +
    auto-credits from sidecars → clean master. **GATE: ship.** Spec and rule
    owner: `REMOTION.md` (this folder). Captions are NOT plane scope —

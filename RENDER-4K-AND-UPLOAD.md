@@ -1,5 +1,10 @@
 # Render Final Cuts at 4K & Upload — Contributor Guide
 
+> **Publishing is not included in this repository.** `./art post` and the
+> `youtube-publisher` script referenced below are not present here. This guide
+> describes the workflow for the private upload companion (`brutalist.yt`).
+> See [`docs/PUBLISHING.md`](docs/PUBLISHING.md) for why the split exists.
+
 *For YouTube team. This is the whole loop: render fast, judge, and either ship a final 4K cut to YouTube or leave notes in the video's folder. Everything here is the real toolkit as it stands — commands are copy-paste ready.*
 
 ---
