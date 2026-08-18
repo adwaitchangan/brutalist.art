@@ -176,6 +176,21 @@ A vox beat does not generate its own media. It **expects a static image** —
 it. That's the whole deal: the human supplies the plate, the machine supplies
 the motion.
 
+**Sourcing pantry stills — free first.** The default source is Smithsonian Open
+Access (CC0, no rights escalation):
+
+```bash
+python3 runtime/scripts/smithsonian_fetch.py "<visual terms>" \
+    --copy <reel> --beat <BID>
+```
+
+This resolves, downloads, optionally Topaz-upscales, and drops the image into
+`pantry/<BID>-<slug>.png` with a provenance sidecar — ready for pantry intake.
+Run `./art todo <reel>` to see which beats still need stills. Other free sources
+(NASA, Wellcome, NLM) are available via `image_fetch.py --source smithsonian|nasa|wellcome|nlm_ihm`.
+Higgsfield-generated stills are the opt-in upgrade (three-way contract in
+`../explainer/SKILL.md`); absent CLI = Smithsonian/archive path silently.
+
 **Treatment — the vox laundering function on the CLAUDE stage.** This is a
 FIDELITY brand (parent law), so vox beats do NOT import the newsprint ground.
 The treatment is: desaturate ~80%, contrast ~1.15, seated on the Claude cream

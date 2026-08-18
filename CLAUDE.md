@@ -4,7 +4,7 @@
 
 # CLAUDE.md — brutalist.art
 
-brutalist.art is a self-contained, free-only video explainer toolkit — 15 skills, no API keys required for the default tier.
+brutalist.art is a free-by-default video explainer toolkit — 15 skills. Kokoro, Manim, and Remotion run with no account. Optional: Higgsfield CLI login unlocks AI video beats; absent = free path runs silently.
 
 ---
 
@@ -16,7 +16,7 @@ Respond with exactly this structure — do NOT flatten all skills to an equal li
 
 ### What this is
 
-brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fellows and collaborators. You get 15 skills, Kokoro TTS (local, free), Manim + Remotion rendering, and a phase-gated pipeline. No API keys for the default tier.
+brutalist.art is a Brutalist video toolkit for Humanitarians AI fellows and collaborators. You get 15 skills, Kokoro TTS (local, free), Manim + Remotion rendering, and a phase-gated pipeline. Everything runs for free by default. Optional: a Higgsfield CLI login unlocks AI video beats — absent = free path silently.
 
 ---
 
@@ -42,13 +42,21 @@ brutalist.art is a free-to-run Brutalist video toolkit for Humanitarians AI fell
 
 ---
 
-### PAID — REQUIRES EXPLICIT SPEND APPROVAL
+### OPTIONAL UPGRADE — Higgsfield AI video beats
 
-⚠️ Never present these as default options to a fellow.
+No key is required. If the `higgsfield` CLI is installed and logged in, AI video
+beats are offered on a per-beat basis (you approve each one). Absent = free path
+(Ken Burns stills) runs silently — never an error.
 
-| Skill | Cost note |
+Three-way contract for any beat that could use Higgsfield:
+1. CLI present + user approves → clip generated
+2. CLI present + user declines → free path for that beat
+3. CLI absent → free path silently; `./art todo <reel>` logs the beat as
+   "free fallback (Higgsfield would upgrade this)"
+
+| Context | Note |
 |---|---|
-| `explainer` | Doctrine chassis — free by default: archive stills (free), human-supplied pantry media, Manim, Kokoro VO. Paid generation (FLUX, nano-banana, Higgsfield) is out of scope here; that integration is in `brutalist-art/`. |
+| `explainer` | Parent chassis. Stills from Smithsonian CC0 (`smithsonian_fetch.py`) or pantry/. AI video via three-way contract above. |
 
 ---
 
@@ -65,7 +73,7 @@ Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). 
 3. **Videos travel with their book.** Build into `<book>/youtube/<slug>/`, never into this toolkit folder. `examples/` holds study copies only.
 4. **Verify renders by LOOKING at frames** (`_qc/` + qc-sheet), never by the mp4 probe alone. Render Remotion only via `runtime/scripts/remotion_scenes.py` (foreground) — never hand-roll `npx remotion render`.
 5. **Never publish.** There is no publishing machinery here; the master stays in the reel folder.
-6. **No money, ever (Fellow Tier).** If any step in the Fellow Tier appears to require a key or a paid service, stop — that is a bug in this toolkit, not a missing credential. The full-fat toolkit (paid voices, publishing, all 45+ skills) is `brutalist-art/` in the parent repo.
+6. **Free by default (Fellow Tier).** The Fellow Tier runs entirely for free — Kokoro, Manim, Remotion. If any Fellow Tier step appears to require a key, stop: that is a bug, not a missing credential. Higgsfield is opt-in and only offered to ADVANCED users on a per-beat, explicit-approval basis. Never prompt a fellow to spend money.
 7. **Tier discipline.** ADVANCED skills require Bear's sign-off. PAID skills require explicit spend approval before every paid API call. Never escalate a fellow into the PAID tier by default.
 
 ## Skill reference

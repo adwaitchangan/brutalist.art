@@ -88,8 +88,7 @@ exists to prevent.
 
 ## Voice
 
-Free Kokoro, as `fellows`. One persistent narrator voice per channel. No
-ElevenLabs, no spend.
+Free Kokoro, as `fellows`. One persistent narrator voice per channel. No spend.
 
 ## Laws — inherited
 

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# setup — the doctor for the brutalist toolkit (free-only: Kokoro + Manim + Remotion).
+# setup — the doctor for the brutalist toolkit (free by default).
 #
 #   ./setup            # check everything, print the readiness table
 #   ./setup --install  # install the core Python deps + Remotion's node deps, then check
 #
-# There are NO paid features and NO API keys in this toolkit. Everything below
-# is free and local. Exit 0 if all features are ready; exit 1 otherwise.
+# Core features require no paid services or API keys. Everything below is free
+# and local. Optional Higgsfield CLI login unlocks AI video beats; ElevenLabs is
+# permanently removed. Exit 0 if all required features are ready; exit 1 otherwise.
 #
 # Readiness is decided ONLY by live verification below — importing every
 # Python dep, actually running ffmpeg/ffprobe, and synthesizing + decoding
@@ -98,6 +99,21 @@ if [ "${1:-}" = "--install" ]; then
   echo; shift || true
 fi
 
+# ── ElevenLabs guard ─────────────────────────────────────────────────
+# Functional ElevenLabs references are bugs; prose documentation mentioning the
+# name is allowed. setup is excluded because it contains this guard.
+EL_PAT="ELEVEN""LABS_API_KEY|elevenlabs""\.io|\"engine\"[^\"]*\"elevenlabs\"|xi-api-key"
+if grep -rqiE "$EL_PAT" \
+    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
+    --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup .; then
+  r "ElevenLabs reference found — this toolkit is Kokoro-only for narration."; echo
+  echo "  Files with hits:"
+  grep -rliE "$EL_PAT" \
+    --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
+    --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup . | sed 's/^/    /'
+  exit 1
+fi
+
 # Dynamic OK_<id>/MISS_<id> vars instead of associative arrays: macOS ships
 # bash 3.2 by default (no `declare -A`), and this script must run there too.
 check(){
@@ -160,7 +176,8 @@ if [ "$INSTALL_FAILED" = 1 ]; then
   fail=1
 fi
 [ "$fail" = 1 ] && { r "Something is blocked — see above."; echo; exit 1; }
-g "All features ready. Voices: Bella (af_bella) and Onyx (am_onyx). Cost: \$0.00, always."; echo
+g "All core features ready. Voices: Bella (af_bella) and Onyx (am_onyx). Cost: \$0.00."; echo
+echo "Run \`./art keys\` to check optional Higgsfield login."
 echo "A green table above means every dependency checks out live — it does NOT"
 echo "mean a video actually renders. Run \`./art smoke\` for that proof: it builds"
 echo "the tiny examples/_smoke/ fixture end to end and verifies the DECODED"

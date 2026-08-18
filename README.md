@@ -1,8 +1,12 @@
 # brutalist
 
-The pared-down, free-only Brutalist video toolkit: eight builder skills, two
-personas, five doctrine modules, two Kokoro voices (Onyx `am_onyx`, Bella
-`af_bella`), zero API keys.
+The pared-down Brutalist video toolkit: eight builder skills, two personas, five
+doctrine modules, two Kokoro voices (Onyx `am_onyx`, Bella `af_bella`).
+
+**Free by default** — Kokoro, Manim, Remotion, no account required.
+**Optional:** a Higgsfield CLI login (`higgsfield auth login`) unlocks AI video
+beats. Absent = the free path (Ken Burns stills) runs silently. No ElevenLabs,
+ever.
 
 **Read [`HOW-TO.md`](HOW-TO.md)** — what Brutalist is, install, the three
 core builders, and the worked examples. `CLAUDE.md` has the session rules for
@@ -11,6 +15,7 @@ agents.
 ```bash
 ./setup --install     # deps + Remotion node modules + the Kokoro model (~340MB, auto-downloaded)
 ./art --list          # the skills
+./art keys            # check optional Higgsfield login + SI key
 ```
 
 ## Builders

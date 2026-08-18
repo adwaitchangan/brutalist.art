@@ -11,9 +11,12 @@ description: >
   filename, rebuild recompiles only changed slots). Use when the user types
   `vox`, `vox-explainer`, `vox style`, or asks for a Vox-style /
   editorial-collage / isotype explainer. Audio-first, phase-gated; Kokoro VO
-  is free and local; stills come from archives (free) or pantry/ (human-supplied).
-  Paid image/video generation (FLUX, nano-banana, Higgsfield) is out of scope
-  here — use brutalist-art/ for the full pipeline.
+  is free and local; stills sourced from Smithsonian CC0 (smithsonian_fetch.py)
+  or human-supplied pantry files. AI video beats (Higgsfield i2v): Higgsfield
+  CLI present + user approves → clip generated; CLI present + user declines →
+  free path (Ken Burns still); CLI absent → free path runs silently, todo.py
+  logs "free fallback (Higgsfield would upgrade this)". No ElevenLabs, ever.
+  FLUX and nano-banana are out of scope; use brutalist-art/.
 metadata:
   tags: vox, isotype, explainer, mixed-media, compositing, manim, remotion, kenburns
 ---
@@ -68,7 +71,7 @@ swaps free.
 
 | type | is | produced by |
 |---|---|---|
-| STILL | treated image, `hold` or `kenburns` | archive download / FLUX / nano-banana → compile animates |
+| STILL | treated image, `hold` or `kenburns` | Smithsonian CC0 (smithsonian_fetch.py), archive download, or human-supplied pantry still → compile animates |
 | FOOTAGE | moving clip fills the beat | PD film or human-supplied clip (drop into media/; key action early — tail trims) |
 | DOCUMENT | scan/quote, annotation-driven motion | archive scan + Remotion highlight/underline/zoom keyed to words |
 | GRAPHIC | isotype grid, bars, map, cards | **Manim fragment** (`manim/animated_graphics.py`) rendered to the beat's measured duration |
@@ -274,12 +277,15 @@ finished film awaiting plates, not a previz.
    is ALWAYS a full watchable video: motion graphics and outro finished,
    slates ONLY in slots that are yours (archive/ai media per SHOTLIST).
    **GATE: watch the cut — timing, pacing, beat-to-visual map.**
-5. `stills` — download archive picks for archive slots (free) with
-   `.source.txt` sidecars, or drop human-supplied images into pantry/; set
-   `shot.focus` per still. Rerun `run.sh` — only changed slots recompile.
-   (AI image generation — FLUX, nano-banana — is out of scope here; use brutalist-art/.)
-6. `video` — drop human-supplied footage into media/ for beats where motion is
-   needed. (AI video via Higgsfield is out of scope here — use brutalist-art/.)
+5. `stills` — source archive picks via `python3 runtime/scripts/smithsonian_fetch.py
+   "<terms>" --copy <reel> --beat <BID>` (Smithsonian CC0, free; builds the
+   provenance sidecar automatically) or drop human-supplied images into pantry/;
+   set `shot.focus` per still. Rerun `run.sh` — only changed slots recompile.
+6. `video` — AI video beats (Higgsfield i2v): if `higgsfield` CLI is present,
+   you are asked per beat before any generation. Approve → clip generated;
+   decline → the slot uses a Ken Burns still. CLI absent → Ken Burns still
+   silently; `./art todo <reel>` shows the beat as
+   "free fallback (Higgsfield would upgrade this)".
 7. `assemble` — Remotion annotation plane keyed to word timestamps +
    auto-credits from sidecars → clean master. **GATE: ship.** Spec and rule
    owner: `REMOTION.md` (this folder). Captions are NOT plane scope —

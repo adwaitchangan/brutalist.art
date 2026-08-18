@@ -29,3 +29,6 @@ runtime/remotion/.spark-strip-backup/
 
 # pre-edit safety copies
 *.pre-spec-fix
+
+# local keys — never commit
+.env
