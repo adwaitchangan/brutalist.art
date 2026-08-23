@@ -20,6 +20,22 @@ If a beat's content appears here, it is a PUNT to leave it unfilled. Author it.
 Only a real photograph is a HOLD. Everything else animates. If nothing in the catalog fits, that is
 a **scripting gap** to FLAG — never a gen-AI clip, never an "archive still," never a card of words.
 
+## Step zero — ask the library (before any of the choices below)
+
+The catalog below tells you what FORM the beat takes. It does not know what is
+already built. Ask that first:
+
+```bash
+./art scenes "what the beat needs, in plain words"
+./art scenes --check <ComponentName>     # is that name actually renderable?
+```
+
+A hit is a LEAD — read the desc and props. A candidate tagged `[derived text —
+open the file]` has no header of its own; open it before trusting it. Only when
+the library genuinely has nothing does the tool choice below apply, and that
+miss is a design card: the search writes it to `TEMPLATE-MISSES.md` itself. A
+miss is never a licence to slate, and never a licence to invent a punt costume.
+
 ## How to choose the tool
 
 - **MOVING mechanism / math / geometry / transform / plotted curve → Manim** (a GRAPHIC scene in

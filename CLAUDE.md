@@ -76,6 +76,8 @@ Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). 
 6. **Free by default (Fellow Tier).** The Fellow Tier runs entirely for free — Kokoro, Manim, Remotion. If any Fellow Tier step appears to require a key, stop: that is a bug, not a missing credential. Higgsfield is opt-in and only offered to ADVANCED users on a per-beat, explicit-approval basis. Never prompt a fellow to spend money.
 7. **Tier discipline.** ADVANCED skills require Bear's sign-off. PAID skills require explicit spend approval before every paid API call. Never escalate a fellow into the PAID tier by default.
 
+8. **Library-first — ask before you author.** Before a beat is authored, routed to Manim, slated, or written up as a request card, ask what already exists: `./art scenes "<what the beat needs>"`. `./art scenes --check <Name>` answers "is that composition renderable?" — the check that stops a slate. A hit is a LEAD (read the props); a candidate flagged `[derived text — open the file]` has no header of its own. A genuine miss is a PUNT — a design card, never a licence to slate — and is logged to `TEMPLATE-MISSES.md` automatically. After adding a component run `./art scene-index`: the index (`runtime/remotion/src/scenes.json`, generated from Root.tsx `<Composition>` ids) is the only way anyone finds it, and `SCENE-DOC-TODO.md` lists the scenes still running on derived search text.
+
 ## Skill reference
 
 Full tier breakdown: `skills/TIERS.md`

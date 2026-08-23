@@ -60,6 +60,13 @@ static inspection missed becomes a loud `MISSING` the moment a real build needs 
    (cancer-biology, photoelectric-effect). Read each component's schema before writing props, then
    confirm on `qc-sheet.png` that no beat shows another video's placeholder text.
 
+5. **Library-first — ask before you author.** No beat is authored, routed to Manim, slated, or
+   written up as a request card until the library has been asked: `./art scenes "<what the beat
+   needs>"`, and `./art scenes --check <Name>` before writing any component name into a beat sheet.
+   A hit is a LEAD (read the props); a genuine miss is a PUNT, which is a design card, never a
+   licence to slate — and the search logs it to `TEMPLATE-MISSES.md` on its own. After adding a
+   component, `./art scene-index`: an unindexed component is an invisible one.
+
 ## The loop (per video type)
 
 1. **Build** it with Claude Code (start from the type's `BUILD-PROMPT.md`; `what-is-brutalist`

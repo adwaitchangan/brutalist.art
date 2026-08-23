@@ -38,6 +38,30 @@ video plus commentary around it:
 4. **Last — the STANDARD HUMANITARIANS AI OUTRO** (deliberate deviation from
    the siblings' title-restate outro — see OUTRO, below).
 
+## GATE L — library-first (ask the library before you author a beat)
+
+Before a beat is authored, routed to Manim, slated, or written up as a request
+card, ASK WHAT ALREADY EXISTS:
+
+```bash
+./art scenes "what the beat needs, in plain words"
+./art scenes --check <ComponentName>     # is that name actually renderable?
+```
+
+The library is bigger than any session can hold in its head — which is exactly
+how a reel ends up with beats slated while a purpose-built component sits unused
+two directories away. A hit is a **LEAD**, not a verdict: read the desc and the
+props before trusting it. A candidate tagged `[derived text — open the file]`
+has no header of its own; the search text was assembled from file evidence.
+
+A genuine miss is a **PUNT**, and a punt is a design card: build the component
+and the next reel finds it forever. The search logs the miss to
+`TEMPLATE-MISSES.md` by itself (`--reel <path>` records who needed it). **A miss
+is never a licence to slate.**
+
+After adding a component, run `./art scene-index` — a component that is not in
+the index cannot be found by anyone, including you next week.
+
 ## Trigger
 
 ```
