@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 """
-generate_audio_kokoro.py — the ONLY voice engine in the brutalist toolkit
-(Kokoro-82M via kokoro-onnx — free, local, Apache-2.0, no API, no meter).
+generate_audio_kokoro.py — the FREE voice engine (Kokoro-82M via kokoro-onnx).
 
-THE HOUSE VOICES — exactly two, both Kokoro:
-  am_onyx   "Onyx"  — the nbb persona / Liam-in-for-Bear default
-  af_bella  "Bella" — the hai persona default
-Any other voice code is rejected. There is no ElevenLabs, no Suno, no paid
-engine anywhere in this toolkit.
+Kokoro is FREE — a local 82M-parameter Apache-2.0 model with ~28 NAMED preset
+voices (Bella, Sarah, Adam, Michael, Emma, George, Puck, Santa, …). No API,
+no meter, no quota; near-real-time on an M1's CPU. The catch: no cloning —
+none of these voices is yours. Best uses: audio previz (free draft narration),
+volume work where the voice isn't the brand, and multi-voice cast pieces.
 
-THE INTERFACE IS THE HOUSE INTERFACE:
+THE INTERFACE IS THE HOUSE INTERFACE — identical to generate_audio.py:
   <folder>/mp3/beat-<ID>.mp3       one mp3 per beat
   <folder>/mp3/timings.json        {"B00": 3.1, ...}
   beat_sheet.json                  actual_duration_s + audio_file written back
-Durations are GROUND TRUTH for all downstream timing.
+Durations are GROUND TRUTH for all downstream timing. Downstream never knows
+which engine spoke.
 
-VOICE SELECTION:
-  - beat["voice"] = "af_bella" | "am_onyx"  → that voice for that beat
-  - metadata["voice_kokoro"]                → folder default (else am_onyx)
+VOICE SELECTION (mixed-engine sheets supported):
+  - beat["voice"] = "af_bella" | "am_adam" | …  → that Kokoro voice
+  - metadata["voice_kokoro"]                    → folder default (else af_heart fallback)
+  - beat["engine"] = "nbb" (or any non-"kokoro" value) → SKIPPED here;
+    run generate_audio_nbb.py --only <those beats> for them. A sheet can mix
+    nbb body beats with kokoro bookends.
 
 MODEL FILES (one-time, ~330MB total, no account needed):
   $ART_HOME/runtime/models/kokoro/kokoro-v1.0.onnx
@@ -30,7 +33,7 @@ MODEL FILES (one-time, ~330MB total, no account needed):
 Install:  pip install kokoro-onnx        (and ffmpeg on PATH)
 
 Usage:
-    python3 generate_audio_kokoro.py path/to/<slug>              # generates immediately — no gate
+    python3 generate_audio_kokoro.py path/to/<slug>              # nothing gates it
     python3 generate_audio_kokoro.py path/to/<slug> --dry-run
     python3 generate_audio_kokoro.py path/to/<slug> --only B03 B08
     python3 generate_audio_kokoro.py --list-voices
@@ -45,26 +48,12 @@ import sys
 import wave
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from generate_audio import normalize_for_tts   # same spoken-form safety net
+
 FFMPEG = shutil.which("ffmpeg") or "ffmpeg"
 FFPROBE = shutil.which("ffprobe") or "ffprobe"
-DEFAULT_VOICE = "am_onyx"    # Onyx — the house default (nbb / Liam-in-for-Bear)
-ALLOWED_VOICES = {"am_onyx", "af_bella"}   # the only two voices in this toolkit
-
-# Math/symbol → spoken form. Applied as a safety net even if the beat sheet
-# already carries tts_normalized_text. (Inlined from the legacy generate_audio.py.)
-SYMBOLS = {
-    "ψ": "psi", "Ψ": "Psi", "ℏ": "h-bar", "|ψ|²": "psi squared",
-    "∫": "integral of", "→": "goes to", "≥": "greater than or equal to",
-    "≤": "less than or equal to", "Δx": "delta x", "Δp": "delta p",
-    "ΔE": "delta E", "∞": "infinity", "E₀": "E sub zero", "E₁": "E sub one",
-    "·": " times ", "²": " squared", "½": "one half", "—": ", ",
-}
-
-
-def normalize_for_tts(text: str) -> str:
-    for sym, spoken in SYMBOLS.items():
-        text = text.replace(sym, spoken)
-    return text
+DEFAULT_VOICE = "am_onyx"   # VOICE-LOCK.md: am_onyx always
 
 
 def model_paths():
@@ -137,6 +126,8 @@ def main():
     ap.add_argument("--only", nargs="*", default=None, help="beat ids to (re)generate")
     ap.add_argument("--speed", type=float, default=1.0)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-gate", action="store_true",
+                    help="deprecated no-op; nothing gates free audio")
     ap.add_argument("--list-voices", action="store_true")
     ap.add_argument("--sheet", default="beat_sheet.json",
                     help="beat sheet filename to read/write (default: beat_sheet.json)")
@@ -153,8 +144,24 @@ def main():
     folder = a.folder.resolve()
     sheet_path = folder / a.sheet
     sheet = json.loads(sheet_path.read_text())
+    # Schema normalisation: v1 uses "id"; v2 uses "beat_id". Accept both.
+    for _b in sheet.get("beats", []):
+        if "beat_id" not in _b and "id" in _b:
+            _b["beat_id"] = _b["id"]
+        if "narration_text" not in _b and "narration" in _b:
+            _b["narration_text"] = _b["narration"]
+        if "actual_duration_s" not in _b:
+            for _k in ("est_s", "estimated_duration_s"):
+                if _k in _b:
+                    _b["actual_duration_s"] = float(_b[_k])
+                    break
     md = sheet["metadata"]
     default_voice = md.get("voice_kokoro", DEFAULT_VOICE)
+
+    ped = folder / "PEDAGOGY.md"
+    if not (ped.exists() and "VERDICT: PASS" in ped.read_text()):
+        print("[kokoro] note: no PEDAGOGY.md VERDICT: PASS — generating anyway "
+              "(%s)" % "the four human gates are abolished; see VOICE-LOCK.md")
 
     todo = []
     for b in sheet["beats"]:
@@ -162,18 +169,19 @@ def main():
         text = (b.get("narration_text") or "").strip()
         if not text:
             continue
+        if text.startswith(("⚠", "[LOST]", "[PLACEHOLDER]")):
+            # A sentinel is a note to humans, not a script. Voicing one ships
+            # "narration lost" as narration (incident 2026-08-27). Hard skip.
+            print(f"[kokoro] {bid}  SKIPPED — narration_text is a sentinel, not narration")
+            continue
         if a.only is not None and bid not in a.only:
             continue
         engine = str(b.get("engine", "kokoro")).lower()
         if engine != "kokoro":
-            print(f"[kokoro] {bid}  engine={engine} — skipped (this toolkit is "
-                  f"Kokoro-only; set engine to 'kokoro' to voice this beat)")
+            print(f"[kokoro] {bid}  engine={engine} — skipped (run its own "
+                  f"generator, e.g. generate_audio.py --only {bid})")
             continue
         voice = b.get("voice") or default_voice
-        if voice not in ALLOWED_VOICES:
-            sys.exit(f"[kokoro] {bid} asks for voice '{voice}' — this toolkit "
-                     f"ships exactly two voices: am_onyx (Onyx) and af_bella "
-                     f"(Bella). Fix the beat sheet.")
         todo.append((b, voice, text))
 
     if a.dry_run:

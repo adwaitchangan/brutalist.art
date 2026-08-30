@@ -8,7 +8,7 @@ own account of itself. Search can reach these by name and props only.
 The fix per row is one honest sentence at the top of the .tsx: what it puts
 on screen, and when to reach for it. Add it, then re-run the builder.
 
-**115 scenes** (20% of 588).
+**118 scenes** (20% of 601).
 
 | Scene | File | Folder / registered under |
 |---|---|---|
@@ -50,6 +50,8 @@ on screen, and when to reach for it. Add it, then re-run the builder.
 | `GitHubCodeDiff` | `scenes/GitHubCodeDiff.tsx` | GitHub-Scenes |
 | `GitHubCodeViewer` | `scenes/GitHubCodeViewer.tsx` | GitHub-Scenes |
 | `GitHubRepoHero` | `scenes/GitHubRepoHero.tsx` | GitHub-Scenes |
+| `GitHubSectionRail` | `scenes/GitHubSectionRail.tsx` | Ported 2026-08-30 — named by the public cut's own skills/docs. |
+| `GitHubStructureMap` | `scenes/GitHubStructureMap.tsx` | Ported 2026-08-30 — named by the public cut's own skills/docs. |
 | `HookDevelopmentAnatomy` | `scenes/HookDevelopmentAnatomy.tsx` | claude-liam — hook-development (claude-plugins-official) skill teardown figures |
 | `HookDevelopmentDesign` | `scenes/HookDevelopmentDesign.tsx` | claude-liam — hook-development (claude-plugins-official) skill teardown figures |
 | `HookDevelopmentTell` | `scenes/HookDevelopmentTell.tsx` | claude-liam — hook-development (claude-plugins-official) skill teardown figures |
@@ -116,6 +118,7 @@ on screen, and when to reach for it. Add it, then re-run the builder.
 | `SentryApiAnatomy` | `scenes/SentryApiAnatomy.tsx` | claude-liam — sentry-api (claude-tag-plugins) skill teardown figures |
 | `SentryApiDesign` | `scenes/SentryApiDesign.tsx` | claude-liam — sentry-api (claude-tag-plugins) skill teardown figures |
 | `SentryApiTell` | `scenes/SentryApiTell.tsx` | claude-liam — sentry-api (claude-tag-plugins) skill teardown figures |
+| `ShellSession` | `scenes/ShellSession.tsx` | Ported 2026-08-30 — named by the public cut's own skills/docs. |
 | `TheClaudeCodeBible` | `TheClaudeCodeBible.tsx` | ruben-substack batch |
 | `TumorHeterogeneityTracerx` | `TumorHeterogeneityTracerx.tsx` | claude-liam — cancer-biology-all batch retrofit |
 | `VercelAccountEquivalent` | `scenes/VercelAccountEquivalent.tsx` | Vercel-Trusted |

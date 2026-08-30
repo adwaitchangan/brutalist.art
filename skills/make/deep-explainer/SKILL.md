@@ -35,7 +35,11 @@ This skill EXTENDS `ai-explainer`, which extends `explainer`. Nothing below
 repeals a parent law; this file only adds the genre's own contracts.
 
 - **Bookends, brand, laws** → `../ai-explainer/SKILL.md` governs: COLD OPEN
-  LAW (B00 is `ClaudeComposerAsk`, ask lands answered), ASK→RESULT LAW,
+  LAW (B00 is `ClaudeComposerAsk`, ask lands answered),
+  **EXECUTIVE-SUMMARY LAW** (B01 is `BrutalistHesitantWriter` — the overview of
+  what the film is about, typed and corrected on screen; at this length the
+  advance organizer matters more, not less, and its ≥ 9s window is a floor, not a
+  target), ASK→RESULT LAW,
   ILLUSTRATE LAW, SHOW-DON'T-TELL LAW, SPARK-LINE LAW, REBUILD LAW,
   DOUBLE-CHECK LAW, FILL-THE-CANVAS, LOGO LAW, VISUAL QC LAW, HANDOFF LAW,
   OUTRO LAW, the channels table, IN-FOR-BEAR LAW, and
@@ -94,6 +98,7 @@ Three-line summary (read AUDIT-MODE.md for the full rules):
 
 ```
 B00 cold open (ClaudeComposerAsk, ask answered, Liam signs in)
+B01 hesitant-writer overview (BrutalistHesitantWriter) — the BLUF, typed and corrected
   ACT I   … ACT N        the documentary body (this skill's subject)
 VERDICT recap (ClaudeVerdictArtifact)
 YOUR TURN (ClaudeComposerAsk, prompt read aloud + discussed)

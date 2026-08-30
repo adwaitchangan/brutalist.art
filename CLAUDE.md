@@ -72,7 +72,8 @@ Run `./setup` first (add `--install` to install deps + fetch the Kokoro model). 
 2. **Audio-first.** Narration MP3s are generated and measured first (`runtime/scripts/generate_audio_kokoro.py`); their durations are the master clock. Never fix timing by hand — regenerate audio, recompile.
 3. **Videos travel with their book.** Build into `<book>/youtube/<slug>/`, never into this toolkit folder. `examples/` holds study copies only.
 4. **Verify renders by LOOKING at frames** (`_qc/` + qc-sheet), never by the mp4 probe alone. Render Remotion only via `runtime/scripts/remotion_scenes.py` (foreground) — never hand-roll `npx remotion render`.
-5. **Never publish.** There is no publishing machinery here; the master stays in the reel folder.
+5. **Never publish — render instead.** There is no publishing machinery here: no staging folder, no credentials, no upload. The job is *beat sheet → 4K master*, written to a folder you choose — `--out DIR`, else `$ART_OUT`, else `<toolkit>/renders/`. Any destination works, including a mounted drive. What happens to the file afterwards is yours. Rule-owner: **`RENDER-TARGETS.md`**.
+   **9:16 is a different beat sheet, never a crop** — `shorts.py` writes its own sheet into `short/` and rewires each beat to a `<Pattern>916` composition where one is registered; a beat with no portrait variant is flagged, not silently center-cut. Same file, §3.
 6. **Free by default (Fellow Tier).** The Fellow Tier runs entirely for free — Kokoro, Manim, Remotion. If any Fellow Tier step appears to require a key, stop: that is a bug, not a missing credential. Higgsfield is opt-in and only offered to ADVANCED users on a per-beat, explicit-approval basis. Never prompt a fellow to spend money.
 7. **Tier discipline.** ADVANCED skills require Bear's sign-off. PAID skills require explicit spend approval before every paid API call. Never escalate a fellow into the PAID tier by default.
 

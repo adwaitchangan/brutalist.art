@@ -6,6 +6,9 @@
 #   ./art scenes "<beat need>"   LIBRARY-FIRST scene search — run BEFORE authoring a beat
 #   ./art scenes --check <Name>  is that composition renderable? (the anti-slate check)
 #   ./art scene-index            regenerate scenes.json + SCENE-DOC-TODO.md after adding one
+#   ./art icons "<what it needs>" CANONICAL icon search — run BEFORE drawing a mark
+#   ./art icons --check <name>   is that icon in the set? (the anti-redraw check)
+#   ./art icon-build             re-cut the canonical set from svg/ (rarely needed)
 #   ./art todo  <reel> [flags]   per-video beat ledger (which beats need filling, how)
 #   ./art run   <reel> [flags]   compile a review cut
 #   ./art shorts <reel> [flags]  derive the 9:16 Short (cap check + auto-shorten)
@@ -50,6 +53,13 @@ case "$cmd" in
     printf '%-22s %s\n' "duration-planner" "doctrine — duration is an output, never a target"
     printf '%-22s %s\n' "nopunt"         "doctrine — maps animatable beat-types to Brutalist primitives; consult before placing any placeholder"
     printf '%-22s %s\n' "screen-clean"   "doctrine — prepares screen recordings (Zoom/Teams/Meet) for use as a reel beat"
+    ;;
+  icons|icon|icon-search)
+    # LIBRARY-FIRST, one level down from scenes: find the mark before drawing one.
+    exec python3 "$ART_HOME/runtime/scripts/icon_search.py" "$@"
+    ;;
+  icon-build)
+    exec python3 "$ART_HOME/runtime/scripts/build_icon_set.py" "$@"
     ;;
   scenes|scene|scene-search)
     # LIBRARY-FIRST: ask what already exists before authoring, slating or punting a beat.

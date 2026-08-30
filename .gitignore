@@ -32,3 +32,18 @@ runtime/remotion/.spark-strip-backup/
 
 # local keys — never commit
 .env
+
+# Rendered masters — brutalist.art renders here by default (ART_OUT overrides).
+renders/
+
+# ── svg/ — 12 GB, 2.4 M files. NEVER pushed. ─────────────────────────────────
+# Bulk upstream icon libraries (material-design-icons 9.1G, tabler, RemixIcon,
+# lucide, heroicons, feather, iconoir…) are re-downloadable from upstream and
+# must not enter git history — GitHub caps a file at 100 MB and a repo at 5 GB.
+# NOTE: skills DO reference `svg/svg/images/` (~1,500 PNGs, 2.1 GB) + icons.json
+# as shipped still stock. That needs a real distribution decision (Git LFS, a
+# fetch script, or a slimmed set) — it is deliberately NOT shipped via git today.
+/svg/
+
+# stray backup of the entry point
+art.pre-scene-search

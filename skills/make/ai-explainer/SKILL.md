@@ -32,9 +32,13 @@ Both skills produce the SAME Claude-branded bookends; only the MIDDLE differs.
 
 1. **Beat 1 — the Claude terminal, `[Hello], [Name]`** (`ClaudeComposerAsk`:
    world-language hello + persona). Always beat 0.
-2. **Beat 2 — the executive summary (BLUF)**: one breath, for a smart
-   non-technical viewer — *what is this about and why care* — before any specific.
-   Mandatory (EXECUTIVE-SUMMARY LAW); sets the frame without spending the reveals.
+2. **Beat 2 — the hesitant writer's overview (BLUF)** (`BrutalistHesitantWriter`):
+   the overview of what the film is about, typed on screen — written, reconsidered,
+   corrected — for a smart non-technical viewer, *what is this about and why care*,
+   before any specific. Mandatory (EXECUTIVE-SUMMARY LAW); sets the frame without
+   spending the reveals. The hesitation is the pedagogy, not decoration: the writer
+   first types the framing a viewer would arrive with, then corrects it toward the
+   one the film actually argues.
 3. **Middle — the ONLY part that differs:**
    - **claude-explainer** → a **vox-style explainer**: any media that fits the
      concept (archival, isotype, Manim, illustrations — and terminals/code where
@@ -656,9 +660,9 @@ prompt is unfinished.
   is always the first beat. Never a brand open card, never a channel ident
   before the UI appears. B00's composer always shows its RESULT output lines —
   the ask lands answered; ASK→RESULT begins at the cold open.
-- **EXECUTIVE-SUMMARY LAW (Beat 2 = the BLUF).** The beat immediately after the
-  cold open is ALWAYS a one-breath executive summary for a **smart non-technical
-  viewer** — *what is this video about, and why should I care* — stated before any
+- **EXECUTIVE-SUMMARY LAW (Beat 2 = the BLUF, written by the hesitant writer).**
+  The beat immediately after the cold open is ALWAYS a one-breath executive summary
+  for a **smart non-technical viewer** — *what is this video about, and why should I care* — stated before any
   specific. This is the advance organizer: it sets the frame so every later beat
   lands against a whole the viewer already holds. The failure this law exists to
   prevent is the near-universal one — diving from the intro straight into details,
@@ -667,11 +671,45 @@ prompt is unfinished.
   teaser; (2) it is spoken in plain language a smart outsider follows, no jargon
   the reel hasn't earned yet; (3) it does NOT spend the reveals — it names the
   shape of the idea and the stakes, and leaves the specifics for the body (gist up
-  front, gist at the end, details between). It is a text/kinetic-type beat or a
-  single framing card — never a data dump, never the first exhibit. The ONLY
-  exception is a reel whose cold open ALREADY is the whole idea; absent that, a
-  reel that jumps from cold open into a detail beat is a defect. See
-  `DESIGN-PRINCIPLES.md §1` ("Beat 2 = the executive summary").
+  front, gist at the end, details between). The ONLY exception is a reel whose cold
+  open ALREADY is the whole idea; absent that, a reel that jumps from cold open into
+  a detail beat is a defect. See `DESIGN-PRINCIPLES.md §1`
+  ("Beat 2 = the executive summary").
+  **RENDERING — the writer, not a card.** Beat 2 is `BrutalistHesitantWriter`
+  (registered scene; check props with `./art scenes --check BrutalistHesitantWriter`)
+  — never a data dump, never the first exhibit, and no longer a static framing card.
+  The overview is *written in front of the viewer*, and the hesitation carries
+  meaning. Author it per reel:
+  - `text` — the overview as a person would first write it, 2–4 short lines (`\n`
+    breaks). It must satisfy (1)–(3) above in its FINAL, corrected state.
+  - `triggerWords` / `replacementWords` — positionally matched. The one or two words
+    the writer gets wrong first and fixes. **The correction must be the reel's actual
+    misconception** — the framing the body then dismantles. Never random words, never
+    a synonym swap for texture.
+    **Correct the SENTENCE, not just the word.** Read the final text back with the
+    replacements applied: it must stand alone as the reel's claim and satisfy (1)–(3)
+    above. A swap that repairs one noun and leaves the rest of the framing wrong is a
+    defect, not a correction — when the misconception lives in a phrase, put the whole
+    phrase in `triggerWords`. Leave no dangling fragment after the corrected sentence.
+    *Worked failure (conducting-ai/introduction, 2026-08-30):* the writer typed
+    "Conducting AI is a list of topics." and swapped `topics`→`distinctions`, which
+    reads "a list of distinctions" — not the chapter's claim. The chapter contrasts
+    *list of topics* with *sequence of distinctions*, so the whole phrase was the
+    trigger: `list of topics`→`sequence of distinctions`.
+  - Palette props (`ink`, `accent`, `bg`) — the channel's palette. The component
+    defaults are Claude's (`CLAUDE.INK` / `CLAUDE.SPARK` / `CLAUDE.PAGE`); pass the
+    channel's explicitly on any non-Claude skin. `accent` marks ONLY the text about
+    to be deleted — that is the component contract.
+  - `seed` — set it per reel (same seed = identical performance, forever). Renders
+    stay deterministic; never leave it at the shipped default.
+  - Narration reads the FINAL corrected overview aloud over the typing, then one
+    breath of stakes. It hands off to the body.
+  - **TIMING.** Audio is the clock, so a short beat-2 narration strangles the typing
+    and the correction never lands. Beat 2's audio window must be **≥ 9s**:
+    narration of 20–35 words plus an explicit **`lead_silence_s: 0.8`** written on the
+    beat — it is not defaulted, and B01 is exactly where the typing needs the head
+    start. After rendering, VERIFY the beat's media ≥ 8s and that the correction is on
+    screen before the cut.
 - **DOODLE-BANNED LAW.** `DoodleScene` and `DoodleChart` are permanently cut from
   this register. Never emit them as a beat fill; never relax the §8.0 checker to
   pass them. Any concept, data, or comparison that would have been a doodle beat
@@ -705,9 +743,12 @@ prompt is unfinished.
   apply the lesson to their own work. Pattern: `ClaudeComposerAsk` with
   greeting fixed to `Your turn.` (viewer-addressed — the one greeting that
   drops the persona), runningText `paste this into Claude…`, command = the
-  suggested prompt. This amends the typing rule: typing appears in EXACTLY two
-  beats — the cold open and the handoff. The spine is therefore always:
-  cold open → **executive summary (Beat 2 BLUF)** → body → verdict page →
+  suggested prompt. This amends the typing rule: typing appears in EXACTLY three
+  beats — the cold open, the Beat 2 hesitant-writer overview, and the handoff. Each
+  types for a different reason and they must not blur: the cold open is the *ask*,
+  Beat 2 is the *overview being thought through*, the handoff is the *viewer's
+  prompt*. The spine is therefore always:
+  cold open → **hesitant-writer overview (Beat 2 BLUF)** → body → verdict page →
   HANDOFF → title-restate outro.
   **The prompt is READ and DISCUSSED, never just typed.** Two requirements,
   both mandatory: (1) the prompt must be an INTERESTING prompt — one that

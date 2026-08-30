@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""fill_slates.py — fill every slate beat (no mp4) with a SlateCard Remotion scene.
+"""fill_slates.py — fill every slate beat (no mp4) with a FormACard Remotion scene.
 
 A slate beat is one that has neither media/<bid>.mp4 nor manim/<bid>.mp4 and carries no
 shot.remotion.pattern yet. This script stamps each such beat with:
-  shot.remotion.pattern = "SlateCard"
-  shot.remotion.props   = { headline, eyebrow, topic }
+  shot.remotion.pattern = "FormACard"
+  shot.remotion.props   = { lines: [headline], dark: false }
 
 Then calls remotion_scenes.py to render → media/<bid>.mp4, and run.sh to recompile the
 review cut. Dry-run by default; --apply renders and recompiles.
@@ -56,7 +56,7 @@ def slate_resolves(reel: Path, bid: str) -> bool:
 
 
 def find_slates(reel: Path):
-    """Return list of beats that need a SlateCard fill."""
+    """Return list of beats that need a FormACard fill."""
     sheet_path = reel / "beat_sheet.json"
     if not sheet_path.exists():
         return [], None
@@ -75,26 +75,27 @@ def find_slates(reel: Path):
 
 
 def stamp_slates(reel: Path, slates: list, sheet: dict):
-    """Stamp SlateCard pattern+props onto each slate beat and write beat_sheet.json."""
-    topic = _topic(sheet)
+    """Stamp FormACard pattern+props onto each slate beat and write beat_sheet.json.
+
+    SlateCard is DELETED (2026-08-26, Bear's order — DESIGN-PRINCIPLES §1 banned
+    card: eyebrow/kicker + bold sans headline + rule + decorative circle). Slates
+    now fill with the Form A card: serif lines only, no chrome, no redundant
+    act-name echo.
+    """
     changed = False
     for b in slates:
         bid = b["beat_id"]
-        act = b.get("act") or ""
-        # Normalise act names that contain em-dashes or extra detail
-        eyebrow = re.sub(r'\s*[—–].*$', '', act).strip().upper()
         headline = _truncate(b.get("narration_text", ""), words=11)
         if not headline:
             headline = b.get("name", bid)
         shot = b.setdefault("shot", {})
         shot["remotion"] = {
-            "pattern": "SlateCard",
-            "provenance": "proven-core/SlateCard",
+            "pattern": "FormACard",
+            "provenance": "proven-core/FormACard",
             "version": "1",
             "props": {
-                "headline": headline,
-                "eyebrow": eyebrow,
-                "topic": topic,
+                "lines": [headline],
+                "dark": False,
             },
         }
         changed = True

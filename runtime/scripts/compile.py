@@ -25,7 +25,7 @@ Usage:
 
 Free/local. No API calls. ffmpeg + Pillow + Python stdlib.
 """
-import argparse, hashlib, json, shutil, subprocess, sys
+import argparse, hashlib, json, os, shutil, subprocess, sys
 from collections import Counter
 from pathlib import Path
 
@@ -481,6 +481,11 @@ def main():
     ap.add_argument("--allow-slates", action="store_true",
                     help="permit slates in a CLEAN master (default: refuse — "
                          "a slate in a review cut is information, in a master it's a defect)")
+    ap.add_argument("--out", type=Path, default=None, metavar="DIR",
+                    help="directory to write the master into — any folder, including a "
+                         "Google Drive mount. Explicit --out always wins. Without it, a "
+                         "clean 4K final goes to $ART_OUT if set, else BRUTALIST_HOME/renders/; "
+                         "a --review cut always stays beside the reel.")
     ap.add_argument("--sheet", default="beat_sheet.json",
                     help="beat sheet filename (default: beat_sheet.json)")
     a = ap.parse_args()
@@ -556,7 +561,25 @@ def main():
     audio, akind = build_master_audio(folder, beats, a.audio, clips)
 
     slug = sheet.get("metadata", {}).get("slug", folder.name)
-    out = folder / (f"{slug}-slate.mp4" if a.review else f"{slug}.mp4")
+
+    # ── RENDER TARGET ────────────────────────────────────────────────────────
+    # brutalist.art RENDERS; it does not publish. A finished 4K master may land
+    # in any folder — a local dir, a shared drive, a Google Drive mount. Staging
+    # and uploading are somebody else's job, outside this toolkit.
+    #   1. --out DIR        explicit, always wins
+    #   2. $ART_OUT         the downloader's configured render folder (.env)
+    #   3. <toolkit>/renders/   built-in default, so it works with zero config
+    # A --review cut is a working artifact and always stays beside the reel.
+    if a.out:
+        out_dir = a.out
+    elif a.review:
+        out_dir = folder
+    else:
+        env_out = os.environ.get("ART_OUT", "").strip()
+        out_dir = Path(env_out).expanduser() if env_out \
+            else Path(__file__).resolve().parents[2] / "renders"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = out_dir / (f"{slug}-slate.mp4" if a.review else f"{slug}.mp4")
 
     # --- label overlay: review cuts only — never in clean finals
     meta_flags = sheet.get("metadata", {})

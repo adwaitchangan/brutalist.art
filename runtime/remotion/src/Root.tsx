@@ -15,7 +15,20 @@ import {NikBearBrownOutro, nikBearBrownOutroSchema} from './scenes/NikBearBrownO
 import {NikBearBrownTerminalAsk, nikBearBrownTerminalAskSchema} from './scenes/NikBearBrownTerminalAsk';
 import {NikBearBrownCodeBlock, nikBearBrownCodeBlockSchema} from './scenes/NikBearBrownCodeBlock';
 import {ClaudeComposerAsk, claudeComposerAskSchema} from './scenes/ClaudeComposerAsk';
-import {SlateCard, slateCardSchema} from './scenes/SlateCard';
+// SlateCard DELETED 2026-08-30 — DESIGN-PRINCIPLES §1 banned card (eyebrow/kicker +
+// bold sans headline + rule + decorative circle). Replaced by the two accepted forms.
+import {FormACard, formACardSchema} from './scenes/FormACard';
+import {FormBCard, formBCardSchema} from './scenes/FormBCard';
+import {FormACard916, formACard916Schema} from './scenes/FormACard916';
+import {FormBCard916, formBCard916Schema} from './scenes/FormBCard916';
+// Ported from the sandbox 2026-08-30 — components the public skills already name.
+import {ClaudeMascotGrid, claudeMascotGridSchema} from './scenes/ClaudeMascotGrid';
+import {ClaudeMascotScene, claudeMascotSceneSchema} from './scenes/ClaudeMascotScene';
+import {DoodleChart, doodleChartSchema} from './scenes/DoodleChart';
+import {DoodleScene, doodleSceneSchema} from './scenes/DoodleScene';
+import {GitHubSectionRail, gitHubSectionRailSchema} from './scenes/GitHubSectionRail';
+import {GitHubStructureMap, gitHubStructureMapSchema} from './scenes/GitHubStructureMap';
+import {ShellSession, shellSessionSchema} from './scenes/ShellSession';
 import {KokoroRosterCard, kokoroRosterCardSchema} from './scenes/KokoroRosterCard';
 // claude-medhavy season 1 — "Claude, For Educators"
 import {MedhavyConceptCard, medhavyConceptCardSchema} from './scenes/MedhavyConceptCard';
@@ -665,6 +678,8 @@ import {FinanceSankey,      financeSankeySchema}      from './scenes/FinanceSank
 import {FinanceMirroredBar, financeMirroredBarSchema} from './scenes/FinanceMirroredBar';
 import {FinanceStackedBar,  financeStackedBarSchema}  from './scenes/FinanceStackedBar';
 import {FinanceDotPlot,     financeDotPlotSchema}     from './scenes/FinanceDotPlot';
+// ── claude-liam-hesitant — Beat 2 executive summary, typed and corrected ──
+import {BrutalistHesitantWriter, brutalistHesitantWriterSchema, brutalistHesitantWriterDemoDefaultProps} from './scenes/BrutalistHesitantWriter';
 // ── fashionista modifier — photo-critique beat components ──
 import {LookPlate,      lookPlateSchema}      from './scenes/LookPlate';
 import {LookPlate916,   lookPlate916Schema}   from './scenes/LookPlate916';
@@ -784,16 +799,69 @@ export const RemotionRoot: React.FC = () => {
           ],
         }}
       />
+      {/* The two accepted card forms — DESIGN-PRINCIPLES.md §1. SlateCard is deleted. */}
       <Composition
-        id="SlateCard"
-        component={SlateCard}
+        id="FormACard"
+        component={FormACard}
         durationInFrames={300}
         fps={30}
-        width={1920}
-        height={1080}
-        schema={slateCardSchema}
-        defaultProps={{headline: 'The question.', eyebrow: 'THE QUESTION', topic: 'COMPUTATIONAL SKEPTICISM'}}
+        width={3840}
+        height={2160}
+        schema={formACardSchema}
+        defaultProps={formACardSchema.parse({})}
       />
+      <Composition
+        id="FormBCard"
+        component={FormBCard}
+        durationInFrames={300}
+        fps={30}
+        width={3840}
+        height={2160}
+        schema={formBCardSchema}
+        defaultProps={formBCardSchema.parse({})}
+      />
+      <Composition
+        id="FormACard916"
+        component={FormACard916}
+        durationInFrames={300}
+        fps={30}
+        width={2160}
+        height={3840}
+        schema={formACard916Schema}
+        defaultProps={formACard916Schema.parse({})}
+      />
+      <Composition
+        id="FormBCard916"
+        component={FormBCard916}
+        durationInFrames={300}
+        fps={30}
+        width={2160}
+        height={3840}
+        schema={formBCard916Schema}
+        defaultProps={formBCard916Schema.parse({})}
+      />
+      {/* Ported 2026-08-30 — named by the public cut's own skills/docs. */}
+      <Composition id="ClaudeMascotGrid" component={ClaudeMascotGrid}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={claudeMascotGridSchema} defaultProps={claudeMascotGridSchema.parse({})} />
+      <Composition id="ClaudeMascotScene" component={ClaudeMascotScene}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={claudeMascotSceneSchema} defaultProps={claudeMascotSceneSchema.parse({})} />
+      <Composition id="DoodleChart" component={DoodleChart}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={doodleChartSchema} defaultProps={doodleChartSchema.parse({})} />
+      <Composition id="DoodleScene" component={DoodleScene}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={doodleSceneSchema} defaultProps={doodleSceneSchema.parse({})} />
+      <Composition id="GitHubSectionRail" component={GitHubSectionRail}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={gitHubSectionRailSchema} defaultProps={gitHubSectionRailSchema.parse({})} />
+      <Composition id="GitHubStructureMap" component={GitHubStructureMap}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={gitHubStructureMapSchema} defaultProps={gitHubStructureMapSchema.parse({})} />
+      <Composition id="ShellSession" component={ShellSession}
+        durationInFrames={300} fps={30} width={3840} height={2160}
+        schema={shellSessionSchema} defaultProps={shellSessionSchema.parse({})} />
       <Composition
         id="OutroSeries"
         component={OutroSeries}
@@ -3633,6 +3701,37 @@ export const RemotionRoot: React.FC = () => {
 
       {/* ── finance skill — four chart shapes (SKILL.md §Shape logic, locked) ── */}
       <Folder name="Finance-Charts">
+        {/* claude-liam-hesitant — the Beat 2 hesitant-writer overview (EXECUTIVE-SUMMARY LAW) */}
+        <Composition
+          id="BrutalistHesitantWriter"
+          component={BrutalistHesitantWriter}
+          durationInFrames={606}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={brutalistHesitantWriterSchema}
+          defaultProps={brutalistHesitantWriterDemoDefaultProps}
+        />
+        <Composition
+          id="BrutalistHesitantWriter916"
+          component={BrutalistHesitantWriter}
+          durationInFrames={606}
+          fps={30}
+          width={1080}
+          height={1920}
+          schema={brutalistHesitantWriterSchema}
+          defaultProps={brutalistHesitantWriterDemoDefaultProps}
+        />
+        <Composition
+          id="BrutalistHesitantWriterSq"
+          component={BrutalistHesitantWriter}
+          durationInFrames={606}
+          fps={30}
+          width={1080}
+          height={1080}
+          schema={brutalistHesitantWriterSchema}
+          defaultProps={brutalistHesitantWriterDemoDefaultProps}
+        />
         {/* B04 / B05 — Flow → Sankey. Income statement or cash flow. */}
         <Composition
           id="FinanceSankey"
