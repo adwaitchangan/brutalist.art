@@ -40,9 +40,14 @@ lawful Remotion path), and recompiles the review cut. Nothing else to do.
 A brand pool is just files: drop more `*.svg` marks and `*.mp3` jingles into
 `logos/[brand]/` and they join the lottery. **A pool with no mp3s (or no
 svgs) is a MISSING** — the script logs exactly what to drop where in the
-reel's `BUILD-LOG.md` and stops (standing rule #3). Jingle status in this cut:
-`bear-brown/` 6, `humanitarians/` 9, `musinique/` 5 — **`medhavy/` has 54 marks
-and no mp3**, so it is a MISSING until a jingle is dropped in.
+reel's `BUILD-LOG.md` and stops (standing rule #3). All four pools are READY:
+`bear-brown/` 2 marks · 6 jingles, `humanitarians/` 1 · 9, `medhavy/` 54 · 2,
+`musinique/` 2 · 5. Jingles run ~7–18s; the sting is exactly as long as the one
+it draws.
+
+**There is no `logos/nik-bear-brown/`, by design.** @NikBearBrown does not use a
+logo sting — it uses `ClaudeTitleOutro`, whose CLAWD mascot is drawn from pixel
+rects in `ClaudeMascotScene.tsx` and reads no files at all. See `OUTRO-LOCK.md`.
 
 ## The laws
 
