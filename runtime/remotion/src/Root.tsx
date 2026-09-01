@@ -23,6 +23,7 @@ import {FormACard916, formACard916Schema} from './scenes/FormACard916';
 import {FormBCard916, formBCard916Schema} from './scenes/FormBCard916';
 // Ported from the sandbox 2026-08-30 — components the public skills already name.
 import {ClaudeMascotGrid, claudeMascotGridSchema} from './scenes/ClaudeMascotGrid';
+import { ClaudeMascotShortGrid, claudeMascotShortGridSchema } from './scenes/ClaudeMascotShortGrid';
 import {ClaudeMascotScene, claudeMascotSceneSchema} from './scenes/ClaudeMascotScene';
 import {DoodleChart, doodleChartSchema} from './scenes/DoodleChart';
 import {DoodleScene, doodleSceneSchema} from './scenes/DoodleScene';
@@ -676,6 +677,8 @@ import {
   ReqLevers,         reqLeversSchema,
   ReqRingWord,       reqRingWordSchema,
 } from './RequireReport';
+// ── claude-liam-riff-the-outros — reel-local components ──
+import { RiffSplit, riffSplitSchema, RiffLottery, riffLotterySchema } from './OutroRiff';
 // ── claude-liam-dashboard-that-lied — reel-local components ──
 import {
   DtlScale,     dtlScaleSchema,
@@ -864,6 +867,16 @@ export const RemotionRoot: React.FC = () => {
         })}
       />
       {/* Ported 2026-08-30 — named by the public cut's own skills/docs. */}
+      <Composition id="ClaudeMascotShortGrid" component={ClaudeMascotShortGrid}
+        durationInFrames={450} fps={30} width={1080} height={1920}
+        schema={claudeMascotShortGridSchema}
+        defaultProps={claudeMascotShortGridSchema.parse({
+          cells: [
+            { animationName: 'wave',  caption: 'wave' },
+            { animationName: 'think', caption: 'think' },
+            { animationName: 'jump',  caption: 'jump' },
+          ],
+        })} />
       <Composition id="ClaudeMascotGrid" component={ClaudeMascotGrid}
         durationInFrames={300} fps={30} width={3840} height={2160}
         schema={claudeMascotGridSchema} defaultProps={claudeMascotGridSchema.parse({
@@ -3674,6 +3687,20 @@ export const RemotionRoot: React.FC = () => {
       </Folder>
       {/* ── claude-liam-fluency-trap — reel-local compositions ── */}
       {/* ── claude-liam-what-a-university-can-require — reel-local compositions ── */}
+      {/* ── claude-liam-riff-the-outros — reel-local compositions ── */}
+      <Folder name="OutroRiff">
+        <Composition id="RiffSplit" component={RiffSplit}
+          durationInFrames={420} fps={30} width={1920} height={1080}
+          schema={riffSplitSchema}
+          defaultProps={riffSplitSchema.parse({
+            left:  { label: 'Mascot card', sub: 'drawn in code', assets: 'none', channels: '@NikBearBrown' },
+            right: { label: 'Logo sting',  sub: 'mark + jingle',  assets: 'svg + mp3', channels: 'everyone else' },
+          })} />
+        <Composition id="RiffLottery" component={RiffLottery}
+          durationInFrames={420} fps={30} width={1920} height={1080}
+          schema={riffLotterySchema}
+          defaultProps={riffLotterySchema.parse({ chips: ['spring', 'drawOn', 'rotation', 'kineticGrid'] })} />
+      </Folder>
       <Folder name="RequireReport">
         <Composition id="ReqSegmentCard" component={ReqSegmentCard}
           durationInFrames={240} fps={30} width={1920} height={1080}
