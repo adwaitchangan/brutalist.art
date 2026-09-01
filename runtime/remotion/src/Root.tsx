@@ -1426,10 +1426,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="ClaudeTitleOutro" component={ClaudeTitleOutro}
         durationInFrames={180} fps={30} width={1920} height={1080}
         schema={claudeTitleOutroSchema}
-        defaultProps={{
-          title: 'What a University Can Require.',
-          slug: 'claude-liam-what-a-university-can-require',
-        }} />
+        defaultProps={claudeTitleOutroSchema.parse({})} />
       {/* claude-liam — adaptive-therapy-revolution */}
       <Composition id="ClaudeCodeBeat" component={ClaudeCodeBeat}
         durationInFrames={300} fps={30} width={1920} height={1080}
@@ -1940,10 +1937,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="ClaudeTitleOutro916" component={ClaudeTitleOutro916}
         durationInFrames={180} fps={30} width={1080} height={1920}
         schema={claudeTitleOutro916Schema}
-        defaultProps={{
-          title: 'What a University Can Require.',
-          slug: 'claude-liam-what-a-university-can-require',
-        }} />
+        defaultProps={claudeTitleOutro916Schema.parse({})} />
       <Composition id="ClaudeWindow916" component={ClaudeWindow916}
         durationInFrames={360} fps={30} width={1080} height={1920}
         schema={claudeWindow916Schema}
