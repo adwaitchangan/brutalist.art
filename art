@@ -50,6 +50,7 @@ case "$cmd" in
     printf '%-22s %s\n' "hai"            "persona — Plain register (simple, direct), Kokoro Bella (af_bella)"
     printf '%-22s %s\n' "explainer"      "doctrine — parent chassis the builders inherit (not an entry point)"
     printf '%-22s %s\n' "your-turn"      "doctrine — the closing three-beat standard"
+    printf '%-22s %s\n' "logo"           "builder — brand sting outro; random-once animation + brand SVG + jingle (the mp3 is the clock)"
     printf '%-22s %s\n' "duration-planner" "doctrine — duration is an output, never a target"
     printf '%-22s %s\n' "nopunt"         "doctrine — maps animatable beat-types to Brutalist primitives; consult before placing any placeholder"
     printf '%-22s %s\n' "screen-clean"   "doctrine — prepares screen recordings (Zoom/Teams/Meet) for use as a reel beat"

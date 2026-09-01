@@ -283,8 +283,7 @@ def make_beat_sheet(sim: dict, reel_slug: str, code: str) -> dict:
                 "narration_text": b09,
                 "shot": remotion_shot("ClaudeTitleOutro", {
                     "title": title if title.rstrip() and title.rstrip()[-1] in ".?!\u2026" else f"{title}.",
-                    "handle": "@NikBearBrown",
-                    "subline": "Liam, in for Bear",
+                    "slug": slug,
                 }, "B09"),
                 "estimated_duration_s": 3.0,
             },
