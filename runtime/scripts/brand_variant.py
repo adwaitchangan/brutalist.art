@@ -35,7 +35,7 @@ AUD = {
             "charter": "brands/nbb.md", "author_section": "NikBearBrown",
             "engine": "kokoro", "voice_kokoro": "am_onyx", "use_dir": True},
     "hai": {"suffix": "hai", "audience": "HAI",
-            "palette": "humanitarians", "register": "Pragmatist",
+            "palette": "humanitarians", "register": "Plain",
             "charter": "brands/hai.md", "author_section": "Humanitarians AI",
             "engine": "kokoro", "voice_kokoro": "af_bella", "use_dir": True},
 }
@@ -97,8 +97,8 @@ def main():
 
     if a.audience == "hai":
         meta["_variant_todo"] = [
-            "rewrite every beat narration_text/text in the Pragmatist register "
-            "(runtime/voices/pragmatist/VOICE.md + brands/hai.md) — method, when to use, "
+            "rewrite every beat narration_text/text in the Plain register "
+            "(runtime/prose/plain/PROSE.md + brands/hai.md) — method, when to use, "
             "when NOT to/where it fails; voice only, facts unchanged",
             "optional: add ONE Irreducibly-Human tangent beat (0-1 per video, ONLY on a clear opportunity)",
             "add CLI worked exercise as the SECOND-TO-LAST beat "
@@ -110,7 +110,7 @@ def main():
     elif a.audience == "nbb":
         meta["_variant_todo"] = [
             "rewrite every beat narration_text/text in the Teardown register "
-            "(runtime/voices/teardown/VOICE.md + brands/nbb.md) — take it apart, explain how "
+            "(runtime/prose/teardown/PROSE.md + brands/nbb.md) — take it apart, explain how "
             "each piece works, judge the design choices; voice only, facts unchanged",
             "add LLM exercise as the SECOND-TO-LAST beat "
             "(paste-ready prompt for Claude/ChatGPT/Gemini + dig-deeper follow-up; "

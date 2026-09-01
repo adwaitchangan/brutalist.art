@@ -36,7 +36,7 @@ agents.
 | Skill | Register | Voice |
 |---|---|---|
 | `nbb` | Teardown — take it apart, judge the design | Kokoro `am_onyx` |
-| `hai` | Pragmatist — method, when to use it, when NOT to | Kokoro `af_bella` |
+| `hai` | Plain — simple and direct; method, when to use it, when NOT to | Kokoro `af_bella` |
 
 ## Doctrine (not entry points — inherited by builders)
 

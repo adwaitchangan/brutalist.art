@@ -49,7 +49,25 @@ import wave
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from generate_audio import normalize_for_tts   # same spoken-form safety net
+# Spoken-form safety net. Inlined on purpose: the sandbox kept this in
+# generate_audio.py alongside the PAID ElevenLabs engine, which is excluded from
+# this cut by design — so importing from it left the FREE default engine unable
+# to start (caught 2026-08-31). The toolkit is self-contained; this table has no
+# business living in a file that only exists to hold a paid API client.
+SYMBOLS = {
+    "\u03c8": "psi", "\u03a8": "Psi", "\u210f": "h-bar", "|\u03c8|\u00b2": "psi squared",
+    "\u222b": "integral of", "\u2192": "goes to", "\u2265": "greater than or equal to",
+    "\u2264": "less than or equal to", "\u0394x": "delta x", "\u0394p": "delta p",
+    "\u0394E": "delta E", "\u221e": "infinity", "E\u2080": "E sub zero", "E\u2081": "E sub one",
+    "\u00b7": " times ", "\u00b2": " squared", "\u00bd": "one half", "\u2014": ", ",
+}
+
+
+def normalize_for_tts(text: str) -> str:
+    for sym, spoken in SYMBOLS.items():
+        text = text.replace(sym, spoken)
+    return text
+
 
 FFMPEG = shutil.which("ffmpeg") or "ffmpeg"
 FFPROBE = shutil.which("ffprobe") or "ffprobe"

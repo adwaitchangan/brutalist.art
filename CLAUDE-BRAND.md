@@ -45,9 +45,9 @@ folder chip (brand keys in `brand_variant.py`):
 |---|---|---|---|---|
 | `claude` | Bear | `@NikBearBrown` | kokoro am_onyx | Teardown |
 | `claude-liam` | Liam (in for Bear) | `@NikBearBrown` | kokoro am_onyx | Teardown |
-| `claude-hai` | HAI | `@HumanitariansAI` | kokoro am_onyx | Pragmatist |
+| `claude-hai` | HAI | `@HumanitariansAI` | kokoro am_onyx | Plain |
 | `claude-medhavy` | Medhavy | `@Medhavy` | kokoro af_kore | Wonder |
-| `claude-musinique` | Musinique | `@Musinique` | kokoro am_puck | Baldwin (MUSINIQUE.md) |
+| `claude-musinique` | Musinique | `@Musinique` | kokoro am_puck | Sardonic |
 
 **Liam — the substitute narrator.** Liam is not a new channel; he is the nbb
 persona's stand-in voice on the same @NikBearBrown channel (same Teardown

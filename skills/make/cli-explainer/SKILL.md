@@ -347,7 +347,7 @@ bind unchanged.)
 Narration reads the session like a teardown: the problem and stakes (PROBLEM beat),
 what the prompt does, what to *verify* in the code and the output, the design
 choice the run exposes, then the lesson and the next move. Strip jargon; explain
-the machinery; NO FABRICATION. Forbidden phrases per `voices/teardown/VOICE.md`.
+the machinery; NO FABRICATION. Forbidden phrases per `prose/teardown/PROSE.md`.
 
 ## Build & render (reuses the vox pipeline unchanged)
 1. Emit `beat_sheet.json` in the required spine above — INTRO, PROBLEM, the CLI loop

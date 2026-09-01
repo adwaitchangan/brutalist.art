@@ -1,4 +1,4 @@
-# Teardown Voice (v3.2)
+# Teardown Prose (v3.2)
 
 *Formerly "Feynman × MKBHD."*
 
@@ -17,10 +17,10 @@ explained and design judged, not surveyed.
 
 ---
 
-## Conversion contract (as a voices/ rewrite)
+## Conversion contract (as a prose/ rewrite)
 
 **Input:** one chapter file from `chapters/`.
-**Output:** a rewrite saved to `voices/teardown/<same-filename>.md`. **Markdown only.**
+**Output:** a rewrite saved to `prose/teardown/<same-filename>.md`. **Markdown only.**
 The original in `chapters/` is never modified.
 
 ### Preserve exactly
@@ -139,11 +139,11 @@ Types: `IMAGE`, `TABLE`, `INFOGRAPHIC`, `CHART`. Name **specific content**, not 
 ## Invoke block
 
 ```
-Rewrite chapters/NN-*.md in the Teardown voice per voices/teardown/VOICE.md.
+Rewrite chapters/NN-*.md in the Teardown voice per prose/teardown/PROSE.md.
 Explain the machinery, reveal the design philosophy, name the trade-offs; strip the
 forbidden phrases. Keep the title, all markdown comments, any LLM exercises, and any
 images. Nik Bear Brown speaks in first person. NO FABRICATION. Save to
-voices/teardown/NN-*.md. Markdown only, no preamble.
+prose/teardown/NN-*.md. Markdown only, no preamble.
 ```
 To draft from scratch instead of rewriting, use `/essay`, `/nart`, or `/write`.
 To finish any completed draft, run `/done` (adds subtitle + exercises if missing, seeds

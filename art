@@ -47,7 +47,7 @@ case "$cmd" in
     printf '%-22s %s\n' "finance"        "builder — templatized SEC EDGAR filings reel; 11 beats, 5 charts, fully deterministic"
     printf '%-22s %s\n' "guests"         "builder — wraps a board-member or invited-speaker video in Claude bookends for @HumanitariansAI"
     printf '%-22s %s\n' "nbb"            "persona — Teardown register, Kokoro Onyx (am_onyx)"
-    printf '%-22s %s\n' "hai"            "persona — Pragmatist register, Kokoro Bella (af_bella)"
+    printf '%-22s %s\n' "hai"            "persona — Plain register (simple, direct), Kokoro Bella (af_bella)"
     printf '%-22s %s\n' "explainer"      "doctrine — parent chassis the builders inherit (not an entry point)"
     printf '%-22s %s\n' "your-turn"      "doctrine — the closing three-beat standard"
     printf '%-22s %s\n' "duration-planner" "doctrine — duration is an output, never a target"

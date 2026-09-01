@@ -131,9 +131,9 @@ register, greeting persona, and the footer folder chip:
 |---|---|---|---|---|
 | `claude` (Bear's voice — on explicit request) | Bear | `@NikBearBrown` | kokoro `am_onyx` | Teardown |
 | `claude-liam` **(working default)** | Liam (in for Bear) | `@NikBearBrown` | kokoro `am_onyx` | Teardown |
-| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `am_onyx` | Pragmatist |
+| `claude-hai` | HAI | `@HumanitariansAI` | kokoro `am_onyx` | Plain |
 | `claude-medhavy` | Medhavy | `@Medhavy` | kokoro `af_kore` | Wonder |
-| `claude-musinique` | Musinique | `@Musinique` | kokoro `am_puck` | Baldwin (charter: MUSINIQUE.md — fights for the indie musician) |
+| `claude-musinique` | Musinique | `@Musinique` | kokoro `am_puck` | Sardonic (`prose/sardonic/PROSE.md` — fights for the indie musician) |
 
 Scaffold any of them: `python3 runtime/scripts/brand_variant.py [input] claude-medhavy` etc.
 When authoring the beat sheet, set the scene's `greeting` persona and

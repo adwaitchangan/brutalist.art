@@ -29,7 +29,8 @@ runtime/
                                (was vox_graphics.py; the palette-registry superset copy)
   remotion/                the Medhavy bookends Remotion project (youtube-publisher + slate-filler)
   design/DESIGN.md         the visual constitution (palette, type)
-  voices/                  register voice guides (generic, narrative, pragmatist, …)
+  prose/                   register guides — the WRITING voice, never the TTS voice
+                           (ships: plain, pragmatist, teardown)
   fonts/                   bundled TTFs (EB Garamond, Inter, Montserrat, PT Mono; OFL)
   schema/beat_sheet.schema.json   the shared beat-sheet contract (the heart)
 ```

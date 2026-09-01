@@ -26,7 +26,7 @@ brutalist.art is a Brutalist video toolkit for Humanitarians AI fellows and coll
 |---|---|---|
 | `fellows` | You have a HAI fellow's video report (.mp4/.mov) and want a Claude-bookended reel | `./art fellows path/to/reel/` |
 | `ai-explainer` | You want to explain a concept in the Claude desktop-app visual style (cream, warm ink, terracotta) | `./art ai-explainer "What is gradient descent?"` |
-| `hai` | You need a Humanitarians AI Pragmatist-register reel from any text or beat sheet | `./art hai path/to/reel/` |
+| `hai` | You need a Humanitarians AI Plain-register reel from any text or beat sheet | `./art hai path/to/reel/` |
 | `your-turn` | You want to close an existing reel with a structured handoff prompt for viewers | `./art your-turn path/to/reel/` |
 | `duration-planner` | You need to size your content to a target length — or check if a beat is too long | `./art duration-planner path/to/reel/` |
 

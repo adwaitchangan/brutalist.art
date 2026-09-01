@@ -667,6 +667,15 @@ import {
   FluencyVerdictStamps, fluencyVerdictStampsSchema,
   FluencyChipGrid,    fluencyChipGridSchema,
 } from './FluencyTrap';
+// ── claude-liam-what-a-university-can-require — reel-local components ──
+import {
+  ReqSegmentCard,    reqSegmentCardSchema,
+  ReqBars,           reqBarsSchema,
+  ReqLedger,         reqLedgerSchema,
+  ReqDefinitionDrop, reqDefinitionDropSchema,
+  ReqLevers,         reqLeversSchema,
+  ReqRingWord,       reqRingWordSchema,
+} from './RequireReport';
 // ── claude-liam-dashboard-that-lied — reel-local components ──
 import {
   DtlScale,     dtlScaleSchema,
@@ -818,7 +827,14 @@ export const RemotionRoot: React.FC = () => {
         width={3840}
         height={2160}
         schema={formBCardSchema}
-        defaultProps={formBCardSchema.parse({})}
+        defaultProps={formBCardSchema.parse({
+          title: 'Form B',
+          items: [
+            { label: 'Name the thing', sub: 'one line of support' },
+            { label: 'Name the next',  sub: 'one line of support' },
+            { label: 'Name the last',  sub: 'one line of support' },
+          ],
+        })}
       />
       <Composition
         id="FormACard916"
@@ -838,18 +854,45 @@ export const RemotionRoot: React.FC = () => {
         width={2160}
         height={3840}
         schema={formBCard916Schema}
-        defaultProps={formBCard916Schema.parse({})}
+        defaultProps={formBCard916Schema.parse({
+          title: 'Form B',
+          items: [
+            { label: 'Name the thing', sub: 'one line of support' },
+            { label: 'Name the next',  sub: 'one line of support' },
+            { label: 'Name the last',  sub: 'one line of support' },
+          ],
+        })}
       />
       {/* Ported 2026-08-30 — named by the public cut's own skills/docs. */}
       <Composition id="ClaudeMascotGrid" component={ClaudeMascotGrid}
         durationInFrames={300} fps={30} width={3840} height={2160}
-        schema={claudeMascotGridSchema} defaultProps={claudeMascotGridSchema.parse({})} />
+        schema={claudeMascotGridSchema} defaultProps={claudeMascotGridSchema.parse({
+          cells: [
+            { animationName: 'idle',      caption: 'idle' },
+            { animationName: 'wave',      caption: 'wave' },
+            { animationName: 'nod',       caption: 'nod' },
+            { animationName: 'think',     caption: 'think' },
+            { animationName: 'type',      caption: 'type' },
+            { animationName: 'bounce',    caption: 'bounce' },
+            { animationName: 'stretch',   caption: 'stretch' },
+            { animationName: 'jump',      caption: 'jump' },
+            { animationName: 'celebrate', caption: 'celebrate' },
+          ],
+        })} />
       <Composition id="ClaudeMascotScene" component={ClaudeMascotScene}
         durationInFrames={300} fps={30} width={3840} height={2160}
         schema={claudeMascotSceneSchema} defaultProps={claudeMascotSceneSchema.parse({})} />
       <Composition id="DoodleChart" component={DoodleChart}
         durationInFrames={300} fps={30} width={3840} height={2160}
-        schema={doodleChartSchema} defaultProps={doodleChartSchema.parse({})} />
+        schema={doodleChartSchema} defaultProps={doodleChartSchema.parse({
+          kind: 'bar',
+          title: 'Demo',
+          data: [
+            { label: 'One',   value: 3 },
+            { label: 'Two',   value: 5 },
+            { label: 'Three', value: 4 },
+          ],
+        })} />
       <Composition id="DoodleScene" component={DoodleScene}
         durationInFrames={300} fps={30} width={3840} height={2160}
         schema={doodleSceneSchema} defaultProps={doodleSceneSchema.parse({})} />
@@ -3638,6 +3681,33 @@ export const RemotionRoot: React.FC = () => {
           defaultProps={skillTeardownMechanismSchema.parse({})} />
       </Folder>
       {/* ── claude-liam-fluency-trap — reel-local compositions ── */}
+      {/* ── claude-liam-what-a-university-can-require — reel-local compositions ── */}
+      <Folder name="RequireReport">
+        <Composition id="ReqSegmentCard" component={ReqSegmentCard}
+          durationInFrames={240} fps={30} width={1920} height={1080}
+          schema={reqSegmentCardSchema}
+          defaultProps={reqSegmentCardSchema.parse({})} />
+        <Composition id="ReqBars" component={ReqBars}
+          durationInFrames={420} fps={30} width={1920} height={1080}
+          schema={reqBarsSchema}
+          defaultProps={reqBarsSchema.parse({ data: [{ label: 'Reducing long-term learning', value: 88 }, { label: 'Cognitive capacity', value: 87 }] })} />
+        <Composition id="ReqLedger" component={ReqLedger}
+          durationInFrames={480} fps={30} width={1920} height={1080}
+          schema={reqLedgerSchema}
+          defaultProps={reqLedgerSchema.parse({ rows: [{ label: 'Publish baseline rules' }, { label: 'Update the academic codes' }] })} />
+        <Composition id="ReqDefinitionDrop" component={ReqDefinitionDrop}
+          durationInFrames={420} fps={30} width={1920} height={1080}
+          schema={reqDefinitionDropSchema}
+          defaultProps={reqDefinitionDropSchema.parse({ parts: ['the technology', 'its strengths and weaknesses'] })} />
+        <Composition id="ReqLevers" component={ReqLevers}
+          durationInFrames={420} fps={30} width={1920} height={1080}
+          schema={reqLeversSchema}
+          defaultProps={reqLeversSchema.parse({ levers: [{ name: 'The syllabus' }] })} />
+        <Composition id="ReqRingWord" component={ReqRingWord}
+          durationInFrames={390} fps={30} width={1920} height={1080}
+          schema={reqRingWordSchema}
+          defaultProps={reqRingWordSchema.parse({})} />
+      </Folder>
       <Folder name="FluencyTrap">
         <Composition id="FluencySegmentCard" component={FluencySegmentCard}
           durationInFrames={240} fps={30} width={1920} height={1080}

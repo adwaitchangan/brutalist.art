@@ -1,4 +1,4 @@
-# Pragmatist Voice
+# Pragmatist Prose
 
 Here's the formula, here's when to use it, here are the practice problems. Zero
 personality, by design. Doesn't attempt warmth, wonder, or story — it gets the
@@ -9,7 +9,7 @@ job done for a reader who needs to solve a problem now.
 ## Conversion contract
 
 **Input:** one chapter file from `chapters/`.
-**Output:** a rewrite saved to `voices/pragmatist/<same-filename>.md`. **Markdown only.**
+**Output:** a rewrite saved to `prose/pragmatist/<same-filename>.md`. **Markdown only.**
 The original in `chapters/` is never modified.
 
 **Preserve exactly:** the title, formatted `# Chapter X — Title`; **all markdown
@@ -53,11 +53,11 @@ Run `/done` if it hasn't already:
 ## Invoke
 
 ```
-Rewrite chapters/<file>.md in the Pragmatist voice per voices/pragmatist/VOICE.md.
+Rewrite chapters/<file>.md in the Pragmatist voice per prose/pragmatist/PROSE.md.
 Formula → when to use it → compact worked example → ~12 practice problems; zero
 personality, tables over prose. Keep the title (as "# Chapter X — Title"), all
 markdown comments, any LLM exercises, and any images. Save to
-voices/pragmatist/<file>.md — never touch chapters/. Then run the finishing pass
+prose/pragmatist/<file>.md — never touch chapters/. Then run the finishing pass
 (subtitle + visual comments; the voice supplies the practice problems, so don't
 add a separate set). Output markdown only, no preamble.
 ```

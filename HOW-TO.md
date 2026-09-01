@@ -66,7 +66,7 @@ python3 runtime/scripts/generate_audio_kokoro.py --list-voices | grep -E 'bella|
 | Voice | Kokoro code | Persona | Register | Channel chip |
 |---|---|---|---|---|
 | **Onyx** | `am_onyx` | `nbb` (and Liam-in-for-Bear, the working default) | Teardown — take it apart, judge the design | `@NikBearBrown` |
-| **Bella** | `af_bella` | `hai` | Pragmatist — method, when to use it, when NOT to | `@HumanitariansAI` |
+| **Bella** | `af_bella` | `hai` | Plain — simple and direct; method, when to use it, when NOT to | `@HumanitariansAI` |
 
 Set per reel in `beat_sheet.json` metadata (`"engine": "kokoro",
 "voice_kokoro": "am_onyx"`), or per beat with `beat.voice`. Any other voice

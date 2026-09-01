@@ -4,7 +4,7 @@ description: >
   Create an HAI (Humanitarians AI) beat sheet from any input — a reel folder,
   a lecture folder, or a book (batch: every reel/lecture it contains). Writes
   into a new hai- directory; the source is never modified. Rewrites narration in
-  the Pragmatist register (method, when to use it, and when NOT to/where it
+  the Plain register (simple and direct: method, when to use it, and when NOT to/where it
   fails), adds an optional Irreducibly-Human tangent (0–1), inserts a CLI worked
   exercise as the second-to-last beat, and ends with the Humanitarians AI outro.
   Persona / voice: Kore with Kokoro af_kore. Palette: humanitarians
@@ -64,17 +64,17 @@ the source dir. No API calls, no spend.
   "voice_kokoro": "af_kore",
   "palette": "humanitarians",
   "typography": { "serif": "EB Garamond", "sans": "Montserrat" },
-  "register": "Pragmatist",
+  "register": "Plain",
   "outro_source": "AUTHOR.MD :: Humanitarians AI",
   "derived_from": "beat_sheet.json"
 }
 ```
 
 
-### Step 2 — Rewrite the register (Pragmatist)
+### Step 2 — Rewrite the register (Plain)
 
 Open the new `hai-[…]/beat_sheet.json` and **rewrite every beat's narration**
-in the Pragmatist register (`voices/pragmatist/VOICE.md`, `brands/hai.md`):
+in the Plain register (`prose/plain/PROSE.md`, `brands/hai.md`):
 
 - Lead with **method**: what it is, what it produces.
 - State clearly **when to use it** — the decision trigger.
@@ -151,7 +151,7 @@ Add/replace the final beat with the **Humanitarians AI outro**. Content from the
 Confirm the beat sequence closes as:
 
 ```
-… Pragmatist body beats …
+… Plain body beats …
 [optional Irreducibly-Human tangent]
 [CLI worked exercise]          ← second-to-last
 [Humanitarians AI outro]       ← last

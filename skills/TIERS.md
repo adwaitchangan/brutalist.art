@@ -10,7 +10,7 @@ make a video.
 |---|---|
 | fellows | You have a HAI fellow's video report and want a Claude-bookended reel |
 | ai-explainer | You want to explain a concept in the Claude desktop-app visual style |
-| hai | You need a Humanitarians AI Pragmatist-register reel |
+| hai | You need a Humanitarians AI Plain-register reel |
 | your-turn | You want to close a reel with a structured handoff prompt |
 | duration-planner | You need to fit content to a target length |
 | nopunt | *(reference)* You're unsure how to animate a beat, or a beat is punting |

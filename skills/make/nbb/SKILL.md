@@ -85,7 +85,7 @@ not use it for new beat sheets.
 ### Step 2 — Rewrite the register (Teardown)
 
 Open the new `nbb-[…]/beat_sheet.nbb.json` and **rewrite every beat's narration**
-in the Teardown register (`voices/teardown/VOICE.md`, `brands/nbb.md`):
+in the Teardown register (`prose/teardown/PROSE.md`, `brands/nbb.md`):
 
 - **Take it apart**: explain how each piece actually works — the machinery, not
   just the name. Strip jargon, reveal the mechanism.

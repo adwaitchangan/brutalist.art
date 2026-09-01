@@ -1,7 +1,7 @@
 ---
 name: hai
 description: >
-  HAI (Humanitarians AI) brand spec — Pragmatist register, Kokoro am_onyx
+  HAI (Humanitarians AI) brand spec — Plain register, Kokoro am_onyx
   voice (ElevenLabs HUMANITARIANS override), humanitarians palette (muted
   editorial). Used by the audience-preset skill when brand=hai. For the
   first-class hai command (which creates a hai- directory and adds the CLI
@@ -15,7 +15,7 @@ Brand specification used by `audience-preset` when `<brand>=hai`. The
 beat, and Humanitarians AI outro) is documented in
 `skills/make/hai/SKILL.md`.
 
-## Register — Pragmatist
+## Register — Plain
 
 For busy, mid-career practitioners applying AI in social-impact work. Get
 productive fast.
@@ -26,7 +26,7 @@ productive fast.
   event. Do not skip or soften.
 - Efficient; no personality tax; no academic hedging.
 
-Voice reference: `voices/pragmatist/VOICE.md`
+Prose reference: `prose/plain/PROSE.md`
 
 ## Voice
 

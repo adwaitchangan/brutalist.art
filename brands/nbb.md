@@ -30,7 +30,7 @@ Forbidden: "One could argue…" / "innovative" without saying what changed / spe
 without context. Use: "Here's what's actually happening…" / "This works if you
 value X; it fails if you need Y."
 
-Voice reference: `voices/teardown/VOICE.md`
+Prose reference: `prose/teardown/PROSE.md`
 
 ## Voice
 
