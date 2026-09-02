@@ -53,10 +53,10 @@ export const RiffSplit: React.FC<RiffSplitProps> = ({ title, left, right, note }
         <div style={{ fontFamily: SERIF, fontSize: 60, color: INK, lineHeight: 1.1 }}>{d.label}</div>
         <div style={{ fontFamily: SERIF, fontSize: 34, color: SOFT, marginTop: 22, lineHeight: 1.35 }}>{d.sub}</div>
         <div style={{ height: 1, background: BORDER, margin: '34px 0 26px' }} />
-        <div style={{ fontFamily: SANS, fontSize: 20, letterSpacing: '0.14em', color: GHOST, textTransform: 'uppercase' }}>ASSETS</div>
-        <div style={{ fontFamily: SERIF, fontSize: 38, color: accent ? ACC : INK, marginTop: 10 }}>{d.assets}</div>
-        <div style={{ fontFamily: SANS, fontSize: 20, letterSpacing: '0.14em', color: GHOST, textTransform: 'uppercase', marginTop: 30 }}>CHANNELS</div>
-        <div style={{ fontFamily: SERIF, fontSize: 32, color: INK, marginTop: 10, lineHeight: 1.3 }}>{d.channels}</div>
+        <div style={{ fontFamily: SANS, fontSize: 32, letterSpacing: '0.12em', color: GHOST, textTransform: 'uppercase' }}>ASSETS</div>
+        <div style={{ fontFamily: SERIF, fontSize: 54, color: accent ? ACC : INK, marginTop: 14 }}>{d.assets}</div>
+        <div style={{ fontFamily: SANS, fontSize: 32, letterSpacing: '0.12em', color: GHOST, textTransform: 'uppercase', marginTop: 30 }}>CHANNELS</div>
+        <div style={{ fontFamily: SERIF, fontSize: 38, color: INK, marginTop: 12, lineHeight: 1.3 }}>{d.channels}</div>
       </div>
     );
   };

@@ -3,10 +3,10 @@ name: deep-explainer
 description: >
   5–10 minute deep explainers on the ai-explainer chassis — Claude composer
   cold open, verdict recap, YOUR TURN handoff, title-restate outro — with a
-  vox-style documentary BODY: roughly 20–25% of body beats are VOX beats
-  animated from static stills waiting in pantry/ (greyscale/duotone cutout
-  treatment, ease-out Ken Burns, spring pop-ins, film grain), and the rest are
-  Manim fragments and Remotion patterns/illustrations chosen per beat.
+  documentary BODY built from Manim fragments and Remotion
+  patterns/illustrations chosen per beat, plus VOX beats — pantry stills in the
+  cutout grammar (greyscale/duotone, ease-out Ken Burns, film grain) — used ONLY
+  where the still is itself the evidence (VOX LAW). There is no vox quota.
   Frame-continuity chains ONLY within runs of consecutive vox beats (the
   vox-run handoff contract); hard cuts everywhere else. Two hard gates beyond
   the parents': the first compile is a full-length SLATE PREVIZ, and a
@@ -109,24 +109,28 @@ Acts are 4–8 beats each. Every act opens with a one-line segment card or a
 spark-line beat naming the act (Title Case serif) — the viewer always knows
 where they are in a 5–10 minute film.
 
-## THE BEAT-MIX CONTRACT (the quota this genre exists for)
+## THE BEAT MIX — no quota (VOX LAW governs)
 
-Count only **body beats** (bookends, ask micro-beats, and the closing block
-are exempt). Target mix, linted at the plan gate:
+**The vox percentage is dead** (2026-09-02). It used to say ~20–25% of body
+beats should be pantry stills, with a WARN outside 15–30%. That target produced
+films that shopped for atmosphere to hit a number.
 
-| Lane | Share of body | What it is |
+**`VOX LAW` in `../explainer/SKILL.md` replaces it:** a still is used when the
+still IS the evidence — the actual record, the real document the narration makes
+a claim about — and never as texture. A deep-explainer whose evidence is text,
+code, or data correctly has **zero** vox beats. That is not a skipped pantry.
+
+| Lane | When | What it is |
 |---|---|---|
-| **VOX** | **~20–25%** | A pantry still animated in the vox cutout grammar (below). `shot.type: STILL` or `COMPOSITE`, `shot.source: archive` or `ai`. |
-| **MANIM** | ~25–40% | Fragments from `animated_graphics.py`: isotype grids, state cards, quote cards, equation tangents. `shot.source: own`. |
-| **REMOTION** | ~30–45% | C2 rhetorical patterns, C3 concept illustrations, Onda `code-block` for anything code, segment cards. `shot.source: own`. |
-| **CARD** | remainder | Act cards, kicker, sources card. |
+| **VOX** | the still is the evidence, and nothing else can be | A pantry still animated in the vox cutout grammar (below). `shot.type: STILL` or `COMPOSITE`, `shot.source: archive` or `ai`. |
+| **MANIM** | there is an equation, a simulation, or a quantity that moves | Fragments from `animated_graphics.py`: isotype grids, state cards, quote cards, equation tangents. `shot.source: own`. |
+| **REMOTION** | the idea has a shape — a comparison, a ledger, a structure | C2 rhetorical patterns, C3 concept illustrations, Onda `code-block` for anything code, segment cards. `shot.source: own`. |
+| **CARD** | the act needs naming, or the film needs a breath | Act cards, kicker, sources card. |
 
-Lint rules (checked when the plan is presented, reported as a histogram like
-the parent's rhythm lint): vox share outside 15–30% is a WARN, outside 10–35%
-is a FAIL; more than 2 consecutive beats of the same lane is a WARN (except
-inside a vox run, where sameness is the point). The quota exists because the
-genre's texture IS the mix — all-Remotion reads as a deck, all-vox reads as a
-slideshow.
+What survives from the old lint: **more than 2 consecutive beats sharing a
+visual scheme is a WARN** (except inside a vox run, where sameness is the
+point). That check is about monotony and still earns its place. The percentages
+do not — report the histogram at the plan gate as information, never as a gate.
 
 **Rhythm.** Denser than the parent explainer's ~28-word vox rhythm, lighter
 than a lecture: ~7–14 s per beat, narration ~25–45 words. A 5–10 min episode
@@ -376,9 +380,11 @@ the OWNING BOOK's `youtube/` — never into the toolkit.
 
 ## Hard rules (the genre's own — parents' rules all still bind)
 
-1. **The quota is real.** A "deep-explainer" with 5% vox beats is an
-   ai-explainer that skipped its pantry; with 60% it's a slideshow. Fix the
-   plan, not the label.
+1. **VOX is evidence, never texture** (`../explainer/SKILL.md` → VOX LAW).
+   A still earns its beat only when it IS the claim — the actual record, the
+   real document. Zero vox beats is a correct outcome for a film whose evidence
+   is text. What separates this genre from `ai-explainer` is the ACT STRUCTURE
+   and the 5–10 minute arc, not a pantry percentage.
 2. **No whole-film continuity.** The vox-run contract is the ONLY
    frame-continuity mechanism. A plan that chains runs across act boundaries
    or beyond 3 beats fails the plan gate.

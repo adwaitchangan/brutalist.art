@@ -117,10 +117,11 @@ built**.
 
 ### deep-explainer — the documentary episode
 
-The 5–10 minute cut on the ai-explainer chassis. The body mixes lanes by
-quota: ~20–25% **VOX beats** (human-supplied stills in `pantry/`, animated in
-the cutout grammar — Ken Burns, cutout springs, parallax, draw-on), the rest
-Manim and Remotion. Two extra hard gates: the first compile is a full-length
+The 5–10 minute cut on the ai-explainer chassis. The body is Manim and
+Remotion, plus **VOX beats** — human-supplied stills from `pantry/`, animated in
+the cutout grammar (Ken Burns, cutout springs, parallax, draw-on). Per **VOX
+LAW** a still is used only where it IS the evidence — the actual record, the
+real document — never as texture, and there is no target percentage. Two extra hard gates: the first compile is a full-length
 **slate previz**, and a duration-locked, tier-tagged **SHOPPING.md** for
 pantry stills is written after audio lock — never before. Use it when the
 concept is **multi-act** (a chapter, a framework, a long research doc).

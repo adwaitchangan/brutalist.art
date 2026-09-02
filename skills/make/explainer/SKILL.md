@@ -150,6 +150,37 @@ reels/[slug]/
   beat-local clock + slot status) live on the assembly overlay — never baked
   into `clips/`. Clean master = same assembly, no flag.
 
+## VOX LAW — a still is EVIDENCE, never texture
+
+**Binds every explainer** — `ai-explainer`, `cli-explainer`, `deep-explainer`,
+and anything built on this chassis.
+
+A VOX beat exists for exactly one reason: **the still IS the evidence.** The
+actual record. The real document the narration is making a claim about. The
+specific artifact, photographed, that the argument turns on.
+
+> Princeton's actual admissions records — YES. That still is the claim.
+> A stock photograph of a university — NO. It illustrates nothing.
+
+**The test, and it is one question:** could this still be swapped for any other
+still of the same subject without changing what the beat proves? If yes, it is
+decoration. Cut it and let a Remotion or Manim beat carry the idea.
+
+**There is no share to hit.** A film whose evidence is text, code, or data
+should have ZERO vox beats, and that is a correct outcome — not a gap, not a
+skipped pantry. Any prior guidance stating a target percentage of vox body
+beats is **superseded by this law** (2026-09-02).
+
+**Why the rule is this strict.** A pantry still is the most expensive beat in
+the system. It cannot be machine-built, so it blocks the review cut. It needs a
+rights check, which escalates to a human. It requires someone to go find,
+license and drop in a file. That cost is worth paying for the actual record that
+makes an argument land. It is never worth paying for atmosphere.
+
+**What replaces the quota:** the mix is judged on whether each beat teaches, not
+on its lane. Two consecutive beats sharing a visual scheme is still the smell
+worth checking (ILLUSTRATE LAW) — that check survives; the percentage does not.
+
 ## The pantry law (`scripts/vox_pantry.py`)
 
 **THE COMMAND WORD: when the user says `pantry`, run the intake on the

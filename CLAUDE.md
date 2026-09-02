@@ -36,7 +36,7 @@ brutalist.art is a Brutalist video toolkit for Humanitarians AI fellows and coll
 
 | Skill | Notes |
 |---|---|
-| `deep-explainer` | Multi-layered concept depth passes on the ai-explainer chassis (~20–25% vox body beats) |
+| `deep-explainer` | Multi-layered concept depth passes on the ai-explainer chassis (5–10 min, act-structured; vox stills only where the still IS the evidence) |
 | `cli-explainer` | Claude session + live code + output as a moving vox beat |
 | `nbb` | NikBearBrown/Teardown register — Kokoro am_onyx voice (free, local) |
 
