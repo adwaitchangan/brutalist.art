@@ -45,6 +45,34 @@ reel's `BUILD-LOG.md` and stops (standing rule #3). All four pools are READY:
 `musinique/` 2 · 5. Jingles run ~7–18s; the sting is exactly as long as the one
 it draws.
 
+### `kineticGrid` is full-bleed
+
+It tiles the whole canvas by design — the tiling runs off every edge, and that
+is the effect, not a clip. Gate V reads edge crossings as a BLOCKER, so a beat
+using it declares itself:
+
+```jsonc
+"qc": { "full_bleed": true }
+```
+
+Per beat, in the beat sheet, visible in the diff. It drops **only** the
+edge-bleed check for that beat — underfill and everything else still run, and it
+can never be a blanket switch that disarms the gate for a whole reel.
+
+### Curate the pool before you trust the draw
+
+The draw is uniform over `logos/<brand>/*.svg`, so the pool IS the quality bar.
+Two failure modes, both found in `logos/medhavy/` on 2026-09-01:
+
+- **A wrong mark is drawable.** Misspelled wordmarks and four logos belonging to
+  a different company were in the pool. They are now in `logos/medhavy/_rejected/`
+  — a subdirectory drops them from the glob without deleting anything.
+- **Duplicates skew the odds.** `medhavy-selected-*` is a byte-identical rename of
+  `medhavy-logo-12`…`-33`, so those designs are twice as likely to be drawn. 42
+  drawable files, 25 unique designs. Harmless to output, wrong as a lottery.
+
+Wordmarks are outlined paths — grep finds nothing. Rasterise and look.
+
 **There is no `logos/nik-bear-brown/`, by design.** @NikBearBrown does not use a
 logo sting — it uses `ClaudeTitleOutro`, whose CLAWD mascot is drawn from pixel
 rects in `ClaudeMascotScene.tsx` and reads no files at all. See `OUTRO-LOCK.md`.

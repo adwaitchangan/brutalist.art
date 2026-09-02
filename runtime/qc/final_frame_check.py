@@ -143,6 +143,23 @@ def sample_frames(mp4, outdir, fps=2):
     return sorted(glob.glob(os.path.join(outdir, "*.png")))
 
 
+def full_bleed_beats(reel):
+    """Beat ids that DECLARE themselves full-bleed, via `qc.full_bleed: true`.
+
+    Some compositions fill the frame on purpose — a tiled logo sting, an
+    edge-to-edge plate. For those, edge-bleed is the design, not a defect. The
+    declaration lives in the beat sheet so it is per-beat, reviewable in the
+    diff, and can never be a blanket switch that quietly disarms the gate for a
+    whole reel. Underfill and every other check still apply.
+    """
+    try:
+        bs = json.load(open(os.path.join(reel, "beat_sheet.json")))
+    except Exception:
+        return set()
+    return {b.get("beat_id") for b in bs.get("beats", [])
+            if (b.get("qc") or {}).get("full_bleed") is True}
+
+
 def beat_spans(reel):
     """(beat_id, start_s, dur_s) per beat, from the beat sheet's durations."""
     try:
@@ -215,9 +232,16 @@ def main():
         frames = sample_beats(mp4, spans, tmp) if spans else sample_frames(mp4, tmp)
         outdir = os.path.join(a.reel or ".", "_qc"); os.makedirs(outdir, exist_ok=True)
 
+    exempt = full_bleed_beats(a.reel) if a.reel else set()
+
     worst = {}   # frame -> list of defects
     for f in frames:
         d, _ = analyze_frame(f)
+        if d and exempt:
+            # frames are named "<beat_id>_<pct>.png"
+            bid = os.path.basename(f).rsplit("_", 1)[0]
+            if bid in exempt:
+                d = [x for x in d if x[1] != "edge-bleed"]
         if d:
             worst[f] = d
 
