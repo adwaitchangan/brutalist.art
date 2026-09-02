@@ -18,13 +18,12 @@ description: >
   beats support two visual looks — the default cream/parchment palette
   (static camera, matching the other three explainers), or a dark
   "Notebook" look for when the human asks for a NotebookLM-style/dark/
-  glowing/cinematic chapter video: gradient background, a MOVING camera on
-  every beat (zoom into results, pan across comparisons — not a locked-off
-  frame), real 3D hero objects with camera orbit for any beat whose content
-  is physically spatial (roughly a third of beats, not just the cold open),
-  glowing accent curves, gridlined charts, bold sans titles, red box
-  callouts — see reference/notebook-look.md. GATE P before any audio spend.
-  Never publishes.
+  glowing/cinematic chapter video: gradient background, a static/locked-off
+  camera on ordinary 2D beats, real 3D hero objects with camera orbit for
+  any beat whose content is physically spatial (roughly a third of beats,
+  not just the cold open), glowing accent curves, gridlined charts, bold
+  sans titles, red box callouts — see reference/notebook-look.md. GATE P
+  before any audio spend. Never publishes.
 ---
 
 > **BRUTALIST (pared-down) EDITION.** This copy of the skill lives in the
@@ -130,19 +129,20 @@ call into that (proprietary, API-less) product, and not a literal pixel
 copy of its photoreal rendering. It is more than a palette swap:
 
 - **Gradient background** on every scene (never a flat single color).
-- **`BaseScene` is a `MovingCameraScene`, not a locked-off `Scene`** — every
-  2D beat gets at least one real camera move (a zoom into the result, a pan
-  across a comparison), not just Write/FadeIn on a fixed frame. This is the
-  single highest-leverage fix for a build that "looks like the same video
-  with new colors" — a first pass at this look shipped without it and had
-  to be redone once that was pointed out.
+- **`BaseScene` extends `MovingCameraScene` for API convenience, but
+  ordinary 2D beats keep a static, locked-off camera** — no
+  `self.camera.frame.animate` zoom/pan on a Write/FadeIn beat. This was
+  tried both ways: no camera motion at all read as a plain palette reskin;
+  a later pass added a zoom/pan to every single 2D beat and that was
+  called out as gimmicky and reverted. Camera motion is earned by real 3D
+  geometry, not added to a flat beat as a matter of course.
 - **Real 3D hero objects with camera orbit** (`BaseScene3D`, a
   `ThreeDScene`) for every beat whose own content is a physical object or
   event in space — not just the cold-open hook. Across the two rebuilt
   reels, 5 of 16 GRAPHIC beats are full 3D (a heated block, a crystal
   lattice that both anneals and diffracts a beam, a photon-electron
-  collision, an electron through a biprism); the rest are 2D with a camera
-  move. Don't force 3D onto a chart/calculation beat just to have more of
+  collision, an electron through a biprism); the rest are 2D with a static
+  camera. Don't force 3D onto a chart/calculation beat just to have more of
   it — that reads as decoration, not craft.
 - **Faint gridlines** on every `Axes` chart.
 - Direct end-labeling on ≤3-series charts (stronger than a legend at that
@@ -151,9 +151,13 @@ copy of its photoreal rendering. It is more than a palette swap:
 Full recipe, validated render notes, and the GOTCHAs discovered while
 building it (fixed-in-frame backgrounds occluding rotating 3D objects;
 Transform targets wrongly also added as their own fixed-in-frame mobject;
-a constructed-but-never-`.play()`ed mobject silently dropping a caption)
-are in `reference/notebook-look.md` — read it before writing a new
-`BaseScene3D` scene, the gotchas are easy to reintroduce by accident.
+a constructed-but-never-`.play()`ed mobject silently dropping a caption;
+Unicode superscript/subscript characters in `Text()` rendering as blank
+boxes — use `MathTex` for any exponent/subscript instead; near-white text
+placed on a light card/box being invisible, not just low-contrast) are in
+`reference/notebook-look.md` — read it before writing a new `BaseScene3D`
+scene or any label with an exponent/subscript, the gotchas are easy to
+reintroduce by accident.
 Whichever look is chosen, it applies to every GRAPHIC beat in the video —
 never mix looks within one build.
 
@@ -319,7 +323,10 @@ toolkit.
   system, with the video-narration translation for each.
 - `reference/notebook-look.md` — the dark "Notebook" visual register: full
   palette, the glow-curve/callout-box/gradient-background/3D-hero-object/
-  gridline Manim recipes (each validated by a real render, incl. two
-  GOTCHAs found and fixed during that validation), and what it deliberately
-  does not reproduce from the source
-  videos (photoreal 3D chalk objects, the literal NotebookLM engine).
+  gridline Manim recipes (each validated by a real render, incl. several
+  GOTCHAs found and fixed during that validation — 3D occlusion and
+  Transform/fixed-in-frame bugs, a silently-dropped caption, Unicode
+  super/subscript tofu-boxes, near-white-on-white text), the current
+  static-2D-camera / 3D-orbit-only camera-motion rule, and what it
+  deliberately does not reproduce from the source videos (photoreal PBR
+  rendering, the literal NotebookLM engine).

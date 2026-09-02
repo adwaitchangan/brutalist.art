@@ -215,13 +215,20 @@ multi-line charts) needs zero lookup and is the stronger technique when the
 series count is small. Reach for an actual legend box only past ~4 series,
 where end-labels would collide.
 
-## MovingCameraScene is the default BaseScene, not an option
+## MovingCameraScene is the base class, but 2D beats stay locked-off
 
 A first pass at this look (2026-08-16) only changed the palette — same
 locked-off static camera, same one scene = one composition structure as the
 cream look. That reads as a reskin, not the reference's actual craft, and
-was called out as such. The fix (2026-08-23): `BaseScene` extends
-`MovingCameraScene`, not `Scene`:
+was called out as such. A second pass (2026-08-23) overcorrected the other
+way: `self.camera.frame.animate.scale(...).move_to(...)` zoom/pan choreography
+was added to every single 2D beat. That was **also** called out and reverted
+(2026-09-02) — it read as gimmicky rather than purposeful, and on review
+several of the zooms added no clarity (zooming into a data point that was
+already legible, panning between two columns that were already both on
+screen). `BaseScene` still extends `MovingCameraScene`, not `Scene`, but only
+for API convenience (so a scene CAN add a camera move if one is actually
+earned) — it is not an instruction to add one by default:
 
 ```python
 class BaseScene(MovingCameraScene):
@@ -234,25 +241,14 @@ class BaseScene(MovingCameraScene):
         self.add(bg)
 ```
 
-**Every 2D scene should end with at least one real camera move** —
-`self.camera.frame.animate.scale(...).move_to(...)` — not just a Write/FadeIn
-sequence on a fixed frame. Two patterns cover almost every beat:
-
-- **Zoom into the result** — scale down (zoom in) onto a boxed callout, a
-  curve's dramatic endpoint, or a tight cluster of dots, hold, then scale
-  back out to the establishing frame. (`B03_RayleighJeansCatastrophe`
-  zooms into the "→ ∞" arrowhead; `B08_StoppingPotentialLines` zooms into
-  the three parallel lines to sell "same slope.")
-- **Pan across a comparison** — move the frame from one labeled group to
-  another at the same zoom level, so the two are never on screen at once
-  and the cut is a camera move, not an edit. (`B09_SodiumWorkedExample`
-  pans left-column → right-column; `B09_ScaleComparison` in the Ch2 reel
-  pans along the log-scale number line from the close cluster to the
-  distant point.)
-
-Both are cheap (2-3 lines) and every one of the 16 beats across the two
-`claude-sri-*` reels now has one — this is the highest-leverage fix for
-"looks like the same video with new colors."
+**Current rule: 2D beats keep a static, locked-off camera.** Do not add
+`self.camera.frame.animate` calls to a `BaseScene` beat unless the human asks
+for one, or a beat is otherwise genuinely illegible at its establishing
+zoom (e.g. a value spans many orders of magnitude and needs a true zoom to
+be seen at all — in that specific case, prefer fixing the layout/scale of
+the mobjects themselves first). Camera motion as a matter of course is
+reserved for `BaseScene3D`'s ambient orbit (below), which exists to sell
+real depth on 3D geometry, not to add movement for its own sake.
 
 ## How much of a chapter's video should be full 3D
 
@@ -282,6 +278,43 @@ grep the scene body for every mobject assigned a variable and confirm each
 one appears inside a `self.play(...)` or `self.add(...)` call somewhere
 below its definition — a constructed-but-never-played mobject is a silent
 content loss, not a rendering error.
+
+## GOTCHA: Unicode superscript/subscript characters render as blank boxes
+
+Found while auditing the Ch2 reel (2026-09-02): labels built with raw
+Unicode superscript/subscript characters inside `Text(..., font="Arial")` —
+e.g. `Text("2.8×10⁻¹⁵ m")`, `Text("log₁₀(...)")`, `Text("C₆₀ buckyball")` —
+rendered with the superscript/subscript glyphs replaced by empty tofu boxes
+on this toolkit's Windows render setup. Regular digits/letters in the same
+string render fine; only the superscript/subscript code points
+(`⁰¹²³⁴⁵⁶⁷⁸⁹⁻` / `₀₁₂₃₄₅₆₇₈₉`) are missing from the font's glyph coverage.
+**Fix: never put superscript/subscript Unicode characters in a `Text()`
+mobject. Use `MathTex` instead**, which typesets real LaTeX super/subscripts
+and has no glyph-coverage issue:
+
+```python
+# WRONG — renders "2.8×10" + [box] + "15 m"
+Text("classical electron radius: 2.8×10⁻¹⁵ m", font="Arial", ...)
+
+# RIGHT
+MathTex(r"\text{classical electron radius: } 2.8\times10^{-15}\ \text{m}", ...)
+```
+
+This applies to exponents (`10⁻¹⁵`), log bases (`log₁₀`), and chemical/atomic
+subscripts (`C₆₀`) alike — any of these belongs in `MathTex` with `^{}`/`_{}`,
+never as a literal Unicode super/subscript character in `Text`.
+
+## GOTCHA: near-white text on a white card is invisible, not just low-contrast
+
+Found in the same audit: `B07_ThreeImpossibleFacts` (Ch1) drew panel
+headings with `color=INK` (`#F5F5F0`, near-white — correct for text on the
+dark background) on top of a `RoundedRectangle` card with
+`fill_color="#FFFFFF"` (pure white). White-on-near-white is essentially
+invisible on screen, not merely hard to read. Any mobject placed on a light
+card/box needs a dark color (`BG`, not `INK`); `INK` is only for text on the
+dark gradient background. Whenever a scene introduces a light-colored card
+or box, check every text color placed on it against that card's fill, not
+against the scene's usual dark background.
 
 ## What this look deliberately does NOT reproduce
 
