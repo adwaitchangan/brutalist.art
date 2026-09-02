@@ -218,6 +218,7 @@ chapter's own order.
 
 ## Hard rules (this skill's own, beyond the parents')
 
+
 1. **DERIVATION-COMPRESSION LAW.** Never narrate all $N$ steps of the
    chapter's derivation verbatim — that is lecture-capture, not an explainer.
    Extract the 2–4 points where something is actually decided (the moment a
