@@ -1,9 +1,8 @@
 ---
 name: nbb
 description: >
-  NikBearBrown brand spec — Teardown register (Feynman × MKBHD), ElevenLabs
-  NIKBEARBROWN voice (paid, no Kokoro fallback), teardown palette (white /
-  ink / one red). Used by the audience-preset skill when brand=nbb. For the
+  NikBearBrown brand spec — Teardown register (Feynman × MKBHD), Kokoro
+  am_onyx (Liam, free and local), teardown palette (white / ink / one red). Used by the audience-preset skill when brand=nbb. For the
   first-class nbb command (directory convention, LLM exercise beat, outro),
   see skills/make/nbb/SKILL.md.
 ---
@@ -36,11 +35,12 @@ Prose reference: `prose/teardown/PROSE.md`
 
 | Engine | Setting |
 |---|---|
-| ElevenLabs | `ELEVENLABS_VOICE_NIKBEARBROWN` env var — the **only** option |
-| Kokoro | **NOT used** — nbb is the paid brand; there is no free fallback |
+| Kokoro | `am_onyx` — Liam, in for Bear (IN-FOR-BEAR LAW) |
 
-`brand_variant.py` writes `engine: "elevenlabs"` and reads `voice_id` from
-`ELEVENLABS_VOICE_NIKBEARBROWN`. GATE P applies before any audio spend.
+**There is no paid voice.** ElevenLabs was permanently removed on 2026-09-03;
+nbb used to be the one paid brand default and is not any more. `brand_variant.py`
+writes `engine: "kokoro"`, `voice_kokoro: "am_onyx"`. Nothing here spends, so
+GATE P has no audio spend left to guard on this brand.
 
 ## Palette — `teardown`
 

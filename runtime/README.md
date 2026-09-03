@@ -13,7 +13,6 @@ runtime/
     beat_plan.py           NEW: derives each beat's fill plan from its shot.type × shot.source
                            annotations (manim|remotion|ai-video-prompt|historical-image|user-capture)
     todo.py                NEW: the per-video beat ledger → todo.json + STATUS.md (derived; edit the sheet)
-    generate_audio.py      ElevenLabs TTS, one mp3 per beat (the master clock)
     align.py               forced-alignment word clock                         (was vox_align.py)
     outro.py               branded outro stage                                 (was vox_outro.py)
     pantry.py              intake: prepped media → slot-contract clips          (was vox_pantry.py)

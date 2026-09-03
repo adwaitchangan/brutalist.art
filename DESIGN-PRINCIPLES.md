@@ -119,8 +119,8 @@ to that default. If a result looks like the generic version of its genre, it's w
 - **The slate cut — free audio + placeholders, ALWAYS.** The GATE-P review cut is never silent
   and never blocked. It ALWAYS mixes the free Kokoro narration (already generated — zero spend),
   and it ALWAYS stands a placeholder / request card in for any media not yet supplied (a missing
-  pantry still, an unbuilt beat). GATE P guards *paid* audio spend only — ElevenLabs / the
-  NIKBEARBROWN clone; **free Kokoro audio is not a spend, so it goes into the slate by default.**
+  pantry still, an unbuilt beat). There is no paid audio engine any more
+  (ElevenLabs removed 2026-09-03), so **all narration is free Kokoro and always goes into the slate.**
   Missing media never stops the cut — it becomes a placeholder the human reviews around and swaps
   the real asset in later (the shopping-list convention). A watchable slate — sound + placeholders
   — is the entire point of the review pass; a silent slate, or one that halts because a still

@@ -2,8 +2,7 @@
 name: hai
 description: >
   HAI (Humanitarians AI) brand spec — Plain register, Kokoro am_onyx
-  voice (ElevenLabs HUMANITARIANS override), humanitarians palette (muted
-  editorial). Used by the audience-preset skill when brand=hai. For the
+  voice, humanitarians palette (muted editorial). Used by the audience-preset skill when brand=hai. For the
   first-class hai command (which creates a hai- directory and adds the CLI
   exercise + outro beats), see skills/make/hai/SKILL.md.
 ---
@@ -33,7 +32,8 @@ Prose reference: `prose/plain/PROSE.md`
 | Engine | Default | Override |
 |---|---|---|
 | Kokoro | `am_onyx` | — |
-| ElevenLabs | — | `ELEVENLABS_VOICE_HUMANITARIANS` env var; set `engine:"elevenlabs"` to activate |
+
+**There is no paid voice.** ElevenLabs was permanently removed on 2026-09-03.
 
 ## Palette — `humanitarians`
 

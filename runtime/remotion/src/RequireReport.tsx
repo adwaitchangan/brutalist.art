@@ -59,6 +59,9 @@ export type ReqSegmentCardProps = z.infer<typeof reqSegmentCardSchema>;
 export const ReqSegmentCard: React.FC<ReqSegmentCardProps> = ({ title, index }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  // A 33-character act title at 156px is wider than the frame. Fit the type to
+  // the title, and let it wrap — an act card must never crop its own name.
+  const titlePx = title.length <= 18 ? 156 : title.length <= 26 ? 128 : 104;
   const cardIn = cl(spring({ frame, fps, config: SPRING_GENTLE }));
   const textIn = cl(spring({ frame: frame - 6, fps, config: SPRING_GENTLE }));
   const dotIn  = cl(spring({ frame: frame - 12, fps, config: SPRING_GENTLE }));
@@ -75,11 +78,13 @@ export const ReqSegmentCard: React.FC<ReqSegmentCardProps> = ({ title, index }) 
         }}>
           ACT &middot; {index}
         </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-          <span style={{ fontFamily: SERIF, fontSize: 156, color: INK, lineHeight: 1.05, opacity: textIn }}>
-            {title}
-          </span>
-          <span style={{ fontFamily: SERIF, fontSize: 156, color: ACC, lineHeight: 1.05, opacity: dotIn }}>.</span>
+        <div style={{
+          maxWidth: CW - SAFE * 2, textAlign: 'center',
+          fontFamily: SERIF, fontSize: titlePx, lineHeight: 1.08,
+          overflowWrap: 'break-word',
+        }}>
+          <span style={{ color: INK, opacity: textIn }}>{title}</span>
+          <span style={{ color: ACC, opacity: dotIn }}>.</span>
         </div>
         <div style={{ width: `${Math.round(textIn * 860)}px`, height: 2, background: INK, opacity: 0.35 }} />
       </div>
@@ -521,7 +526,13 @@ export const ReqRingWord: React.FC<ReqRingWordProps> = ({ before, word, after, a
   // FILL-THE-CANVAS: type auto-fits to the quote's length so a short sentence
   // does not leave the lower half of the frame empty (QC underfill, 2026-08-31).
   const chars = (before + word + after).length;
-  const quotePx = chars <= 95 ? 134 : chars <= 125 ? 116 : 100;
+  const quotePx = chars <= 95  ? 134
+                : chars <= 125 ? 116
+                : chars <= 155 ? 96
+                : chars <= 195 ? 80
+                :                68;
+  // A long quote also needs to start higher or it runs into the attribution.
+  const quoteTop = chars <= 125 ? 260 : chars <= 195 ? 205 : 175;
   const ring   = cl(interpolate(t, [0.46, 0.66], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
   const noteIn = cl(interpolate(t, [0.74, 0.88], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
 
@@ -530,7 +541,7 @@ export const ReqRingWord: React.FC<ReqRingWordProps> = ({ before, word, after, a
       {spark ? <SparkLine line={spark} t={textIn} /> : null}
 
       <div style={{
-        position: 'absolute', left: SAFE + 20, right: SAFE + 20, top: 235,
+        position: 'absolute', left: SAFE + 20, right: SAFE + 20, top: quoteTop,
         fontFamily: SERIF, fontSize: quotePx, color: INK, lineHeight: 1.36,
         opacity: textIn, transform: `translateY(${(1 - textIn) * 18}px)`,
       }}>

@@ -7,7 +7,9 @@ description: >
   the Teardown register (take it apart, explain how each piece works, judge the
   design choices — Feynman × MKBHD), inserts an LLM exercise as the
   second-to-last beat (paste-ready prompt + dig-deeper follow-up), and ends with
-  the NikBearBrown outro. Voice: Kokoro am_onyx (free, local). Palette: teardown (white
+  the NikBearBrown outro. Voice: LIAM — Kokoro am_onyx, free and local, Liam in
+  for Bear (IN-FOR-BEAR LAW). There is no paid voice; ElevenLabs was permanently
+  removed 2026-09-03. Palette: teardown (white
   #FFFFFF / ink #2A1A0E / one red #C8102E).
   Use when the user types `nbb [input]`, asks for the NikBearBrown / brutalist /
   teardown cut of a reel, or wants the default-channel version of content.
@@ -140,7 +142,9 @@ The beat has two parts:
 ```
 
 The card renders in the **teardown palette** (white / ink / red) and the
-narration is read in the **NBB voice (Kokoro am_onyx)**.
+narration is read by **Liam, in for Bear (Kokoro `am_onyx`)** — the same voice
+as every other claude-liam reel. Liam says so out loud in the cold open and signs
+off the same way; he never imitates Bear or claims to be him (IN-FOR-BEAR LAW).
 
 ### Step 4 — Outro (LAST beat)
 
@@ -221,4 +225,5 @@ Tokens: `runtime/remotion/src/tokens/vox.ts` (exported as `teardown`).
 ## Standing rules
 
 - Source files (`beat_sheet.json`, build scripts, media) are **never modified**.
-- Voice: Kokoro am_onyx (free, local) — the NBB voice.
+- Voice: Kokoro `am_onyx` — **Liam, in for Bear**. Free and local. No paid engine
+  exists; ElevenLabs was permanently removed 2026-09-03.
