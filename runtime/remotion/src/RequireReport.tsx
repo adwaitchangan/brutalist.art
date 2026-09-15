@@ -279,7 +279,7 @@ export const ReqLedger: React.FC<ReqLedgerProps> = ({ title, rows, note, spark }
             ) : <div style={{ width: 30 }} />}
 
             <div style={{
-              flex: 1, paddingRight: 26, fontFamily: SERIF, fontSize: 46,
+              flex: 1, paddingRight: 26, fontFamily: SERIF, fontSize: 50,
               color: INK, lineHeight: 1.2,
             }}>
               {r.label}
@@ -291,7 +291,7 @@ export const ReqLedger: React.FC<ReqLedgerProps> = ({ title, rows, note, spark }
                 fontFamily: SANS, fontSize: 26, letterSpacing: '0.12em',
                 textTransform: 'uppercase', whiteSpace: 'nowrap',
                 color: r.accent ? CARD : SOFT,
-                background: r.accent ? ACC : 'transparent',
+                background: r.accent ? '#A64A24' : 'transparent',
                 border: r.accent ? 'none' : `1px solid ${BORDER}`,
               }}>
                 {r.verdict}
@@ -546,7 +546,7 @@ export const ReqRingWord: React.FC<ReqRingWordProps> = ({ before, word, after, a
         opacity: textIn, transform: `translateY(${(1 - textIn) * 18}px)`,
       }}>
         {before}
-        <span style={{ position: 'relative', display: 'inline-block', color: ring > 0.4 ? ACC : INK }}>
+        <span style={{ position: 'relative', display: 'inline-block', color: INK }}>
           {word}
           <span style={{
             position: 'absolute', left: -14, top: -10, right: -14, bottom: -8,

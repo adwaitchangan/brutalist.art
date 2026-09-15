@@ -3,6 +3,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate } from 'remo
 import { claudeTitleOutroSchema } from './ClaudeTitleOutro';
 import type { ClaudeTitleOutroProps } from './ClaudeTitleOutro';
 import { CLAUDE, CLAUDE_FONT } from '../tokens/claude';
+import { ANIMATIONS, computeAnimation, MascotSVG } from './ClaudeMascotScene';
 
 /**
  * ClaudeTitleOutro916 — portrait 9:16 (1080×1920) version of ClaudeTitleOutro.
@@ -22,7 +23,7 @@ const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 export const ClaudeTitleOutro916: React.FC<ClaudeTitleOutro916Props> = ({ title, slug }) => {
   const frame = useCurrentFrame();
-  const { height } = useVideoConfig();
+  const { height, fps } = useVideoConfig();
   const o = clamp(interpolate(frame, [0, 14], [0, 1]), 0, 1);
 
   const _pm = title.match(/^([\s\S]*?)\s*([.?!…]+)\s*$/);
@@ -31,6 +32,7 @@ export const ClaudeTitleOutro916: React.FC<ClaudeTitleOutro916Props> = ({ title,
 
   // Slug seed — polarity locked per OUTRO-LOCK.md §Randomness
   const seed = Array.from(slug || title || 'default').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const mascotState = computeAnimation(ANIMATIONS[seed % ANIMATIONS.length], frame, fps);
   const isDark = seed % 2 === 1;
   const bg = isDark ? CLAUDE.INK : CLAUDE.PAGE;
   const fg = isDark ? CLAUDE.PAGE : CLAUDE.INK;
@@ -82,6 +84,9 @@ export const ClaudeTitleOutro916: React.FC<ClaudeTitleOutro916Props> = ({ title,
         @NikBearBrown
       </div>
 
+      <div style={{width: 190, height: 120, marginTop: height * 0.022}}>
+        <MascotSVG s={mascotState} scale={1} />
+      </div>
       {/* NO subline — locked per OUTRO-LOCK.md */}
     </AbsoluteFill>
   );

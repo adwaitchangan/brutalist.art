@@ -41,12 +41,14 @@ export const SourceFlowPreview: React.FC = () => (
   </IlluStage>
 );
 
-export const ChipGridPreview: React.FC = () => (
-  <IlluStage spark="Nine tools.">
-    <ChipGrid
-      items={['Canva Education', 'MagicSchool', 'Diffit', 'ASSISTments', 'Brisk', 'Coteach', 'Eedi', 'Snorkl', 'TeachFX']}
-      caption="the Figma/Canva pattern, for the classroom — your tools become things Claude can drive"
-    />
+export const ChipGridPreview: React.FC<{ items?: string[]; cols?: number; caption?: string; spark?: string }> = ({
+  items = ['Canva Education', 'MagicSchool', 'Diffit', 'ASSISTments', 'Brisk', 'Coteach', 'Eedi', 'Snorkl', 'TeachFX'],
+  cols,
+  caption = 'the Figma/Canva pattern, for the classroom — your tools become things Claude can drive',
+  spark = 'Nine tools.',
+}) => (
+  <IlluStage spark={spark}>
+    <ChipGrid items={items} cols={cols} caption={caption} />
   </IlluStage>
 );
 

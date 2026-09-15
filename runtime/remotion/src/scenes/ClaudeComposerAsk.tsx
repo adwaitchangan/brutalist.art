@@ -42,20 +42,22 @@ export const claudeComposerAskSchema = z.object({
   effortLabel: z.string().default('High'),
   /** Ghost text shown before typing starts. */
   placeholder: z.string().default('Type / for skills'),
+  animateTyping: z.boolean().optional(),
+  largeText: z.boolean().optional(),
 });
 export type ClaudeComposerAskProps = z.infer<typeof claudeComposerAskSchema>;
 
 
 export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
   command, topic, segment, greeting, runningText, output, folderLabel,
-  modelLabel, effortLabel, placeholder,
+  modelLabel, effortLabel, placeholder, animateTyping = true, largeText = false,
 }) => {
   const frame = useCurrentFrame();
   const {fps, width, height} = useVideoConfig();
   const portrait = height > width;
 
   const PAD_X = width * 0.08;
-  const UI = height * (portrait ? 0.016 : 0.022);   // base UI font size
+  const UI = height * (largeText ? 0.027 : portrait ? 0.016 : 0.022);
   const CMD = UI * 1.25;                            // typed-command size
 
   const topicIn = spring({frame,            fps, config: SPRING_SMOOTH});
@@ -64,7 +66,7 @@ export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
 
   const TYPE_START = 18;
   const TYPE_DUR   = 45;
-  const charsShown = Math.min(
+  const charsShown = !animateTyping ? command.length : Math.min(
     command.length,
     Math.max(0, Math.floor(((frame - TYPE_START) / TYPE_DUR) * command.length)),
   );
@@ -101,7 +103,7 @@ export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
         left: PAD_X,
         top: height * 0.10,
         fontFamily: FONT.display,
-        fontSize: height * 0.016,
+        fontSize: height * (largeText ? 0.023 : 0.016),
         fontWeight: 700,
         letterSpacing: 3,
         textTransform: 'uppercase',
@@ -259,7 +261,7 @@ export const ClaudeComposerAsk: React.FC<ClaudeComposerAskProps> = ({
           padding: `0 ${UI * 0.3}px`,
           opacity: runningOpacity,
         }}>
-          {`✳ ${runningText}`}
+          {runningText}
         </div>
 
         {/* Optional output lines */}

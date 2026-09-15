@@ -71,6 +71,9 @@ export const brutalistHesitantWriterSchema = z.object({
    * existing renders are unchanged.
    */
   banner: z.string().default(''),
+  contextTitle: z.string().optional(),
+  contextItems: z.array(z.object({label: z.string(), detail: z.string()})).optional(),
+  brandLabel: z.string().optional(),
 });
 
 export type BrutalistHesitantWriterProps = z.infer<typeof brutalistHesitantWriterSchema>;
@@ -247,6 +250,14 @@ export const BrutalistHesitantWriter: React.FC<BrutalistHesitantWriterProps> = (
 
   return (
     <AbsoluteFill style={{backgroundColor: p.bg}}>
+      {p.contextTitle && <div style={{position:'absolute',left:width*.07,right:width*.07,top:height*.08,fontFamily:CLAUDE_FONT.serif,fontSize:60*scale,color:p.ink}}>{p.contextTitle}</div>}
+      {p.contextItems && <div style={{position:'absolute',left:width*.07,right:width*.07,top:height*.67,bottom:height*.15,display:'flex',gap:28*scale}}>
+        {p.contextItems.map(item=><div key={item.label} style={{flex:1,padding:28*scale,border:`2px solid ${CLAUDE.BORDER}`,borderRadius:14*scale,background:CLAUDE.CARD,color:p.ink}}>
+          <div style={{fontFamily:CLAUDE_FONT.serif,fontSize:40*scale,marginBottom:14*scale}}>{item.label}</div>
+          <div style={{fontFamily:CLAUDE_FONT.ui,fontSize:28*scale,lineHeight:1.4}}>{item.detail}</div>
+        </div>)}
+      </div>}
+      {p.brandLabel && <div style={{position:'absolute',right:width*.07,bottom:height*.065,fontFamily:CLAUDE_FONT.serif,fontSize:28*scale,color:p.ink}}>{p.brandLabel}</div>}
       {p.banner ? (
         <div
           style={{

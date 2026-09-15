@@ -22,6 +22,8 @@ export const barChartSchema = z.object({
 });
 export type BarChartProps = z.infer<typeof barChartSchema>;
 
+const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
+
 export const BarChart: React.FC<BarChartProps> = ({ title, data, accentIndex, unit }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
@@ -35,7 +37,7 @@ export const BarChart: React.FC<BarChartProps> = ({ title, data, accentIndex, un
   const gap = plotW / n;
   const barW = gap * 0.50;
 
-  const titleIn = spring({ frame, fps, config: SPRING_SMOOTH });
+  const titleIn = clamp01(spring({ frame, fps, config: SPRING_SMOOTH }));
 
   return (
     <AbsoluteFill style={{ backgroundColor: VOX.CREAM }}>
@@ -49,20 +51,32 @@ export const BarChart: React.FC<BarChartProps> = ({ title, data, accentIndex, un
       >
         {title}
       </div>
+      {unit ? (
+        <div
+          style={{
+            position: 'absolute', top: height * 0.18, left, width: plotW,
+            color: VOX.SLATE, fontFamily: FONT.mono, fontSize: height * 0.025,
+            lineHeight: 1.2, opacity: titleIn,
+          }}
+        >
+          {unit}
+        </div>
+      ) : null}
 
       <div style={{ position: 'absolute', left, top: baseline, width: plotW, height: 2, backgroundColor: VOX.INK, opacity: 0.55 }} />
 
       {data.map((d, i) => {
-        const grow = spring({ frame: frame - 8 - i * 5, fps, config: SPRING_SMOOTH });
+        const grow = clamp01(spring({ frame: frame - 8 - i * 5, fps, config: SPRING_SMOOTH }));
         const h = (d.value / max) * plotH * grow;
         const x = left + i * gap + (gap - barW) / 2;
         const isAccent = i === accentIndex;
         const valOpacity = interpolate(grow, [0.55, 1], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+        const valueTop = baseline - h - height * 0.058;
         return (
           <React.Fragment key={i}>
             <div style={{ position: 'absolute', left: x, top: baseline - h, width: barW, height: h, backgroundColor: isAccent ? VOX.TEAL : VOX.SLATE }} />
-            <div style={{ position: 'absolute', left: x - gap * 0.25, top: baseline - h - height * 0.058, width: barW + gap * 0.5, textAlign: 'center', color: VOX.INK, fontFamily: FONT.mono, fontSize: height * 0.040 }}>
-              <span style={{ opacity: valOpacity }}>{d.value}{unit}</span>
+            <div style={{ position: 'absolute', left: x - gap * 0.25, top: valueTop, width: barW + gap * 0.5, textAlign: 'center', color: VOX.INK, fontFamily: FONT.mono, fontSize: height * 0.040 }}>
+              <span style={{ opacity: valOpacity }}>{d.value}</span>
             </div>
             <div style={{ position: 'absolute', left: x - gap * 0.25, top: baseline + 14, width: barW + gap * 0.5, textAlign: 'center', color: isAccent ? VOX.TEAL : VOX.INK, fontFamily: FONT.display, fontSize: height * 0.030, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
               {d.label}

@@ -15,6 +15,9 @@ export const claudeCodeBeatSchema = z.object({
   title:     z.string().default('script.py'),
   code:      z.string().default('# code here'),
   sparkLine: z.string().default('The code speaks.'),
+  language: z.string().optional(),
+  largeText: z.boolean().optional(),
+  brandLabel: z.string().optional(),
 });
 export type ClaudeCodeBeatProps = z.infer<typeof claudeCodeBeatSchema>;
 
@@ -25,7 +28,7 @@ const COMMENT_CLR = '#8B8878';
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 
-export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, sparkLine }) => {
+export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, sparkLine, language = 'python', largeText = false, brandLabel }) => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
 
@@ -76,7 +79,7 @@ export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, spa
           <span style={{
             marginLeft: 10,
             fontFamily: MONO,
-            fontSize: 13,
+            fontSize: largeText ? 28 : 13,
             color: CLAUDE.INK_SOFT,
             letterSpacing: '0.02em',
           }}>
@@ -85,13 +88,13 @@ export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, spa
           <span style={{
             marginLeft: 'auto',
             fontFamily: SANS,
-            fontSize: 11,
+            fontSize: largeText ? 26 : 11,
             fontWeight: 600,
             color: CLAUDE.SPARK,
             letterSpacing: 2,
             textTransform: 'uppercase' as const,
           }}>
-            python
+            {language}
           </span>
         </div>
 
@@ -100,7 +103,7 @@ export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, spa
           margin: 0,
           padding: '20px 26px',
           fontFamily: MONO,
-          fontSize: height * 0.022,
+          fontSize: largeText ? height * 0.032 : height * 0.022,
           lineHeight: 1.72,
           textAlign: 'left',
           overflow: 'hidden',
@@ -142,12 +145,13 @@ export const ClaudeCodeBeat: React.FC<ClaudeCodeBeatProps> = ({ title, code, spa
         <span style={{
           flex: 1,
           fontFamily: SERIF,
-          fontSize: 22,
+          fontSize: largeText ? 28 : 22,
           fontStyle: 'italic',
           color: CLAUDE.INK,
         }}>
           {sparkLine}
         </span>
+        {brandLabel && <span style={{fontFamily:SERIF,fontSize:28,color:CLAUDE.INK}}>{brandLabel}</span>}
       </div>
 
     </AbsoluteFill>
