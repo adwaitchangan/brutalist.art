@@ -84,3 +84,7 @@ youtube/credentials/
 /runtime/remotion/public/seis-read-along/
 /runtime/remotion/public/seis-tribute/
 /runtime/remotion/public/seis-stories-roll/
+# renders and audio — never commit
+*.mp3
+*.mp4
+*.wav
