@@ -88,3 +88,10 @@ youtube/credentials/
 *.mp3
 *.mp4
 *.wav
+
+# ── professor-bear/ — the portrait MASTERS (3–5k px PNGs, 4+ GB). Local only. ──
+# The toolkit uses the downscaled copies in runtime/remotion/public/professor-bear/
+# (committed, ~110 MB) and the manifest + rename record here. Masters never push.
+professor-bear/*.png
+professor-bear/_crops/
+professor-bear/avatars/

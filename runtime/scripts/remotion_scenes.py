@@ -134,6 +134,7 @@ def main():
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--outro", action="store_true")
     ap.add_argument("--now", default=None, help="override ISO8601 build timestamp")
+    ap.add_argument("--stills", action="store_true", help="serial low-resolution 25/50/95%% visual preflight; no media slot or provenance mutation")
     a = ap.parse_args()
     folder = a.reel.resolve()
     sheet_path = writable_path(folder, 'beat_sheet.json')
@@ -157,6 +158,17 @@ def main():
             print(f"  {bid:5} {state:6} scene_type={b['shot'].get('scene_type','?'):14} "
                   f"pattern={rem['pattern']}  ({rem.get('provenance','reel-local')})")
         return
+
+    if a.stills:
+        validate_approvals(folder, sheet)
+        out = writable_path(folder, '_qc/preflight')
+        out.mkdir(parents=True, exist_ok=True)
+        manifest = out / 'manifest.json'
+        atomic_json(manifest, {'out': str(out), 'beats': [
+            {'beat_id': b['beat_id'], 'pattern': b['shot']['remotion']['pattern'],
+             'props': b['shot']['remotion'].get('props', {})} for b in cands]})
+        runner = HERE / 'scripts' / 'remotion_stills.cjs'
+        return subprocess.run(['node', str(runner), str(PROJECT), str(manifest)]).returncode
 
     if a.outro:
         # spec: OutroSeries from ABOUT.MD, OutroCTA from AUTHOR.MD (book = reel/../../).

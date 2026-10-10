@@ -8,6 +8,7 @@
 #   ./art scene-index            regenerate scenes.json + SCENE-DOC-TODO.md after adding one
 #   ./art icons "<what it needs>" CANONICAL icon search — run BEFORE drawing a mark
 #   ./art icons --check <name>   is that icon in the set? (the anti-redraw check)
+#   ./art bear <1x1|2x3|16x9>  a random Professor Bear portrait of that ratio (--seed <beat> for a stable pick)
 #   ./art icon-build             re-cut the canonical set from svg/ (rarely needed)
 #   ./art todo  <reel> [flags]   per-video beat ledger (which beats need filling, how)
 #   ./art run   <reel> [flags]   compile a review cut
@@ -95,6 +96,10 @@ case "$cmd" in
     # LIBRARY-FIRST, one level down from scenes: find the mark before drawing one.
     exec python3 "$ART_HOME/runtime/scripts/icon_search.py" "$@"
     ;;
+  bear|professor-bear)
+    # PROFESSOR BEAR LAW: a person icon / Professor Bear is always one of his portraits, random within the ratio.
+    exec python3 "$ART_HOME/runtime/scripts/professor_bear.py" "$@"
+    ;;
   icon-build)
     exec python3 "$ART_HOME/runtime/scripts/build_icon_set.py" "$@"
     ;;
@@ -136,6 +141,10 @@ case "$cmd" in
       elif [ "$tc_rc" -ge 2 ]; then
         echo "[art final] GATE T BLOCKED: TYPECHECK.md has FAILs — fix before final cut."
         echo "[art final] See: $REEL_FOR_TC/TYPECHECK.md"
+        exit 2
+      elif [ "$tc_rc" -ne 0 ]; then
+        # 2026-10-07: a checker crash used to exit 1 and the cut went ahead with no TYPECHECK.md at all.
+        echo "[art final] GATE T did not complete (exit $tc_rc) — no verdict is not a pass. Fix the reel or type_check.py."
         exit 2
       fi
     fi

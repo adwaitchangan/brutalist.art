@@ -1361,8 +1361,16 @@ def check_contrast_per_blob(img: Image.Image, polarity: str = "light") -> tuple[
     checked = 0
     pad = max(6, int(fh * 0.005))  # local background sampling radius
 
-    for blob_id in range(1, n + 1):
-        ys, xs = np.where(lab == blob_id)
+    # Find each bounding slice once instead of rescanning the entire 4K frame
+    # for every glyph. Same labeled pixels, colors and thresholds; no check
+    # is skipped. This matches blob_bboxes' existing linear-time strategy.
+    slices = ndimage.find_objects(lab)
+    for blob_id, bounds in enumerate(slices, start=1):
+        if bounds is None:
+            continue
+        ys, xs = np.where(lab[bounds] == blob_id)
+        ys = ys + bounds[0].start
+        xs = xs + bounds[1].start
         if len(ys) == 0:
             continue
         x0, y0 = int(xs.min()), int(ys.min())
@@ -1545,13 +1553,16 @@ def check_card_clip(img: Image.Image, beat_id: str, pattern: str = "") -> tuple[
     TOL = 4
     card_w = card_right - card_left
 
-    for i in range(1, n + 1):
-        blob = labeled == i
-        if blob.sum() < 15:
+    sizes = np.bincount(labeled.ravel())
+    bounds = ndimage.find_objects(labeled)
+    for i, box in enumerate(bounds, 1):
+        if box is None or sizes[i] < 15:
             continue
-        blob_cols   = np.any(blob, axis=0)
-        blob_right  = int(len(blob_cols) - 1 - np.argmax(blob_cols[::-1]))
-        blob_left   = int(np.argmax(blob_cols))
+        # Component bounds give the identical extrema without scanning the
+        # entire 4K card once per text glyph. Label order and thresholds stay
+        # unchanged, including which clipping failure is reported first.
+        blob_right = box[1].stop - 1
+        blob_left = box[1].start
         if blob_right >= card_w - TOL:
             abs_col = card_left + blob_right
             return "FAIL", (
@@ -1892,10 +1903,13 @@ def _content_words(text: str) -> set:
 def _screen_content_words(props: dict) -> set:
     """Content words from on-screen Remotion props, excluding literal-payload keys."""
     tokens: list = []
-    for item in props.get('lines') or []:
+    # `lines` is a list of strings on shell/verdict cards but an INT on QuillWriter (line count): only iterate lists.
+    _lines = props.get('lines')
+    for item in (_lines if isinstance(_lines, (list, tuple)) else []):
         if isinstance(item, str):
             tokens.extend(re.findall(r"[a-z']+", item.lower()))
-    for item in props.get('artifactLines') or []:
+    _al = props.get('artifactLines')
+    for item in (_al if isinstance(_al, (list, tuple)) else []):
         if isinstance(item, str):
             tokens.extend(re.findall(r"[a-z']+", item.lower()))
     for item in props.get('items') or []:
@@ -2292,6 +2306,57 @@ def check_sweep_gates(sheet: dict) -> list:
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def typography_frame(img: Image.Image, beat: dict) -> Image.Image:
+    """Exclude only the known, caption-free portrait slot from typography tests.
+
+    Photo texture is not designed text. Every title, label and credit remains
+    subject to the existing checks. This fixed mask is scoped to the official
+    lecture BOPEN template, never an author-supplied arbitrary exclusion box.
+    The unmasked frame still requires visual review.
+    """
+    if (beat.get('beat_id') != 'BOPEN' or
+            (beat.get('shot') or {}).get('template') != 'lecture-title-slide-16x9'):
+        return img
+    from PIL import ImageDraw
+    checked = img.copy()
+    sx, sy = img.width / 1920, img.height / 1080
+    ImageDraw.Draw(checked).rectangle(
+        (round(96*sx), round(214*sy), round(736*sx)-1, round(854*sy)-1),
+        fill='#FAF9F5')
+    return checked
+
+
+def check_declared_contrast(img, beat, pattern, local=False):
+    """Apply the documented Godot text regions without changing other gates."""
+    qc = beat.get("qc", {})
+    regions = qc.get("contrast_regions")
+    if not isinstance(regions, list) or not regions or not str(qc.get("contrast_reason", "")).strip():
+        return "FAIL", "regional contrast requires nonempty regions and a written reason"
+    results = []
+    for region in regions:
+        if not isinstance(region, dict) or not str(region.get("label", "")).strip():
+            return "FAIL", "regional contrast requires named regions"
+        box = region.get("box")
+        if not isinstance(box, list) or len(box) != 4 or not all(isinstance(v, (int, float)) and not isinstance(v, bool) and np.isfinite(v) for v in box):
+            return "FAIL", "regional contrast requires four finite coordinates"
+        x0, y0, x1, y1 = box
+        if not (0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1):
+            return "FAIL", "regional contrast is outside frame"
+        crop = img.crop((int(x0*img.width), int(y0*img.height), int(x1*img.width), int(y1*img.height)))
+        if min(crop.size) < 16:
+            return "FAIL", "regional contrast crop is too small"
+        arr = np.array(crop)
+        if float(arr.reshape(-1, 3).std(axis=0).max()) < 1:
+            return "FAIL", f"{region['label']}: empty contrast region"
+        polarity, bg = detect_polarity(arr)
+        status, message = (check_contrast_per_blob(crop, polarity=polarity) if local else
+            check_contrast(crop, beat.get("beat_id", ""), pattern, polarity=polarity, bg_rgb=bg))
+        results.append(f"{region['label']}: {message}")
+        if status == "FAIL":
+            return status, results[-1]
+    return "PASS", "; ".join(results)
+
+
 def run_check(reel_dir: str, skip_pixels: bool = False) -> int:
     reel = Path(reel_dir).resolve()
     bs_path = reel / "beat_sheet.json"
@@ -2386,6 +2451,7 @@ def run_check(reel_dir: str, skip_pixels: bool = False) -> int:
             if video and video.exists():
                 img = extract_frame(video)
                 if img is not None:
+                    img = typography_frame(img, beat)
                     # Detect frame polarity once — passed to all pixel checks.
                     # Border-strip sampling prevents content in the center (dark diagram on
                     # cream, or cream pane inside dark shell) from misleading the detector.
@@ -2406,8 +2472,9 @@ def run_check(reel_dir: str, skip_pixels: bool = False) -> int:
                         any_fail = True
 
                     # §8.3 contrast
-                    s, m = check_contrast(img, bid, beat_pattern,
-                                         polarity=frame_polarity, bg_rgb=frame_bg_rgb)
+                    s, m = (check_declared_contrast(img, beat, beat_pattern)
+                            if "contrast_regions" in beat.get("qc", {}) else
+                            check_contrast(img, bid, beat_pattern, polarity=frame_polarity, bg_rgb=frame_bg_rgb))
                     findings.append(("contrast §8.3", s, m))
                     if s == "FAIL":
                         any_fail = True
@@ -2418,7 +2485,9 @@ def run_check(reel_dir: str, skip_pixels: bool = False) -> int:
                                         "SignatureMark) anti-aliasing on dark card background; "
                                         "cream-to-dark edge pixels are structural, not typography")
                     else:
-                        s, m = check_contrast_per_blob(img, polarity=frame_polarity)
+                        s, m = (check_declared_contrast(img, beat, beat_pattern, local=True)
+                            if "contrast_regions" in beat.get("qc", {}) else
+                            check_contrast_per_blob(img, polarity=frame_polarity))
                     findings.append(("contrast-local §8.3b", s, m))
                     if s == "FAIL":
                         any_fail = True

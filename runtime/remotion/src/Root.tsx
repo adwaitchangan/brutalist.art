@@ -732,7 +732,13 @@ import {ClaudeTldrWhat, claudeTldrWhatSchema, claudeTldrWhatDefaultProps} from '
 import {ClaudeTldrWhy, claudeTldrWhySchema, claudeTldrWhyDefaultProps} from './scenes/ClaudeTldrWhy';
 import {ShowTellCard, showTellCardSchema, showTellCardDefaultProps} from './scenes/ShowTellCard';
 import {BrowserCapture, browserCaptureSchema, browserCaptureDefaultProps} from './scenes/BrowserCapture';
+import {DesignPipelineClaim, designPipelineClaimSchema} from './scenes/DesignPipelineClaim';
+import {LectureEvidenceTable, lectureEvidenceTableSchema} from './scenes/LectureEvidenceTable';
+import {LectureCodeTrace, lectureCodeTraceSchema} from './scenes/LectureCodeTrace';
+import {LectureDocumentTree, lectureDocumentTreeSchema} from './scenes/LectureDocumentTree';
 import {LibraryIconRow, libraryIconRowSchema, libraryIconRowDefaultProps} from './scenes/LibraryIconRow';
+import {QuillWriter, quillWriterSchema, quillWriterDefaultProps} from './scenes/QuillWriter';
+import {ProfessorBearPortrait, professorBearPortraitSchema, professorBearPortraitDefaultProps} from './scenes/ProfessorBearPortrait';
 // ── fashionista modifier — photo-critique beat components ──
 import {LookPlate,      lookPlateSchema}      from './scenes/LookPlate';
 import {LookPlate916,   lookPlate916Schema}   from './scenes/LookPlate916';
@@ -4167,6 +4173,26 @@ export const RemotionRoot: React.FC = () => {
           defaultProps={showTellCardDefaultProps}
         />
         {/* lecture — SHOW-THE-THING: a real captured web page in a browser window; camera pushes in, one terracotta ring */}
+        <Composition id="DesignPipelineClaim" component={DesignPipelineClaim}
+          durationInFrames={288} fps={24} width={1920} height={1080}
+          schema={designPipelineClaimSchema}
+          defaultProps={designPipelineClaimSchema.parse({title:'Testable Synchronization',mode:'flow',labels:['Decision','Extract','Verify','Ship']})}
+          calculateMetadata={({props})=>({durationInFrames:Math.ceil(props.durationSeconds*24)})}/>
+        <Composition id="LectureEvidenceTable" component={LectureEvidenceTable}
+          durationInFrames={288} fps={24} width={1920} height={1080}
+          schema={lectureEvidenceTableSchema}
+          defaultProps={lectureEvidenceTableSchema.parse({title:'Source and Consumer',headers:['Artifact','Revision'],rows:[['Source','2'],['Consumer','1']],note:'Constructed example'})}
+          calculateMetadata={({props})=>({durationInFrames:Math.ceil(props.durationSeconds*24)})}/>
+        <Composition id="LectureCodeTrace" component={LectureCodeTrace}
+          durationInFrames={288} fps={24} width={1920} height={1080}
+          schema={lectureCodeTraceSchema}
+          defaultProps={lectureCodeTraceSchema.parse({title:'Executed source',code:'const value = 1;',note:'Local example'})}
+          calculateMetadata={({props})=>({durationInFrames:Math.ceil(props.durationSeconds*24)})}/>
+        <Composition id="LectureDocumentTree" component={LectureDocumentTree}
+          durationInFrames={288} fps={24} width={1920} height={1080}
+          schema={lectureDocumentTreeSchema}
+          defaultProps={lectureDocumentTreeSchema.parse({title:'Preorder Traversal'})}
+          calculateMetadata={({props})=>({durationInFrames:Math.ceil(props.durationSeconds*24)})}/>
         <Composition
           id="BrowserCapture"
           component={BrowserCapture}
@@ -4189,6 +4215,30 @@ export const RemotionRoot: React.FC = () => {
           height={1080}
           schema={libraryIconRowSchema}
           defaultProps={libraryIconRowDefaultProps}
+        />
+        {/* PROFESSOR BEAR LAW — a person is never an icon: a random Professor Bear portrait of the right ratio, framed, with a label */}
+        <Composition
+          id="ProfessorBearPortrait"
+          component={ProfessorBearPortrait}
+          durationInFrames={180}
+          calculateMetadata={({props}) => ({durationInFrames: Math.ceil(((props as any).durationSeconds ?? 6) * 30)})}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={professorBearPortraitSchema}
+          defaultProps={professorBearPortraitDefaultProps}
+        />
+        {/* writing kit — a drawn quill WRITES: scattered pages, a scroll outline, one page, or the app's writing spinner */}
+        <Composition
+          id="QuillWriter"
+          component={QuillWriter}
+          durationInFrames={240}
+          calculateMetadata={({props}) => ({durationInFrames: Math.ceil(((props as any).durationSeconds ?? 8) * 30)})}
+          fps={30}
+          width={1920}
+          height={1080}
+          schema={quillWriterSchema}
+          defaultProps={quillWriterDefaultProps}
         />
         {/* tldr — TERMS beat: 2–5 jargon rows landing one at a time, cream stage */}
         <Composition

@@ -14,3 +14,5 @@ library forever) or by striking it if the query was simply badly worded.
 |---|---|---|
 | 2026-09-10 | `godot` | — |
 | 2026-09-13 | `flowdiagram` | — |
+| 2026-10-06 | `figma` | — |
+| 2026-10-07 | `langchain` | — |

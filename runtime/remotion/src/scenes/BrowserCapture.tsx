@@ -39,8 +39,14 @@ export const browserCaptureSchema = z.object({
   caption: z.string().default(''),
   moves:   z.array(browserCaptureMoveSchema).min(1).max(6).default([{ at: 0, x: 0.5, y: 0.5, scale: 1 }]),
   moveSeconds:     z.number().default(1.2),
+  /** Ring colour. Default is the Claude terracotta; pass a deeper tone (e.g. #A64A24) when GATE T reads the thin ring as accent text. */
+  ringColor:       z.string().default('#D97757'),
+  /** Optional light/dark halo for an annotation crossing mixed image backgrounds. */
+  ringBackingColor: z.string().optional(),
   /** Width / height of the capture (default 16:9). */
   imageAspect:     z.number().default(16 / 9),
+  /** Optional framing adjustment; preserve existing compositions by default. */
+  windowOffsetY:   z.number().default(0),
   durationSeconds: z.number().default(10),
 });
 export type BrowserCaptureProps = z.infer<typeof browserCaptureSchema>;
@@ -52,7 +58,7 @@ const WIN = { left: 120, top: 48, width: 1680, height: 900 };
 const BAR = 64;
 const VIEW = { width: WIN.width, height: WIN.height - BAR };
 
-export const BrowserCapture: React.FC<BrowserCaptureProps> = ({ url, image, caption, moves, moveSeconds, imageAspect }) => {
+export const BrowserCapture: React.FC<BrowserCaptureProps> = ({ url, image, caption, moves, moveSeconds, imageAspect, ringColor, ringBackingColor, windowOffsetY = 0 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const winIn = clamp(spring({ frame, fps, config: { damping: 26, stiffness: 150, mass: 0.8 } }), 0, 1);
@@ -92,7 +98,7 @@ export const BrowserCapture: React.FC<BrowserCaptureProps> = ({ url, image, capt
   return (
     <AbsoluteFill style={{ backgroundColor: CLAUDE.PAGE }}>
       <div style={{
-        position: 'absolute', left: WIN.left, top: WIN.top, width: WIN.width, height: WIN.height,
+        position: 'absolute', left: WIN.left, top: WIN.top + windowOffsetY, width: WIN.width, height: WIN.height,
         background: CLAUDE.CARD, border: `2px solid ${CLAUDE.INK}`, borderRadius: 16, overflow: 'hidden',
         boxShadow: '0 14px 44px rgba(61,57,41,0.16)',
         opacity: winIn, transform: `translateY(${(1 - winIn) * 14}px)`,
@@ -117,7 +123,8 @@ export const BrowserCapture: React.FC<BrowserCaptureProps> = ({ url, image, capt
               <div style={{
                 position: 'absolute', left: `${ring[0] * 100}%`, top: `${ring[1] * 100}%`,
                 width: `${ring[2] * 100}%`, height: `${ring[3] * 100}%`,
-                border: `7px solid ${CLAUDE.SPARK}`, borderRadius: 18, boxSizing: 'border-box',
+                border: `7px solid ${ringColor || CLAUDE.SPARK}`, borderRadius: 18, boxSizing: 'border-box',
+                boxShadow: ringBackingColor ? `0 0 0 4px ${ringBackingColor}, inset 0 0 0 4px ${ringBackingColor}` : undefined,
                 opacity: ringIn, transform: `scale(${1.06 - 0.06 * ringIn})`,
               }} />
             ) : null}
@@ -125,7 +132,7 @@ export const BrowserCapture: React.FC<BrowserCaptureProps> = ({ url, image, capt
         </div>
       </div>
       {caption ? (
-        <div style={{ position: 'absolute', left: 0, right: 0, top: WIN.top + WIN.height + 26, textAlign: 'center',
+        <div style={{ position: 'absolute', left: 0, right: 0, top: WIN.top + windowOffsetY + WIN.height + 26, textAlign: 'center',
                       fontFamily: CLAUDE_FONT.serif, fontSize: 36, color: CLAUDE.INK, opacity: winIn }}>
           {caption}
         </div>

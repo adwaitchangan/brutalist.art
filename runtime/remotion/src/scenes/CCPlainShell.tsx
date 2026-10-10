@@ -30,6 +30,9 @@ export const ccPlainShellSchema = z.object({
   lineGap:  z.number().int().default(14),
   /** Optional: the beat's measured audio. Sizes the composition so cues can run past 10 s. */
   durationSeconds: z.number().optional(),
+  /** Optional mono size at the 1920 design width (default 40). Lower it only so long REAL output lines fit
+   *  without the ellipsis cutting them (verbatim law); 32 fits ~80 columns. Added 2026-10-09. */
+  fontSize: z.number().min(28).max(48).optional(),
 });
 export type CCPlainShellProps = z.infer<typeof ccPlainShellSchema>;
 
@@ -40,7 +43,7 @@ const SPRING = { damping: 26, stiffness: 160, mass: 0.8 };
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export const CCPlainShell: React.FC<CCPlainShellProps> = ({ title, lines, startCue, lineGap }) => {
+export const CCPlainShell: React.FC<CCPlainShellProps> = ({ title, lines, startCue, lineGap, fontSize = 40 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const winIn = clamp(spring({ frame, fps, config: SPRING }), 0, 1);
@@ -68,7 +71,7 @@ export const CCPlainShell: React.FC<CCPlainShellProps> = ({ title, lines, startC
           <span style={{ position: 'absolute', left: 0, right: 0, textAlign: 'center', fontFamily: CC_FONT.ui, fontSize: 26, fontWeight: 600, color: CC.INK_2 }}>{title}</span>
         </div>
         {/* lines */}
-        <div style={{ position: 'absolute', left: 28, right: 28, top: 84, bottom: 24, fontFamily: CC_FONT.mono, fontSize: 40, lineHeight: 1.55, color: CC.INK }}>
+        <div style={{ position: 'absolute', left: 28, right: 28, top: 84, bottom: 24, fontFamily: CC_FONT.mono, fontSize, lineHeight: 1.55, color: CC.INK }}>
           {lines.map((l, i) => {
             const lineIn = clamp(spring({ frame: frame - cues[i], fps, config: SPRING }), 0, 1);
             const isCmd = l.startsWith('$ '); const isComment = l.startsWith('# ');

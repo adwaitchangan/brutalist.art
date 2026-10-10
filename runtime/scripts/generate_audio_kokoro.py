@@ -66,9 +66,12 @@ SYMBOLS = {
 }
 
 
-def normalize_for_tts(text: str) -> str:
+def normalize_for_tts(text: str, voice: str = None) -> str:
     for sym, spoken in SYMBOLS.items():
         text = text.replace(sym, spoken)
+    if voice:
+        from pronunciation import apply as _pron   # runtime/pronunciation/<persona>.json, voice-only rewrites
+        text = _pron(text, voice)
     return text
 
 
@@ -229,7 +232,7 @@ def main():
     timings = json.loads(timings_path.read_text()) if timings_path.exists() else {}
     for b, voice, text in todo:
         bid = b["beat_id"]
-        samples, sr = k.create(normalize_for_tts(text), voice=voice,
+        samples, sr = k.create(normalize_for_tts(text, voice), voice=voice,
                                speed=a.speed, lang=lang_for(voice))
         out = writable_path(folder, f"mp3/beat-{bid}.mp3")
         write_mp3(samples, sr, out)
