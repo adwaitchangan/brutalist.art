@@ -9,6 +9,7 @@ kokoro-onnx>=0.4            # the FREE voice engine (Kokoro-82M, local, no key)
 mutagen>=1.47,<1.48         # audio-duration measurement (the master clock)
 Pillow>=10.2,<11            # slates / request cards / previz / stills
 numpy>=2.0.2
+soundfile>=0.12,<1          # WAV writing for seis_extract.py's Kokoro voiceover
 
 # ── animation ────────────────────────────────────────────────────────────────
 manim>=0.18,<0.19           # pulls manimpango, moderngl, etc.
