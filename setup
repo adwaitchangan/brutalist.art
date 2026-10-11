@@ -9,8 +9,9 @@
 # permanently removed. Exit 0 if all required features are ready; exit 1 otherwise.
 #
 # Readiness is decided ONLY by live verification below — importing every
-# Python dep, actually running ffmpeg/ffprobe, and synthesizing + decoding
-# one real Kokoro phrase (mean_volume > -40 dB). An install step's own exit
+# Python dep, actually running ffmpeg/ffprobe, synthesizing + decoding
+# one real Kokoro phrase (mean_volume > -40 dB), and decoding a test tone
+# through faster-whisper's own file loader. An install step's own exit
 # code is reported (INSTALL_FAILED) but never substitutes for a check: a
 # green table means the checks passed, not that `pip install` returned 0.
 set -uo pipefail
@@ -159,6 +160,7 @@ check latex     'have pdflatex && have latex && have dvisvgm' 'install LaTeX + d
 check py_pillow 'pymod PIL'                     'pip install Pillow (slates / request cards / previz)'
 check py_manim  'pymod manim'                   'pip install "manim<0.19"'
 check py_whisper 'pymod faster_whisper'         'pip install "faster-whisper<2" (captions / word clock)'
+check whisper_decode "python3 \"$HERE/runtime/scripts/setup_smoke_whisper.py\"" 'faster-whisper could not decode a test WAV — check ffmpeg and the av version (requirements.txt caps av<19); pip install -r requirements.txt (run runtime/scripts/setup_smoke_whisper.py directly to see why)'
 check py_kokoro 'pymod kokoro_onnx'             'pip install kokoro-onnx (the free voice engine)'
 check kokoro_model '[ -f runtime/models/kokoro/kokoro-v1.0.onnx ] && [ -f runtime/models/kokoro/voices-v1.0.bin ]' 'model files ship with this toolkit — if missing: curl -LO from github.com/thewh1teagle/kokoro-onnx releases (model-files-v1.0)'
 check kokoro_synth "python3 \"$HERE/runtime/scripts/setup_smoke_kokoro.py\"" 'Kokoro failed to synthesize + decode a test phrase above -40 dB — check model files, kokoro_onnx install, and ffmpeg; a toolkit path too deep for espeak-ng (data path ≥ 160 chars) needs a shorter folder or a system espeak-ng (run runtime/scripts/setup_smoke_kokoro.py directly to see why)'
@@ -168,7 +170,7 @@ check font_oswald   'have_font Oswald'   'not bundled — install: ./setup --ins
 
 FEATURES=(
  "audio (Kokoro Bella/Onyx)|ffmpeg python py_kokoro kokoro_model kokoro_synth"
- "captions + word clock|ffmpeg python py_whisper"
+ "captions + word clock|ffmpeg python py_whisper whisper_decode"
  "Manim beats|ffmpeg python py_manim py_pillow"
  "Manim equation beats|ffmpeg python py_manim latex"
  "Remotion beats + bookends|node20 remotion_deps"
