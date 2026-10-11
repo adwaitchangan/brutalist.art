@@ -102,14 +102,20 @@ fi
 # ── ElevenLabs guard ─────────────────────────────────────────────────
 # Functional ElevenLabs references are bugs; prose documentation mentioning the
 # name is allowed. setup is excluded because it contains this guard.
+# youtube/ is excluded too: it holds video projects, not toolkit code — the
+# setup explainer quotes these fingerprints on screen, and the your-turn /
+# brand-variant demos keep legacy "engine" fixtures as recorded input.
+# .venv/ is third-party site-packages, like node_modules/.
 EL_PAT="ELEVEN""LABS_API_KEY|elevenlabs""\.io|\"engine\"[^\"]*\"elevenlabs\"|xi-api-key"
 if grep -rqiE "$EL_PAT" \
     --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
+    --exclude-dir=.venv --exclude-dir=youtube \
     --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup .; then
   r "ElevenLabs reference found — this toolkit is Kokoro-only for narration."; echo
   echo "  Files with hits:"
   grep -rliE "$EL_PAT" \
     --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=__pycache__ \
+    --exclude-dir=.venv --exclude-dir=youtube \
     --exclude-dir='.claude' --exclude='CHANGELOG*' --exclude=setup . | sed 's/^/    /'
   exit 1
 fi
