@@ -14,6 +14,7 @@ soundfile>=0.12,<1          # WAV writing for seis_extract.py's Kokoro voiceover
 # ── animation ────────────────────────────────────────────────────────────────
 manim>=0.18,<0.19           # pulls manimpango, moderngl, etc.
 manimpango>=0.5,<0.6
+matplotlib>=3.8,<4          # typeset_math.py: MathText -> outlined SVG for Remotion math beats
 
 # ── captions + word clock ────────────────────────────────────────────────────
 faster-whisper>=1.0,<2      # forced alignment + transcript captions (local, no key)
