@@ -158,7 +158,7 @@ check python    'py_ge 10'                      "$PY_HINT"
 check node20    'node_ge 20'                    'install Node ≥ 20 (nodejs.org / nvm)'
 check latex     'have pdflatex && have latex && have dvisvgm' 'install LaTeX + dvisvgm (MacTeX / TeX Live; Homebrew: brew install texlive dvisvgm — its texlive omits dvisvgm) — only for Manim equation beats'
 check py_pillow 'pymod PIL'                     'pip install Pillow (slates / request cards / previz)'
-check py_manim  'pymod manim'                   'pip install "manim<0.19"'
+check py_manim  'pymod manim'                   'pip install "manim>=0.20,<0.21" (the 0.20 series — 0.18 clips come out one frame short per scene)'
 check py_whisper 'pymod faster_whisper'         'pip install "faster-whisper<2" (captions / word clock)'
 check whisper_decode "python3 \"$HERE/runtime/scripts/setup_smoke_whisper.py\"" 'faster-whisper could not decode a test WAV — check ffmpeg and the av version (requirements.txt caps av<19); pip install -r requirements.txt (run runtime/scripts/setup_smoke_whisper.py directly to see why)'
 check py_kokoro 'pymod kokoro_onnx'             'pip install kokoro-onnx (the free voice engine)'
