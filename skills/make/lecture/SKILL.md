@@ -81,9 +81,15 @@ BOUT    outro             per channel (table below)
   field/build contract before authoring. A randomly selected Professor Bear
   portrait on the left, film title and a short description on the right.
   Fill the fields from THIS film, not from the template's Figma example.
-  On a series film include playlist title, video number/total, and
-  “New here? Start with Video 1 · Introduction” (the actual series entry
-  title; video one instead says “Start here · Introduction”). Keep
+  On a series film include the playlist title and nothing positional.
+  **NO VIDEO NUMBERS, EVER** (Bear, 2026-10-11: "we do not number our
+  videos one of X, because we never know what X is going to be", then
+  "remove all the numbers"; a new film can always land first): no "Video 3",
+  no "3 of 16", no "Video 03 / 15", no "Start here · Introduction", no "New
+  here? Start with Video 1", in the card, the narration, the description, the
+  metadata or the roadmap visuals (a roadmap may name parts of a path, never
+  a film count). Plans may keep an order; nothing the viewer sees may carry
+  a number or a total. Keep
   “Professor Bear” and, when Liam narrates, “Liam, in for Bear · Narration”;
   do not label Bear's picture as Liam. Standalone films omit series fields.
   Choose randomly within the square portrait library, seeded by the film slug
@@ -435,6 +441,15 @@ in `youtube/`. Never into the toolkit.
    <reel>/exports/landscape` (GATE T, then the master). Check the master:
    3840×2160, runtime equals the sum of the audio, silent tail present.
    `python3 brutalist.art/runtime/scripts/bookend_check.py <reel>`.
+**TWO-STAGE HANDOFF (Bear, 2026-10-11).** Unless Bear asks for an end-to-end
+build, a Cowork session does steps 1–5 (read, `ACTS.md`, `SHOTLIST.md`,
+`FACTCHECK.md`, evidence, `make_sheet.py`, narration and scene code), writes
+`BUILD-PROMPT.md` in the reel folder, and STOPS. It then gives Bear a short
+Claude Code prompt that points at that file; the lower-effort Claude Code
+session, launched from `books/`, does steps 6–10 (audio, stills, review cut, final, checks). The prompt
+template and the rules for `BUILD-PROMPT.md` are in `books/CLAUDE.md`, section
+"Two-stage builds".
+
 10. **STOP.** Hand over the master, the runtime, the lane histogram and any
     open HOLD. Stage (`art post`) and publish only on the human's word, and
     only from TOPOST.

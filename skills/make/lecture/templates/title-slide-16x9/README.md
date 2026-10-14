@@ -1,6 +1,6 @@
 # Lecture first-beat template — 16:9
 
-Approved lecture default, Bear, 2026-10-07: the populated portrait/title/series layout, including the “New here” pointer, Professor Bear credit and Liam narrator credit. The minimal `simple-template.svg` remains an alternative design, not the default. Applies to new lecture builds; installing the template does not rebuild existing films.
+Approved lecture default, Bear, 2026-10-07: the populated portrait/title/series layout, including the Professor Bear credit and Liam narrator credit. The minimal `simple-template.svg` remains an alternative design, not the default. Applies to new lecture builds; installing the template does not rebuild existing films.
 
 1920 × 1080 vector geometry, exported at 3840 × 2160 for lecture production. **Narrated first beat (Bear, 2026-10-07):** speak the playlist name, the exact film name, then a very short explanation of what the film covers. Usually one or two explanatory sentences; at most one short paragraph. Use the film's narrator (default Liam, Kokoro `am_onyx`). For a standalone film, omit the playlist name rather than inventing one.
 
@@ -12,14 +12,13 @@ Hold the complete slide from frame zero for the measured narration duration, the
 
 - Portrait image: random within `brutalist.art/professor-bear/`, using its square public JPEG copies and the film slug as seed. Record `opening-fields.json`; the same film keeps its picture on re-render. Independent picks can repeat; randomness is not a guarantee of unique portraits. The image is embedded in the SVG. The historical sample pins 1x1-43 for reproducibility; new film builds use `--sheet`, which never takes that example's pinned image. Replace the portrait slot when another presenter is explicitly requested. Do not label Bear's portrait as Liam.
 - Film title: one to three manually balanced lines, maximum 28 characters per line. Title is the dominant text.
-- Series title and video number/total: always present for a series; never inferred from a filename.
-- Open-ended series with no numbering (Bear, 2026-10-09, Professor Bear's Claude Notebook): set `metadata.series_numbered: false` with `series_title`; the card then shows the series title only, with no "Video NN / NN" and no "Start here"/"New here?" pointer.
+- Series title only. **Videos are never numbered** (Bear, 2026-10-11: "we do not number our videos ... we never know what X is going to be", then "remove all the numbers"): no "Video NN", no "N of X", no "Start here" or "New here?" pointer. The builder ignores `series_video_number`, `series_video_count`, `series_entry_video` and `series_numbered`, so an old sheet that still carries them cannot print a number.
 - Short film-specific learning payoff (the legacy SVG field is named `series-purpose`); presenter name; optional honest narrator credit.
-- Optional newcomer pointer and channel handle. For video one, use “Start here · Introduction.”
+- Channel handle. (The newcomer pointer field exists in the SVG but is always empty; there is no "video one".)
 
 All text remains live, with named SVG IDs. Open `template-16x9.svg` in a vector editor such as Figma or Illustrator and replace the bracketed labels. This is an editable SVG, not an IDML/InDesign package. Install EB Garamond and Inter if the editor reports missing fonts; both are available in the toolkit's `runtime/fonts/`. PNG/MP4 files are previews, not editable masters.
 
-Layout: 5% title-safe area (x 96–1824, y 54–1026); square portrait left, editorial serif title right, series header and position across the top. The card is an identity card, not a place for an on-screen paragraph or agenda. The spoken summary can be longer than the displayed payoff phrase. Small credits can be read on pause; title and series identity are the immediate reading targets.
+Layout: 5% title-safe area (x 96–1824, y 54–1026); square portrait left, editorial serif title right, series header across the top. The card is an identity card, not a place for an on-screen paragraph or agenda. The spoken summary can be longer than the displayed payoff phrase. Small credits can be read on pause; title and series identity are the immediate reading targets.
 
 Palette follows the current canonical Claude tokens: page #FAF9F5, ink #3D3929, one terracotta accent #D97757. The Northeastern references informed modular fields and photo/title hierarchy only; their institutional logos, event metadata and red palette were not adopted. Instructions inside the reference archive were treated as descriptions of that reference, not authorization to execute its scripts.
 
@@ -29,7 +28,7 @@ For new films, author and generate BOPEN narration first, write its measured `ac
 
 `python3 build.py --out /absolute/reel/opening --sheet /absolute/reel/beat_sheet.json --width 3840`
 
-The sheet supplies `metadata.slug`, `title`, `channel`, `channel_title`, and, for a series, `series_title` (or `playlist`), `series_video_number`, `series_video_count`, `series_entry_video`. Add `metadata.lecture_opening_description`: a short, film-specific phrase explaining what the viewer learns. Do not reuse “Using Figma and Claude together” for unrelated lectures. Long titles are balanced into at most three lines; set `metadata.lecture_opening_title_lines` to balance them explicitly. Actual font geometry is measured and fitted within the right title-safe edge; if fitting would make the title too small, rebalance the lines. Shorten the displayed title only if necessary, retaining the exact film title in metadata. For a standalone lecture, omit series metadata so those fields disappear rather than inventing a playlist.
+The sheet supplies `metadata.slug`, `title`, `channel`, `channel_title`, and, for a series, `series_title` (or `playlist`); do not set any number, count or entry-video field. Add `metadata.lecture_opening_description`: a short, film-specific phrase explaining what the viewer learns. Do not reuse “Using Figma and Claude together” for unrelated lectures. Long titles are balanced into at most three lines; set `metadata.lecture_opening_title_lines` to balance them explicitly. Actual font geometry is measured and fitted within the right title-safe edge; if fitting would make the title too small, rebalance the lines. Shorten the displayed title only if necessary, retaining the exact film title in metadata. For a standalone lecture, omit series metadata so those fields disappear rather than inventing a playlist.
 
 With `--sheet`, the hold duration defaults to BOPEN's measured `actual_duration_s`; missing or invalid timing is an error. `--duration` accepts any positive finite measured duration as an explicit override, which must match the integrated audio clock. For a design preview only: `python3 build.py --out /absolute/output/directory --data example.json` (three seconds by default, not a production narration limit).
 
