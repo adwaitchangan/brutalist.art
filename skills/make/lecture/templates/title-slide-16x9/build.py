@@ -29,20 +29,11 @@ def from_sheet(sheet):
         raise ValueError('Set metadata.lecture_opening_description to this film\'s short teaching payoff.')
     title_lines = meta.get('lecture_opening_title_lines') or textwrap.wrap(meta['title'], width=24, break_long_words=False, break_on_hyphens=False)
     series = meta.get('series_title') or meta.get('playlist') or ''
-    number, total = meta.get('series_video_number'), meta.get('series_video_count')
-    # Open-ended series (Bear, 2026-10-09: "the videos don't need numbers"): an explicit
-    # metadata.series_numbered == false shows the series title only -- no position, no pointer.
-    numbered = meta.get('series_numbered', True) is not False
-    if series and numbered and (not number or not total):
-        raise ValueError('Series films need series_video_number and series_video_count '
-                         '(or set metadata.series_numbered: false for an open-ended series).')
-    entry = meta.get('series_entry_video', 'Video 1 · Introduction')
-    if series and not numbered:
-        position, pointer = '', ''
-    else:
-        position = f'Video {number:02d} / {total:02d}' if series else ''
-        pointer = ('Start here · ' + entry.split('·')[-1].strip() if number == 1
-                   else 'New here? Start with ' + entry) if series else ''
+    # NO VIDEO NUMBERS, EVER (Bear, 2026-10-11: "we do not number our videos ... we never know what
+    # X is going to be", then "remove all the numbers" -- a new film can always land first). The card
+    # carries the series title only: no "Video NN", no "N of X", no "Start here" / "New here?" pointer.
+    # series_video_number, series_video_count, series_entry_video and series_numbered are ignored.
+    position, pointer = '', ''
     return dict(series_title=series, episode_position=position,
                 title_lines=title_lines, subtitle=description,
                 portrait_path=pick('1x1', seed=meta['slug'], public=True),
@@ -145,11 +136,11 @@ def main():
     if not args.sheet and not example.get('portrait_path'):
         example['portrait_path'] = pick('1x1', seed=example.get('seed'), public=True)
     (args.out/'opening-fields.json').write_text(json.dumps(example, indent=2)+'\n')
-    blank = dict(example,series_title='[Series Title]',episode_position='Video [NN] / [Total]',
+    blank = dict(example,series_title='[Series Title]',episode_position='',
                  title_lines=['[Film Title]', '[Optional Second Line]'],
                  subtitle='[Series Purpose — Short Phrase]',presenter_name='[Presenter Name]',
                  narrator_credit='[Narrator Credit — Optional]',
-                 entry_pointer='[Start Here — Optional]',channel_handle='[Channel Handle]')
+                 entry_pointer='',channel_handle='[Channel Handle]')
     for name, data, placeholder in [('template',blank,True),('example',example,False)]:
         source = args.out/f'{name}-16x9.svg'
         source.write_text(svg(data,placeholder))

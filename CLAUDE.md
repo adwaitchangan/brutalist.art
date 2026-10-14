@@ -102,6 +102,28 @@ of its output. Pantry remains for genuinely necessary source artifacts.
    head-and-shoulders, whatever the slot needs. The set holds 229 · 28 · 13 clothed portraits (the shirtless and
    underwear shots were removed 2026-10-07; see `professor-bear/MANIFEST.md`).
 
+10. **REMOTION VERSION LAW — always the latest Remotion (Bear, 2026-10-10).** `runtime/remotion` runs the
+    newest stable Remotion, every `remotion` and `@remotion/*` package at ONE exact version (currently
+    `4.0.534`; React 19, which the current `@remotion/transitions` requires). A pinned-old version is a bug: it
+    is why effects, text highlights and motion blur were stuck as documentation captures. Check with
+    `./art remotion-version` (also runs before every `remotion_scenes.py` render and warns when behind);
+    upgrade with `./art remotion-upgrade` (`npx remotion upgrade`), then re-render the reels you still ship
+    and re-run their gates. Before using a feature, read the installed skills in
+    `runtime/remotion/.agents/skills/` (`npx remotion skills update` keeps them current) and the package's
+    own `.d.ts`; never assume an API from memory. WebGL effects need `Config.setChromiumOpenGlRenderer('angle')`
+    (set in `runtime/remotion/remotion.config.ts`). Install new packages with
+    `npm install --ignore-scripts --save-exact <pkg>@<same version>`. Known machine quirk: Remotion's own
+    bundled Chrome headless shell 157 crashes on Bear's Mac (GPU child, `icudtl.dat not found`), so
+    `remotion_scenes.py` prefers Playwright's headless shell (`python3 -m playwright install chromium`);
+    override with `ART_CHROME`.
+
+11. **LOGO LAW — a company is shown by its logo (Bear, 2026-10-12).** Whenever a beat in ANY skill refers visually to a company,
+    product or tool (Claude, Anthropic, Apple, Northeastern, Google, GitHub, Figma, ...), it shows that company's logo, never a bare text
+    chip. Logos live in `icons/logos/<company>/<company>-NN.svg` (+ a 1024 px `.png`); Claude's standard mark is `claude-01`. If the
+    logo does not exist, create it in that folder (from the company's own public mark) before using it. A tool shown as itself
+    (SHOW-THE-THING) still wins over a logo. In Manim use `logo_chip("<company>", x, y)` (see a film's `_kit_cast.py`); in Remotion
+    load the SVG with `staticFile`. A person is still never an icon (rule 9).
+
 ## Skill reference
 
 Full tier breakdown: `skills/TIERS.md`

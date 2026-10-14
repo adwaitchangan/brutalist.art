@@ -53,6 +53,25 @@ if [ "$cmd" = "godot-waikthrough" ] && [ "${1:-}" = "--check" ]; then
   exec python3 "$SKILLS/make/godot-waikthrough/scripts/verify_walkthrough.py" "$@"
 fi
 
+# Godot game trailer; accept the plain spelling.
+if [ "$cmd" = "game-trailer" ]; then cmd="godot-trailer"; fi
+if [ "$cmd" = "godot-trailer" ] && [ "${1:-}" = "--check" ]; then
+  shift
+  exec python3 "$SKILLS/make/godot-trailer/scripts/verify_trailer.py" "$@"
+fi
+if [ "$cmd" = "godot-trailer" ] && [ "${1:-}" = "--assemble" ]; then
+  shift
+  exec python3 "$SKILLS/make/godot-trailer/scripts/assemble_trailer.py" "$@"
+fi
+if [ "$cmd" = "godot-trailer" ] && [ "${1:-}" = "--vo" ]; then
+  shift
+  exec python3 "$SKILLS/make/godot-trailer/scripts/vo_kokoro.py" "$@"
+fi
+if [ "$cmd" = "godot-trailer" ] && [ "${1:-}" = "--beat-grid" ]; then
+  shift
+  exec python3 "$SKILLS/make/godot-trailer/scripts/beat_grid.py" "$@"
+fi
+
 # Medhavy Hub web walkthrough; accept the old "medhavi" spelling.
 if [ "$cmd" = "medhavi-walkthrough" ]; then cmd="medhavy-walkthrough"; fi
 if [ "$cmd" = "medhavy-walkthrough" ] && [ "${1:-}" = "--check" ]; then
@@ -71,6 +90,7 @@ case "$cmd" in
     printf '%-22s %s\n' "godot-waikthrough" "builder — real Godot gameplay + Liam riffs; optional Walker bookends"
     printf '%-22s %s\n' "godot-gamedev" "builder — code, scenes, assets and art deep dive; optional Walker bookends"
     printf '%-22s %s\n' "godot-gdd" "builder — GDD intent, scope and game evidence; optional Walker bookends"
+    printf '%-22s %s\n' "godot-trailer" "builder — 60-90 s game trailer from a Godot repo; real gameplay, one idea escalated, cut to music, one call to action"
     printf '%-22s %s\n' "medhavy-walkthrough" "builder — real Medhavy Hub browser capture + Liam riffs; optional textbook bookends"
     printf '%-22s %s\n' "riff"           "utility — render/inspect, then critique what visibly happens"
     printf '%-22s %s\n' "deep-explainer" "builder — 5-10 min documentary episode (vox pantry beats)"
@@ -99,6 +119,11 @@ case "$cmd" in
   bear|professor-bear)
     # PROFESSOR BEAR LAW: a person icon / Professor Bear is always one of his portraits, random within the ratio.
     exec python3 "$ART_HOME/runtime/scripts/professor_bear.py" "$@"
+    ;;
+  remotion-version|remotion-upgrade)
+    # REMOTION VERSION LAW: the toolkit uses the latest Remotion. `remotion-upgrade` upgrades; `remotion-version` reports.
+    if [ "$cmd" = "remotion-upgrade" ]; then exec python3 "$ART_HOME/runtime/scripts/remotion_version.py" --upgrade; fi
+    exec python3 "$ART_HOME/runtime/scripts/remotion_version.py" "$@"
     ;;
   icon-build)
     exec python3 "$ART_HOME/runtime/scripts/build_icon_set.py" "$@"

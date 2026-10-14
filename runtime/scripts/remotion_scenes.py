@@ -41,6 +41,16 @@ def slate_resolves(folder: Path, bid: str) -> bool:
 def browser_flags():
     flags = []
     chrome = os.environ.get("ART_CHROME")
+    if not chrome:
+        # Remotion 4.0.534's bundled Chrome 157 headless shell crashes on
+        # Bear's Mac (GPU child: icu_util.cc check failed, 2026-10-10), so
+        # prefer Playwright's headless shell when it is installed.
+        import glob
+        hits = sorted(glob.glob(os.path.expanduser(
+            "~/Library/Caches/ms-playwright/chromium_headless_shell-*/"
+            "chrome-headless-shell-*/chrome-headless-shell")))
+        if hits:
+            chrome = hits[-1]
     mode = os.environ.get("ART_CHROME_MODE")
     if chrome:
         flags += [f"--browser-executable={chrome}"]
@@ -185,6 +195,11 @@ def main():
         print("[remotion] nothing to do — no shot.remotion.pattern beats")
         return
 
+    try:
+        import subprocess as _sp
+        _sp.run([sys.executable, str(Path(__file__).resolve().parent / 'remotion_version.py')], timeout=40)
+    except Exception:
+        pass
     validate_approvals(folder, sheet)
     changed = False
     failures = []

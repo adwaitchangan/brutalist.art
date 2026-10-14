@@ -36,3 +36,15 @@ library forever) or by striking it if the query was simply badly worded.
 | 2026-09-13 | `flowdiagram` | — |
 | 2026-10-06 | `figma` | — |
 | 2026-10-07 | `langchain` | — |
+| 2026-10-12 | `claudedesktop` | — |
+| 2026-10-13 | `triangle vertices mesh` | — |
+| 2026-10-13 | `shader uv vertex fragment` | — |
+| 2026-10-13 | `vertex collision displacement` | — |
+| 2026-10-13 | `texture sampling` | — |
+| 2026-10-13 | `varying interpolation` | — |
+| 2026-10-14 | `3d convex concave collider` | — |
+| 2026-10-14 | `transform inheritance` | — |
+| 2026-10-14 | `velocity or displacement` | — |
+| 2026-10-14 | `stomp or hurt` | — |
+| 2026-10-14 | `teleport deliberately` | — |
+| 2026-10-14 | `choose the backend` | — |

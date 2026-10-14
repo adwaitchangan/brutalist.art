@@ -365,7 +365,7 @@
    "word": "AICR",
    "say": "A-I-C-R",
    "ignorecase": false,
-   "note": "Northeastern's AI cluster. Kokoro reads AICR as 'acre' (Bear caught it in film 1, 2026-10-09). Say the four letters. Lower-case 'aicr' inside hostnames (ood.aicr.ai, ssh aicr) is left to the spelled-out narration.",
+   "note": "Northeastern's AI cluster. Kokoro reads AICR as 'acre'. Bear, 2026-10-11: say it ONE way, always - the four letters A-I-C-R (the alternative he allowed was 'Aker', like an acre of ground; not used, so the film never mixes them). Capital AICR here; lower-case aicr (hostnames, 'ssh aicr', the alias) is the next entry.",
    "patterns": [
     "\\b(?P<w>AICR)\\b"
    ],
@@ -376,6 +376,26 @@
     },
     {
      "text": "Optimizing GPU Usage on AICR",
+     "expect": "ˈeɪaɪsˈiːˈɑːɹ"
+    }
+   ]
+  },
+  {
+   "id": "aicr-lower",
+   "word": "aicr",
+   "say": "A-I-C-R",
+   "ignorecase": false,
+   "note": "Lower-case aicr inside hostnames and commands (login.aicr.ai, ssh aicr, the aicr alias). Same four letters as the capital entry, so the film says it one way. Bear, 2026-10-11.",
+   "patterns": [
+    "\\b(?P<w>aicr)\\b"
+   ],
+   "examples": [
+    {
+     "text": "ssh aicr",
+     "expect": "ˈeɪaɪsˈiːˈɑːɹ"
+    },
+    {
+     "text": "login dot aicr dot A I",
      "expect": "ˈeɪaɪsˈiːˈɑːɹ"
     }
    ]
@@ -464,6 +484,94 @@
     {
      "text": "Godot's scenes are text files.",
      "expect": "ɡˌoʊdˈoʊz"
+    }
+   ]
+  },
+  {
+   "id": "coding-title",
+   "word": "Coding",
+   "say": "co-ding",
+   "ignorecase": false,
+   "note": "In the BOUT title 'Agentic Coding Is Mostly Design', Kokoro says 'coating' (KOH-ting). Respelling 'co-ding' separates the syllables explicitly: 'co' (like co-author, /koʊ/) + 'ding' (the known word, /dɪŋ/) → kˈoʊdɪŋ. Narrower than 'koding' and forces Kokoro's neural model to read through the hyphen. Narrow pattern: only fires between 'Agentic' and 'Is'. Added 2026-10-11 for Agentic Figma Film 1. Voice only; narration and captions retain 'Coding'.",
+   "patterns": [
+    "(?:Agentic\\s+)(?P<w>Coding)(?=\\s+Is\\b)"
+   ],
+   "examples": [
+    {
+     "text": "Agentic Coding Is Mostly Design.",
+     "expect": "kˈoʊdˈɪŋ"
+    }
+   ]
+  },
+  {
+   "id": "redoable",
+   "word": "redoable",
+   "say": "redooable",
+   "ignorecase": true,
+   "note": "'redoable' = re-DOO-able (re + do, like 'undoable'), not 're-DOH-able' (as in bread dough). Kokoro says dough. Requested 2026-10-10. Covers redoable and re-doable.",
+   "patterns": [
+    "\\b(?P<w>re-?doable)\\b"
+   ],
+   "examples": [
+    {
+     "text": "The step is redoable.",
+     "expect": "ɹᵻdˈuːəbəl"
+    },
+    {
+     "text": "A re-doable render.",
+     "expect": "ɹᵻdˈuːəbəl"
+    }
+   ]
+  },
+  {
+   "id": "Ollama",
+   "word": "Ollama",
+   "say": "Ohlama",
+   "ignorecase": true,
+   "note": "The local model server. Kokoro reads Ollama as 'ah-LAH-muh' (ɑːlˈɑːmə); the name starts 'oh-' (oh-LAH-muh). Added 2026-10-13 while building the local-LLM-on-Explorer lecture; check by ear on first use.",
+   "patterns": [
+    "\\b(?P<w>Ollama)\\b"
+   ],
+   "examples": [
+    {
+     "text": "Ollama serves the model.",
+     "expect": "oʊlˈɑːmə"
+    },
+    {
+     "text": "the ollama launch command",
+     "expect": "oʊlˈɑːmə"
+    }
+   ]
+  },
+  {
+   "id": "Apptainer",
+   "word": "Apptainer",
+   "say": "Aptayner",
+   "ignorecase": true,
+   "note": "The container tool (formerly Singularity), said AP-tay-ner. Kokoro says 'AP-tih-ner' (ˈæptɪnɚ). Added 2026-10-13; check by ear on first use.",
+   "patterns": [
+    "\\b(?P<w>Apptainer)\\b"
+   ],
+   "examples": [
+    {
+     "text": "Apptainer runs containers.",
+     "expect": "ˈæpteɪnɚ"
+    }
+   ]
+  },
+  {
+   "id": "Qwen",
+   "word": "Qwen",
+   "say": "Kwen",
+   "ignorecase": false,
+   "note": "The Qwen model family. Kokoro spells it out as the letter Q plus 'wen' (kjˈuːwˈɛn). Said 'Kwen' here (the maker's own pronunciation is closer to 'chwen'; Bear to choose). Added 2026-10-13.",
+   "patterns": [
+    "\\b(?P<w>Qwen)\\b"
+   ],
+   "examples": [
+    {
+     "text": "Qwen three Coder",
+     "expect": "kwˈɛn"
     }
    ]
   }
