@@ -28,6 +28,8 @@ agents.
 | [`godot-gamedev`](skills/make/godot-gamedev/SKILL.md) | Detailed game-development film: actual code, scenes, resources, assets and art in source-backed Godot teaching views; optional `walker` bookends |
 | [`godot-gdd`](skills/make/godot-gdd/SKILL.md) | Explain a complete GDD using existing game evidence; separate proposals, implementation, tests and human decisions; optional `walker` bookends |
 | [`godot-trailer`](skills/make/godot-trailer/SKILL.md) | Cut a 60–90 s trailer from a Godot repo: real gameplay only, one idea escalated, edited to music, ending on one call to action; selects the hook instead of covering every feature |
+| [`building-walkthrough`](skills/make/building-walkthrough/SKILL.md) | Walk a viewer through a 3D model (a building, a game level seen as a model, or one asset) with real Blender renders from a camera route that is designed and then measured; opens by saying what the model is and what it leaves out |
+| [`blender-build`](skills/make/blender-build/SKILL.md) | Record how a Blender model was built (scripts, the Blender MCP or by hand) so a person can redo it: step cards, a replay check, a reconstruction guide and the build-breakdown film; every step says how it is known |
 | `deep-explainer` | 5–10 min documentary episode with vox pantry beats |
 | `anthropics` | Reads an Anthropic artifact (repo/paper/content) against its own claims; practitioner-report register |
 | `fashionista` | AI fashion-call experiment — sports-announcer call with stated confidence + correction ask |
@@ -132,3 +134,32 @@ The reusable `GodotDevWorkbench` scene has code, tree, asset, and trace views,
 including native portrait layout. Its editor chrome is explicitly reconstructed;
 source excerpts, runtime observations and art previews must come from the actual
 game. It does not modify game code, pretend to export a game, or publish a film.
+
+### 3D model films: the walkthrough and how it was built
+
+A model that is both seen and built gets two companion films. Ask your agent
+`building-walkthrough /path/to/model.blend` (aliases `architectural-walkthrough` and
+`asset-walkthrough`; modes `building`, `environment`, `asset`) for the film of the
+finished place or asset, and `blender-build /path/to/model-folder` (alias
+`build-breakdown`) for the film of how it was made. Both narrate with Liam, build into
+the model's own `youtube/` folder, and do not build the model or publish anything.
+`./art <skill>` alone shows the skill to follow; they are agent workflows, not
+autonomous render commands.
+
+They need Blender installed (verified on 5.1.2; set `BLENDER` or use the default macOS
+path) and the numpy in `requirements.txt`.
+
+```bash
+./art building-walkthrough --check /path/to/reel/walkthrough.json   # contract gate + the measured route report
+./art building-walkthrough --render rigged.blend route.json --out renders   # numbered frames, one folder per shot
+./art blender-build --check /path/to/build-record/record.json       # the build record's gate (--final, --film, --recensus)
+./art blender-build --draft | --guide | --tape                      # draft steps, write RECONSTRUCT.md, tape Blender commands
+python3 -m unittest discover -s tests -p 'test_b*.py'               # both skills' tests (a synthetic model, never a real one)
+```
+
+The walkthrough measures its camera (speed, turn rate, roll, height, distance to walls)
+before a frame is rendered and discloses in the opening what the model is and what it
+leaves out. The build record says how each step is known (recorded, scripted, inspected,
+demonstrated or inferred) and tells nothing inferred as history. The gates check the
+contract and the measurements; whether the route is understandable and whether the
+model is right are tests only people can run.

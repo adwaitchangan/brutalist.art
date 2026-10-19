@@ -72,6 +72,28 @@ if [ "$cmd" = "godot-trailer" ] && [ "${1:-}" = "--beat-grid" ]; then
   exec python3 "$SKILLS/make/godot-trailer/scripts/beat_grid.py" "$@"
 fi
 
+# Walkthrough film of a 3D model (building, game environment, asset); accept the longer spellings.
+if [ "$cmd" = "architectural-walkthrough" ] || [ "$cmd" = "asset-walkthrough" ]; then cmd="building-walkthrough"; fi
+if [ "$cmd" = "building-walkthrough" ] && [ "${1:-}" = "--check" ]; then
+  shift
+  exec python3 "$SKILLS/make/building-walkthrough/scripts/verify_walkthrough.py" "$@"
+fi
+if [ "$cmd" = "building-walkthrough" ] && [ "${1:-}" = "--render" ]; then
+  shift
+  exec python3 "$SKILLS/make/building-walkthrough/scripts/render_shots.py" "$@"
+fi
+
+# How a Blender model was built: the record, the guide, the gate. Accept the plain spelling.
+if [ "$cmd" = "build-breakdown" ]; then cmd="blender-build"; fi
+if [ "$cmd" = "blender-build" ]; then
+  case "${1:-}" in
+    --check)  shift; exec python3 "$SKILLS/make/blender-build/scripts/verify_breakdown.py" "$@" ;;
+    --draft)  shift; exec python3 "$SKILLS/make/blender-build/scripts/draft_steps.py" "$@" ;;
+    --guide)  shift; exec python3 "$SKILLS/make/blender-build/scripts/reconstruct_md.py" "$@" ;;
+    --tape)   shift; exec python3 "$SKILLS/make/blender-build/scripts/tape.py" "$@" ;;
+  esac
+fi
+
 # Medhavy Hub web walkthrough; accept the old "medhavi" spelling.
 if [ "$cmd" = "medhavi-walkthrough" ]; then cmd="medhavy-walkthrough"; fi
 if [ "$cmd" = "medhavy-walkthrough" ] && [ "${1:-}" = "--check" ]; then
@@ -91,6 +113,8 @@ case "$cmd" in
     printf '%-22s %s\n' "godot-gamedev" "builder — code, scenes, assets and art deep dive; optional Walker bookends"
     printf '%-22s %s\n' "godot-gdd" "builder — GDD intent, scope and game evidence; optional Walker bookends"
     printf '%-22s %s\n' "godot-trailer" "builder — 60-90 s game trailer from a Godot repo; real gameplay, one idea escalated, cut to music, one call to action"
+    printf '%-22s %s\n' "building-walkthrough" "builder — Liam walkthrough of a 3D model (building, game environment, asset): measured camera route, real Blender renders, says what the model is not"
+    printf '%-22s %s\n' "blender-build" "builder — the steps that made a Blender model, recorded and written so a person can redo them; reconstruction guide + build-breakdown film"
     printf '%-22s %s\n' "medhavy-walkthrough" "builder — real Medhavy Hub browser capture + Liam riffs; optional textbook bookends"
     printf '%-22s %s\n' "riff"           "utility — render/inspect, then critique what visibly happens"
     printf '%-22s %s\n' "deep-explainer" "builder — 5-10 min documentary episode (vox pantry beats)"

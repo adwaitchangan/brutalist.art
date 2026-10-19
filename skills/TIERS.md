@@ -54,3 +54,5 @@ make a video.
 [SILENT-MODE.md](./SILENT-MODE.md). Removes the human from the loop, never the
 gates: machine gates still fail the build, third-party gates (GATE N, GATE G)
 skip the reel rather than auto-pass.
+| building-walkthrough | Liam walkthrough of a 3D model: a building, a game environment seen as a model, or one game asset. Plans the route and every shot's job, builds the camera rig in Blender and MEASURES it (speed, turn rate, roll, height, distance to walls) before rendering, renders numbered image sequences, and discloses in the opening what the model is and is not. Companion to blender-build |
+| blender-build | The steps that made a Blender model (Walker, the Blender MCP, scripts or hand), recorded and written so a person can redo them: tape, step cards with an interface route, replay and by-hand verification, `RECONSTRUCT.md`, and the build-breakdown film (via `lecture`). Every step says how it is known; nothing inferred is told as history |
