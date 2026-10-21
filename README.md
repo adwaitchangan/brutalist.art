@@ -28,8 +28,12 @@ agents.
 | [`godot-gamedev`](skills/make/godot-gamedev/SKILL.md) | Detailed game-development film: actual code, scenes, resources, assets and art in source-backed Godot teaching views; optional `walker` bookends |
 | [`godot-gdd`](skills/make/godot-gdd/SKILL.md) | Explain a complete GDD using existing game evidence; separate proposals, implementation, tests and human decisions; optional `walker` bookends |
 | [`godot-trailer`](skills/make/godot-trailer/SKILL.md) | Cut a 60–90 s trailer from a Godot repo: real gameplay only, one idea escalated, edited to music, ending on one call to action; selects the hook instead of covering every feature |
+<<<<<<< Updated upstream
 | [`building-walkthrough`](skills/make/building-walkthrough/SKILL.md) | Walk a viewer through a 3D model (a building, a game level seen as a model, or one asset) with real Blender renders from a camera route that is designed and then measured; opens by saying what the model is and what it leaves out |
 | [`blender-build`](skills/make/blender-build/SKILL.md) | Record how a Blender model was built (scripts, the Blender MCP or by hand) so a person can redo it: step cards, a replay check, a reconstruction guide and the build-breakdown film; every step says how it is known |
+=======
+| [`blender-modelbuild`](skills/make/blender-modelbuild/SKILL.md) | Beat sheet only (no render): a finished Blender model from every angle, then how a person would build it by hand, from the real build evidence; AI-did vs hand steps, human verdicts; writes to `<model>/film/` |
+>>>>>>> Stashed changes
 | `deep-explainer` | 5–10 min documentary episode with vox pantry beats |
 | `anthropics` | Reads an Anthropic artifact (repo/paper/content) against its own claims; practitioner-report register |
 | `fashionista` | AI fashion-call experiment — sports-announcer call with stated confidence + correction ask |

@@ -46,6 +46,11 @@ if [ "$cmd" = "godot-gamedev" ] && [ "${1:-}" = "--check" ]; then
   exec python3 "$SKILLS/make/godot-gamedev/scripts/verify_gamedev.py" "$@"
 fi
 
+if [ "$cmd" = "blender-modelbuild" ] && [ "${1:-}" = "--check" ]; then
+  shift
+  exec python3 "$SKILLS/make/blender-modelbuild/scripts/verify_modelbuild.py" "$@"
+fi
+
 # Keep the requested spelling; also accept the conventional spelling.
 if [ "$cmd" = "godot-walkthrough" ]; then cmd="godot-waikthrough"; fi
 if [ "$cmd" = "godot-waikthrough" ] && [ "${1:-}" = "--check" ]; then
@@ -112,6 +117,7 @@ case "$cmd" in
     printf '%-22s %s\n' "godot-waikthrough" "builder — real Godot gameplay + Liam riffs; optional Walker bookends"
     printf '%-22s %s\n' "godot-gamedev" "builder — code, scenes, assets and art deep dive; optional Walker bookends"
     printf '%-22s %s\n' "godot-gdd" "builder — GDD intent, scope and game evidence; optional Walker bookends"
+    printf '%-22s %s\n' "blender-modelbuild" "builder — beat sheet only: a finished Blender model from every angle, then how to build it by hand"
     printf '%-22s %s\n' "godot-trailer" "builder — 60-90 s game trailer from a Godot repo; real gameplay, one idea escalated, cut to music, one call to action"
     printf '%-22s %s\n' "building-walkthrough" "builder — Liam walkthrough of a 3D model (building, game environment, asset): measured camera route, real Blender renders, says what the model is not"
     printf '%-22s %s\n' "blender-build" "builder — the steps that made a Blender model, recorded and written so a person can redo them; reconstruction guide + build-breakdown film"
