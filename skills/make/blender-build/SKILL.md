@@ -1,244 +1,155 @@
 ---
 name: blender-build
-description: Record and explain how a Blender model was built, so a person can rebuild it. Takes a build that already happened (Walker, the Blender MCP, headless scripts, or by hand) or a build starting now, and produces the build record — every step with its goal, the exact commands, an interface route a human can follow, the settings, the measured result and the reason — plus a reconstruction guide (RECONSTRUCT.md) and the companion build-breakdown film. Every step says how it is known (recorded, scripted, inspected, demonstrated, inferred) and nothing inferred is told as history. Verifies by replay and by a hand-followed module. Companion to building-walkthrough. Also accepts build-breakdown. Does not build the model, publish, or credit a tool that did not run.
+description: Teach how to build a similar Blender model from finished renders, GitHub images or video screenshots, with a step-by-step film, Blender concepts and copyable coding-agent prompts. Defaults to an image-based reconstruction lesson, not the original build history; no original model, drawings or scripts required. Explicit record/history/build-breakdown requests retain the recorded-build workflow.
 ---
 
-# blender-build — what were all the steps, so a human could redo them
+# blender-build — teach a build from the images
 
 ```text
-blender-build /path/to/model-folder              # recover the record of a build that already happened
-blender-build /path/to/model-folder record       # set up recording for a build that is starting now
-blender-build /path/to/model-folder film         # the breakdown film, from a finished record
+blender-build /path/to/rendered-images/
+blender-build https://github.com/owner/repo/tree/main/model-gallery
+blender-build /path/to/video-or-screenshots/
+blender-build /path/to/model-folder record   # explicit historical workflow
 ```
 
-An **agent-driven builder**, like [godot-waikthrough](../godot-waikthrough/SKILL.md). It does not
-model anything. The model is built by Walker (`books/walker/BLENDER.md`), by the Blender MCP, by
-headless scripts, or by hand. This skill answers the question that comes after: **what were all the
-steps used to make the thing, written so that a person could repeat them?**
+This skill makes a **teaching film and a usable reconstruction lesson**. Its
+question is: “If a learner had these finished images and a coding agent, how
+could they build something like this in Blender?” It is not, by default, a
+retelling of how the original author or agent made the asset. The companion
+[blender-walkthrough](../blender-walkthrough/SKILL.md) tours the finished result.
 
-It is the second of two **companion films** for any model:
+The primary evidence is the model's rendered images: quarter, side, rear, top,
+front and details where available. Viewers may obtain them from the public
+GitHub gallery or screenshots of the YouTube film. **Do not require the original
+`.blend`, `.glb`, STL parts, private drawings, scripts or session logs**, even if
+those happen to be locally available. Do not secretly import that geometry into
+the demonstration. The lesson must still work for someone who only has images.
 
-| | [building-walkthrough](../building-walkthrough/SKILL.md) | **blender-build** (this) |
-|---|---|---|
-| Question | what is the finished place or asset like to experience? | how was it modelled, textured, lit and filmed? |
-| Footage | Blender renders from a measured camera route | the real Blender window, milestone renders from fixed cameras |
-| Spine | the route | the stages |
-| Honesty | what the model is and is not | how each step is known, and what was checked |
+## Choose the right mode
 
-Plan both while you build: the camera route shows where detail matters, and the recorded stages are the
-material for the breakdown.
+Default to the **image-based lesson** below, including when a supplied project
+folder also contains model files. A source file's presence is not a request for
+an exact replay. Prefer “one way to construct a similar model” over “here is how
+we built it.” Different topology and sensible alternative techniques are valid.
 
-Read this file, then [step-cards.md](references/step-cards.md) (the record format and what the gate
-checks), [source-ladder.md](references/source-ladder.md) (where steps come from, and what to do with no
-record), [gui-translation.md](references/gui-translation.md) (Python to the mouse) and
-[breakdown-film.md](references/breakdown-film.md) (stages, the film, the construction reveal). For the
-film's chassis read the [lecture](../lecture/SKILL.md) skill; for its voice, endings and rules, the
-toolkit's `CLAUDE.md` and [OUTRO-LOCK.md](../../../OUTRO-LOCK.md).
+For an explicit original-build history, recording, replay, `record`, or
+`build-breakdown` request, read
+[recorded-build.md](references/recorded-build.md). That preserves the existing
+tape, reconstruction guide, original-scene census and verification workflow.
+The existing `--check`, `--draft`, `--guide` and `--tape` CLI utilities still apply
+to that historical record format; they are **not** validators for this image
+lesson. Do not impose signature equality, original build logs or original
+source files on an image-based reconstruction.
 
-## The one test
+## Gather references and state what can be known
 
-A stranger with Blender, the model's references and this guide should be able to **get the same model**,
-and the guide should say honestly *how sure it is of each step*. "Same model" is checked, not hoped:
-a script replay reproduces the model's census signature, and a person has followed at least one module
-through the interface. Where neither has happened, the guide says so in its first screen.
+Follow the image/source handling in
+[blender-walkthrough](../blender-walkthrough/SKILL.md): inspect original render
+assets, retain source links/revisions/timestamps, and keep selected image copies
+with the lesson. Public links and frame timestamps must let a viewer locate the
+same visual evidence; a local-only path is not a public learning resource. If no
+public link exists, say so and provide the available image reference pack without
+inventing a URL or claiming it has been uploaded.
 
-Films show only what was actually done and recorded (Bear's law for every Brutalist film). A step that was
-not recorded is inspected, demonstrated or inferred, and the film says which.
+Separate three kinds of statement in `BUILD-LESSON.md` and narration:
 
-## 0. What do we have? (decide the route)
+- **Observed:** silhouette, visible parts, color boundaries, repeated features.
+- **Proposed:** a modeling approach, chosen working scale, hidden structure,
+  material parameters, topology or modifier strategy inferred from appearance.
+- **Demonstrated:** an operation actually run in a fresh Blender scene for this
+  lesson, with its real result and validation.
 
-Ask what record exists, in this order of trust ([source-ladder.md](references/source-ladder.md)):
+A rendered seam may be geometry, a texture or lighting. A bevel, subdivision
+stack, exact dimensions, interior or functioning joint cannot be recovered with
+certainty from a picture. Explain the chosen solution without asserting it was
+the original method. Original reported mesh/triangle counts describe the source
+asset; the learner need not reproduce them and they are not a likeness metric.
 
-1. a **live tape** (a build that was run through `tape.py`),
-2. **Claude Code transcripts** of the build (`claude -p` stream-json, or project transcripts),
-3. **headless build scripts** in the project,
-4. **versioned saves** of the model,
-5. **build logs and handoff notes**,
-6. scripts **embedded in the `.blend`**,
-7. **the finished file only**.
+## Build the teaching sequence
 
-Rungs 1–3 give `recorded` or `scripted` steps. Rungs 4–7 give `inspected` ones. A step reasoned out from
-the finished file is `inferred`. Never claim a higher rung than you have. If a build starts now, set up
-recording first (§1) and the rest is easy.
+Create a sequence of achievable modeling checkpoints. Adapt to the subject;
+use the following progression where it fits:
 
-## 1. Record while you build (when the build has not happened yet)
+1. Read the images: axes, symmetry, major volumes, relative proportions and
+   perspective ambiguity. Choose units and a clearly stated working scale.
+2. Block out the silhouette with a few editable forms. Compare front/side/quarter
+   views before adding detail; explain why a flattering angle can hide errors.
+3. Shape the main surfaces: justify mesh editing, profiles, curves, extrusion,
+   modifiers or procedural generation according to what the shape needs.
+4. Add secondary forms and one repeated detail, then teach its duplication rule.
+   Explain origins, local/world axes and transforms when they affect the result.
+5. Add materials, trim and fine surface details after proportions hold. Teach
+   shading/normals and bevel decisions where visible evidence calls for them.
+6. Set lights and comparison cameras; inspect actual renders against the source.
+   Demonstrate a useful correction and explain the evidence for it.
+7. Save and export a sensible deliverable. Explain what an export retains,
+   scale/units and what still needs testing. Treat rigging or moving mechanisms
+   as a separate extension unless the lesson includes a real demonstration.
 
-- **Tape every command.** Drive Blender through `tape.py`, not a bare socket: every command, its reason
-  (`--why`), its reply and its duration land in `build-record/tape/live.jsonl`.
+Every checkpoint needs: **goal → evidence image/region → Blender concept →
+operation → coding-agent prompt → expected visible result → learner check →
+correction prompt if the check fails**. Explain unfamiliar terms when introduced.
+Include a practical manual Blender route alongside the prompt where feasible;
+if raw mesh generation has no reasonable click-by-click equivalent, teach its
+geometric principle and the script interface honestly. Do not dump a giant
+script or a single “make this model” prompt and call that instruction.
 
-  ```bash
-  SK=brutalist.art/skills/make/blender-build/scripts
-  python3 $SK/tape.py code "import bpy; print(len(bpy.data.objects))" --tape REC/tape/live.jsonl --stage 04-blockout --why "count what exists"
-  python3 $SK/tape.py run  build_part.py --tape REC/tape/live.jsonl --stage 06-modules --label "window module"
-  ```
+Keep full prompts in `PROMPTS.md` for copying; in the film, show a readable
+excerpt while explaining its intent and verification. Each prompt includes the
+needed image references, current stage, requested change and success check.
+The starter prompt must work in a fresh chat, without this conversation, hidden
+local paths or the original asset. State what tools the learner's agent needs;
+if it cannot control Blender, it can provide a script for Blender's Scripting
+workspace or manual steps. Never imply an agent ran a tool without evidence.
 
-  It speaks the Blender MCP add-on's wire protocol directly (port 9876, no MCP server needed). The add-on
-  has **no authentication**; enable it for the build, then disable it or quit Blender, and say so.
-- **Save increments**, `name_v001.blend`, `name_v002.blend`, one per stage (Walker's rule: never rely on
-  undo, and work on copies).
-- **Fix the comparison cameras** (`CMP_ISO`, `CMP_FRONT`, …) at the first blockout and never move them. Name them
-  `CMP_*`: the census records them but leaves them out of the signature and totals, so adding them to a file does
-  not change what the file says about itself.
-  At each stage run `census.py milestone`, which renders them with Workbench and writes the census:
+Read [image-lesson-example.md](references/image-lesson-example.md) for a worked
+prompt pattern based on a rendered spaceship. It is an example, not a mandate
+that all subjects have hulls, fins or a particular polygon count.
 
-  ```bash
-  "$BLENDER" -b name_v003.blend --python $SK/census.py -- milestone --stage 04-blockout \
-      --out-dir REC/milestones/04-blockout --views CMP_ISO,CMP_FRONT --blend-ref /abs/name_v003.blend
-  ```
-- **Explain as you go.** The *why* is easiest to write at the moment of the decision.
+## Make the film from evidence and teaching demonstrations
 
-## 2. Recover the record (when the build already happened)
+Use [lecture](../lecture/SKILL.md), the toolkit's `CLAUDE.md`,
+[render targets](../../../RENDER-TARGETS.md),
+[pipeline safety](../../../docs/PIPELINE-SAFETY.md) and
+[outro lock](../../../OUTRO-LOCK.md) for production. Default: Liam in for Nik Bear
+Brown, free local Kokoro `am_onyx`, measured narration, Brutalist opening,
+recap, Your Turn and `@NikBearBrown` outro. Runtime follows the teaching, not an
+arbitrary step count. Search the scene library and inspect props before authoring.
 
-```bash
-# transcripts → a tape (every Blender MCP call and Bash-run Blender command, with its reply)
-python3 $SK/tape.py harvest session/turn1.jsonl session/turn2.jsonl --out REC/tape/harvested.jsonl
-python3 $SK/tape.py show REC/tape/harvested.jsonl
-# census the model, and every saved version you have
-"$BLENDER" -b final.blend --python $SK/census.py -- census --out REC/milestones/11-render-export/census.json
-```
+Start with the finished rendered target and state that the film teaches **a
+possible reconstruction from images**. Use those images throughout as evidence,
+with restrained crops/overlays and before/after comparisons. A new scratch-scene
+Blender demonstration is encouraged when it makes a concept easier to learn;
+it must use the image-based recipe and be labeled as a new teaching demonstration,
+not archival footage of the original build. Preserve the original assets.
 
-Hash every source you rely on (tapes, scripts) into `record.json` so a later edit is noticed. A transcript
-has no wall-clock time unless a line carries one; the tape says `null` rather than invent it. If the model
-was built partly by parallel headless workers and only assembled through the MCP (as the SEIS bot was), the
-record says that. If nothing but the finished file exists, the guide describes **what the file contains**,
-not how it was made ([source-ladder.md](references/source-ladder.md), "When there is no record").
+Show actual Blender UI for operations demonstrated in Blender. Keep panels and
+settings readable; show one complete example before accelerating repetition.
+Explanatory diagrams may clarify geometry, but must not masquerade as screenshots,
+source topology, original intermediate stages or executed coding-agent sessions.
+A lesson made solely from stills and diagrams is valid if it clearly says the
+construction steps are proposed and does not claim a tested rebuild. It still
+needs concrete operations, prompts and visual checkpoints, not only a gallery tour.
 
-## 3. Draft the steps, then author them
+## Verify the lesson and deliver
 
-```bash
-python3 $SK/draft_steps.py REC/tape/harvested.jsonl --out REC/BUILD-STEPS.jsonl \
-        --tape-ref tape/harvested.jsonl --stage-map "1-4:01-define,5-18:04-blockout,19-26:09-rig"
-python3 $SK/draft_steps.py gui REC/tape/harvested.jsonl --seq 4       # see one translation
-```
+Check that a learner can start with only the provided images and instructions,
+that each prompt has enough context, and that every stage has a visible acceptance
+check. Check Blender-version-sensitive operations against the actual installed
+version or official documentation before asserting they work. Run any delivered
+code in a fresh scratch scene when possible and report exactly what was tested.
+A successful script is not evidence of an accurate likeness; inspect its renders.
+If Blender is unavailable, disclose that the procedure/code remains untested
+without demanding the original model as a substitute.
 
-The drafter reads each scene-changing command's Python and produces a **card**: the exact code (a pointer
-into the tape), a **draft** interface route, the settings used, and the reply. A failed command becomes a
-failed-attempt card; the next success with the same stated purpose is recorded as its correction. It never
-drafts judgment: **you write `goal` and `why`** (what changed; the decision and its evidence), clear
-`needs_author`, delete probe and clean-up lines, and replace each `UNMAPPED` and `~` line. See
-[gui-translation.md](references/gui-translation.md) for what it does and does not know. Interface routes
-stay `gui_source: "draft"` until someone has followed them.
+Record demonstration status and unresolved assumptions in `BUILD-LESSON.md`.
+Do not call a lesson learner-tested unless someone actually followed it. End
+with a small practice change and two visible checks, giving the learner a next
+step rather than pretending every aspect of Blender has been covered.
 
-Document **one instance in full and the rule for the rest** (`repeats`: the rule, the count, a placement
-table). Bulk placement, mesh built from raw vertex data and similar steps have no honest mouse route: say
-so (`no_gui_reason`) and point at the script door. Credit every outside asset.
-
-## 4. Verify the recipe
-
-A record is a recipe only if it can be run.
-
-- **Replay** (tapes, scripts): `replay.py` rebuilds the model from the tape in a fresh Blender, in order,
-  and censuses the saved result; `census.py compare` against the delivered model. Same signature and no
-  `DIFF` lines → `replay: pass` with the signature and a `how` that names what was skipped. A difference →
-  `fail`, and the `DIFF` lines say where record and model disagree. **It refuses to run commands that write
-  files** (they would overwrite the deliverable); `--skip N` leaves out a command that only reads a file that
-  is gone. Verified on Bear's real mascot MCP run: 16 recorded commands rebuilt the delivered model exactly.
-
-  ```bash
-  "$BLENDER" -b --factory-startup --python $SK/replay.py -- REC/tape/harvested.jsonl \
-      --out /private/tmp/replay/rebuilt.blend --census REC/replay-census.json --report REC/replay-report.json
-  python3 $SK/census.py compare REC/milestones/11-render-export/census.json REC/replay-census.json
-  ```
-- **By hand**: a person (or an agent driving the real interface) follows one module's `Do` list in a fresh
-  file; census; compare with that module in the delivered model. Record who, when, which module. Fix
-  anything they had to guess and mark those steps `human`. **Never mark this done for a step nobody
-  followed**, and never present a draft route as verified.
-- **Recensus** guards the other direction: `verify_breakdown.py --recensus` re-measures the model and
-  fails if it changed after the record was written.
-
-The census sees objects, dimensions, placements, counts, modifier stacks, materials and bones. It does not
-see vertex positions inside a mesh beyond counts and dimensions, or how a surface renders.
-
-## 5. Write the guide
-
-```bash
-python3 $SK/reconstruct_md.py --record REC/record.json --steps REC/BUILD-STEPS.jsonl --out REC/RECONSTRUCT.md
-```
-
-`RECONSTRUCT.md` opens with an **executive summary** (what this is, why read it, what the record found and
-did not do), then the verification status, what to have before starting, **the two doors** (the script door:
-exact, run the recorded Python; the hands door: the interface, one module at a time), one section per stage
-with its milestone image and each step as a card (tier, interface route, settings, measured result, why,
-corrections, repeats, credits), and a closing section on what the guide cannot tell you. Every claim of
-certainty is generated from the record, so a guide cannot say more than the record holds. Paths inside it are
-relative; report the file to Bear by absolute path.
-
-## 6. The breakdown film
-
-Built through the [lecture](../lecture/SKILL.md) skill with `RECONSTRUCT.md` as the source document
-(best-beat law, SHOW-THE-THING law, Liam in for Bear, the lecture spine and the channel's regular outro):
-`<model folder>/youtube/claude-liam-lecture-<model>-build/`. **Acts follow the stages; each stage's
-milestone is its establishing visual.** The full rules are in [breakdown-film.md](references/breakdown-film.md):
-
-- every step explained as **goal, starting state, operation, key settings, result, reason**;
-- the **real Blender window**, panels enlarged, settings held long enough to read; native 4K captures;
-- **one complete example of repeated work, then accelerate** (the `repeats` rule and table);
-- the **same comparison cameras** at every stage;
-- **corrections shown with the evidence that prompted them**;
-- the narrator tells as history only `recorded` and `scripted` steps; a rebuild made for the film is
-  labelled a **demonstration** on screen and aloud;
-- **a build-up animation states its order**: `recorded` (each piece tied to the step that built it) or
-  `explanatory` (labelled in the film as not the order it was modelled in). `reveal.py` writes the order
-  source into the file; the gate checks it;
-- credits for reused assets, kept apart from the original work;
-- a company or tool shown visually is its **logo** (toolkit rule 11), and the Blender window itself when the
-  tool is the subject; a person is a **Professor Bear portrait**, never an icon (rule 9); the voice is Liam
-  as the toolkit defines it, never re-decided; no video numbers or stage totals in viewer-facing text
-  ("stage four of eleven" dates the film: name the stage).
-
-Do not credit a tool that did not run. If the guide says Walker or the MCP built it, the tape or a
-transcript shows it.
-
-## 7. Gate, hand off
-
-```bash
-./brutalist.art/art blender-build --check REC/record.json            # the record
-./brutalist.art/art blender-build --check REC/record.json --final    # + judgment written, nothing UNMAPPED, verified
-./brutalist.art/art blender-build --check REC/record.json --film     # nothing inferred is told as history
-./brutalist.art/art blender-build --check REC/record.json --recensus # the model still matches the record
-```
-
-The gate is read-only. It checks that every tier is backed by evidence that exists and has not changed,
-that corrections and repeats are stated properly, that outside assets are credited, that every stage is shown
-from the same cameras, that a recorded reveal follows the recorded order, and that the verification claims are
-true. It **cannot** tell whether a goal or reason is correct, whether an interface route works, or whether the
-model is good.
-
-**Cowork stage** (higher effort; the two-stage rule in `books/CLAUDE.md`): recover or set up the record, author
-the cards, run the replay (free) and the census, write `RECONSTRUCT.md`, lay out the film (`ACTS.md`,
-`SHOTLIST.md`, `FACTCHECK.md`, `PROMPTS.md`, `make_sheet.py`, narration, the Blender captures that already
-exist), write `BUILD-PROMPT.md` (absolute paths; commands as run from `books/`; the renders, audio, `art run`,
-`art final`, gates; the traps below; the STOP line) and give Bear the Claude Code prompt from `books/CLAUDE.md`
-"Two-stage builds". Never say a film is built when only the layout is done. **Claude Code stage:** audio,
-renders, review cut, `art final`, every gate to PASS. Free steps run without approval gates; publishing and
-paid generation never do.
-
-### The tests only people can run (never fabricate)
-
-- **Followed by hand**: someone rebuilds a module from the `Do` list in a fresh file (see §4).
-- **Understood**: someone who has not seen the model watches the film and says what they would do first.
-  Until both are done, the report says so.
-
-## Traps already met
-
-- **`hasattr(bpy.ops.mesh, "anything")` is always true**: operators are looked up lazily. A name-checker built
-  on it passed vacuously until a deliberately wrong name was added and still passed. Ask for the operator's RNA
-  type, and print how many names were actually checked against how many exist.
-- **A "check" that iterates `Modifier.__subclasses__()` found no classes** and verified no properties. The real
-  check adds each modifier and constraint to a scratch object and reads its properties.
-- **`keyframe_insert()` ignores the default-interpolation preference** (Blender 5.1.2): set interpolation and
-  easing on the F-curve keys, through the slot's channelbag in 5.x.
-- A long-lived MCP Blender **caches helper modules** between calls; a re-run can execute stale code.
-- Rendering many Blender processes at once on the Mac drove it into swap (about 7 GB each for a big figure);
-  render one or two at a time from a copy of the `.blend`.
-- A headless render that opens a `.blend` the GUI Blender just saved **into the project folder** stalled:
-  copy it to a scratch folder and render from there.
-- The two mascot routes (MCP parts versus a script's one mesh) had the same triangle count and the same rig and
-  different structure. Compare structure, not totals.
-
-## Deliverables
-
-The record folder by absolute path (`record.json`, `BUILD-STEPS.jsonl`, `RECONSTRUCT.md`, tapes, milestones),
-the gate output with every warning, the verification status (replay, by hand), the count of steps by tier, how
-many interface routes are still drafts, the open `UNMAPPED` lines, and for the film its 4K MP4 (absolute path
-and a quoted `open` command). No upload, publish or Git push is implied.
+Output to the subject project's `youtube/<slug>-build/` (or the chosen destination):
+film, narration/captions, `BUILD-LESSON.md`, `PROMPTS.md`, `SOURCES.md`, shot list,
+beat sheet, QC results, and any actual demonstration scripts/captures. The guide
+and prompt pack accompany the film. When blocked, distinguish the completed
+lesson materials from an unrendered film. No uploading, paid generation or
+publication is authorized merely by invoking this skill.

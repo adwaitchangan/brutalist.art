@@ -21,12 +21,13 @@ command. The difference from its siblings:
 | [godot-waikthrough](../godot-waikthrough/SKILL.md) | a **running game** | captured gameplay |
 | [godot-trailer](../godot-trailer/SKILL.md) | a running game, argued to a stranger | captured gameplay, selected |
 | [riff](../riff/SKILL.md) | any visual artifact, critiqued | whatever it shows |
-| [blender-build](../blender-build/SKILL.md) | **how the model was made** | the build record and the real Blender window |
+| [blender-walkthrough](../blender-walkthrough/SKILL.md) | the finished model through existing images | supplied renders/gallery, no model access required |
+| [blender-build](../blender-build/SKILL.md) | how a learner could construct a similar model | image-based lesson and new demonstrations; explicit record mode for original history |
 
-A model that is both seen and built gets **two companion films**: this one lets the viewer
-experience the finished place; `blender-build` explains how it was modelled, textured, lit and
-filmed. Plan both while you build: the camera route shows where detail matters, and the saved
-modelling stages are the material for the build film.
+This workflow lets a viewer experience the finished place through a new camera route.
+For a tour of already rendered images, use `blender-walkthrough`. Pair either with
+`blender-build` for a lesson on making a similar model from images. Request its explicit
+record/history mode only when the film should explain the original build process.
 
 Read this file, then [walkthrough-craft.md](references/walkthrough-craft.md) (the rules, their
 defaults and when to break them), [blender-camera-rig.md](references/blender-camera-rig.md)

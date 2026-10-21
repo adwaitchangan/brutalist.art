@@ -88,7 +88,7 @@ if [ "$cmd" = "building-walkthrough" ] && [ "${1:-}" = "--render" ]; then
   exec python3 "$SKILLS/make/building-walkthrough/scripts/render_shots.py" "$@"
 fi
 
-# How a Blender model was built: the record, the guide, the gate. Accept the plain spelling.
+# Historical Blender build utilities; image-based teaching is the default skill workflow.
 if [ "$cmd" = "build-breakdown" ]; then cmd="blender-build"; fi
 if [ "$cmd" = "blender-build" ]; then
   case "${1:-}" in
@@ -120,7 +120,8 @@ case "$cmd" in
     printf '%-22s %s\n' "blender-modelbuild" "builder — beat sheet only: a finished Blender model from every angle, then how to build it by hand"
     printf '%-22s %s\n' "godot-trailer" "builder — 60-90 s game trailer from a Godot repo; real gameplay, one idea escalated, cut to music, one call to action"
     printf '%-22s %s\n' "building-walkthrough" "builder — Liam walkthrough of a 3D model (building, game environment, asset): measured camera route, real Blender renders, says what the model is not"
-    printf '%-22s %s\n' "blender-build" "builder — the steps that made a Blender model, recorded and written so a person can redo them; reconstruction guide + build-breakdown film"
+    printf '%-22s %s\n' "blender-walkthrough" "builder — narrated tour of existing model renders, gallery details and source-backed stats; no model file required"
+    printf '%-22s %s\n' "blender-build" "builder — teach a similar model from images, with Blender concepts and coding-agent prompts; explicit record mode preserves build history"
     printf '%-22s %s\n' "medhavy-walkthrough" "builder — real Medhavy Hub browser capture + Liam riffs; optional textbook bookends"
     printf '%-22s %s\n' "riff"           "utility — render/inspect, then critique what visibly happens"
     printf '%-22s %s\n' "deep-explainer" "builder — 5-10 min documentary episode (vox pantry beats)"
