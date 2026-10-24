@@ -69,6 +69,9 @@ def transcribe(video: Path, model='small'):
 
 def ask_voice(text: str, out_mp3: Path, voice: str = ASK_VOICE, speed: float = ASK_SPEED):
     import numpy as np, soundfile as sf
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from espeak_fallback import use_system_espeak
+    use_system_espeak()
     from kokoro_onnx import Kokoro
     k = Kokoro(str(KOKORO / 'kokoro-v1.0.onnx'), str(KOKORO / 'voices-v1.0.bin'))
     a, sr = k.create(text, voice=voice, speed=speed, lang='en-us')
