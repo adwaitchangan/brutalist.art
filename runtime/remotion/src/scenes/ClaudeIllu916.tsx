@@ -245,7 +245,9 @@ export const ClaudeScienceSourceFlow916: React.FC<ClaudeScienceSourceFlowProps> 
 
 // ── CwcConceptCard916 ──────────────────────────────────────────────────────
 export const cwcConceptCard916Schema = cwcConceptCardSchema;
-export const CwcConceptCard916: React.FC<CwcConceptCardProps> = ({ eyebrow, title, body, sparkLine }) => {
+export const CwcConceptCard916: React.FC<CwcConceptCardProps> = ({ eyebrow, title, body, sparkLine, fillScale }) => {
+  // Portrait width is already at the safe edge, so only the type scales.
+  const _fs = fillScale ?? 1;
   const at = useStagger();
   const eOp = at(0);
   const tOp = at(1);
@@ -255,15 +257,15 @@ export const CwcConceptCard916: React.FC<CwcConceptCardProps> = ({ eyebrow, titl
     <AbsoluteFill style={{ background: STAGE }}>
       <div style={{ position: 'absolute', top: TOP_SAFE + 170, left: LEFT, width: WIDTH }}>
         <div style={{
-          fontFamily: SANS, fontSize: 26, letterSpacing: 5, color: '#8a8474',
+          fontFamily: SANS, fontSize: 26 * _fs, letterSpacing: 5, color: '#8a8474',
           textTransform: 'uppercase', opacity: eOp, marginBottom: 26,
         }}>{eyebrow}</div>
         <div style={{
-          fontFamily: SERIF, fontSize: 78, lineHeight: 1.12, fontWeight: 700, color: CLAUDE.INK,
+          fontFamily: SERIF, fontSize: 78 * _fs, lineHeight: 1.12, fontWeight: 700, color: CLAUDE.INK,
           opacity: tOp, transform: `translateY(${(1 - tOp) * 14}px)`, marginBottom: 34,
         }}>{title}</div>
         <div style={{
-          fontFamily: SANS, fontSize: 34, lineHeight: 1.5, color: '#6b6555', opacity: bOp,
+          fontFamily: SANS, fontSize: 34 * _fs, lineHeight: 1.5, color: '#6b6555', opacity: bOp,
         }}>{body}</div>
       </div>
       {sparkLine ? (

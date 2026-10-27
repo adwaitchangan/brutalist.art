@@ -2317,15 +2317,15 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="Illu-PredictCard" component={PredictCardPreview} durationInFrames={150} fps={30} width={1280} height={720} />
       {/* ── claude-liam-claude-science — structural illustrations (parameterized) ── */}
       <Composition id="ClaudeScienceLayerStack" component={ClaudeScienceLayerStack}
-        durationInFrames={900} fps={30} width={1280} height={720}
+        durationInFrames={360} fps={30} width={1280} height={720}
         schema={claudeScienceLayerStackSchema}
         defaultProps={claudeScienceLayerStackSchema.parse({})} />
       <Composition id="ClaudeScienceSourceFlow" component={ClaudeScienceSourceFlow}
-        durationInFrames={900} fps={30} width={1280} height={720}
+        durationInFrames={360} fps={30} width={1280} height={720}
         schema={claudeScienceSourceFlowSchema}
         defaultProps={claudeScienceSourceFlowSchema.parse({})} />
       <Composition id="ClaudeScienceChipGrid" component={ClaudeScienceChipGrid}
-        durationInFrames={900} fps={30} width={1280} height={720}
+        durationInFrames={360} fps={30} width={1280} height={720}
         schema={claudeScienceChipGridSchema}
         defaultProps={claudeScienceChipGridSchema.parse({})} />
       {/* ── claude-liam-claude-science — rhetorical patterns (deckPatterns, responsive) ── */}

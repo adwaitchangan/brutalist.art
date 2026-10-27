@@ -26,6 +26,13 @@ export const claudeWindowSchema = z.object({
   // false renders the lines unnumbered — for traces, logs and console output,
   // where "1." "2." would imply an ordered list the source never had.
   numbered:       z.boolean().optional(),
+  /**
+   * Optional (2026-10-26): scale the type. Used by the 9:16 variant, whose card
+   * already spans the full portrait safe width, so height is what limits canvas
+   * fill and larger type is what makes the content box taller. The landscape
+   * component takes `width`/`fontSize` instead. Omitted or 1, nothing changes.
+   */
+  fillScale:      z.number().optional(),
 });
 export type ClaudeWindowProps = z.infer<typeof claudeWindowSchema>;
 
